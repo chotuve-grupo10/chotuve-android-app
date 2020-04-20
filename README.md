@@ -13,5 +13,5 @@
 
  ### Checklist:
 
-	[x] armado de la estructura básica del proyecto de la aplicación
-	[ ] botón que envíe un ping al Application Server
+	- [x] armado de la estructura básica del proyecto de la aplicación
+	- [ ] botón que envíe un ping al Application Server
