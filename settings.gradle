@@ -1,0 +1,2 @@
+rootProject.name='chotuve_android_client'
+include ':app'
