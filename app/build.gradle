@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "com.yelp.codegen.plugin"
 
 android {
     compileSdkVersion 29
@@ -53,4 +54,21 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+
+    dependencies {
+        classpath "com.yelp.codegen:plugin:1.4.1"
+    }
+}
+
+generateSwagger {
+    platform = "kotlin"
+    packageName = "com.example.chotuve_android_client"
+    inputFile = file("../api-client/petstore.json")
+    outputDir = file("./src/main/java/")
 }
