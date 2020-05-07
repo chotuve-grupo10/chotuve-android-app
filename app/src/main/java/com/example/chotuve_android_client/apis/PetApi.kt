@@ -8,7 +8,6 @@ package com.example.chotuve_android_client.apis
 
 import com.example.chotuve_android_client.models.ApiResponse
 import com.example.chotuve_android_client.models.Pet
-import com.example.chotuve_android_client.tools.MULTI
 import io.reactivex.Completable
 import io.reactivex.Single
 import okhttp3.RequestBody
