@@ -2,6 +2,7 @@ package com.example.chotuve_android_client.ui.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,6 +66,9 @@ class HomeFragment : Fragment() {
                         serverStatus -> homeTextView.text = "App Server Status:  ${serverStatus.AppServer}\n" +
                         "Media Server Status: ${serverStatus.MediaServer}\n" +
                         "Auth Server Status: ${serverStatus.AuthServer}" ;
+                        Log.i("App server", "App Server Status:  ${serverStatus.AppServer}");
+                        Log.i("Media Server", "Media Server Status: ${serverStatus.MediaServer}");
+                        Log.i("Auth Server", "Auth Server Status: ${serverStatus.AuthServer}");
 
                     },
                     Throwable::printStackTrace  // TODO manejar error
