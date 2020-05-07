@@ -1,5 +1,6 @@
 package com.example.chotuve_android_client.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,6 +45,7 @@ class HomeFragment : Fragment() {
         return root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -59,8 +61,12 @@ class HomeFragment : Fragment() {
             myCompositeDisposable?.add(pingService.apiPingGet()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(
-                    { serverStatus -> homeTextView.text = "App Server Status:  ${serverStatus.AppServer}" },
+                .subscribe({
+                        serverStatus -> homeTextView.text = "App Server Status:  ${serverStatus.AppServer}\n" +
+                        "Media Server Status: ${serverStatus.MediaServer}\n" +
+                        "Auth Server Status: ${serverStatus.AuthServer}" ;
+
+                    },
                     Throwable::printStackTrace  // TODO manejar error
                 ))
 //                .doAfterSuccess { pet ->
