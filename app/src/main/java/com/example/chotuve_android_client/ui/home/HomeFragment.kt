@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.chotuve_android_client.R
-import com.example.chotuve_android_client.apis.PetApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -60,7 +59,7 @@ class HomeFragment : Fragment() {
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     { pet -> homeTextView.text = "First pet name is  ${pet.name}" },
-                    Throwable::printStackTrace
+                    Throwable::printStackTrace  // TODO manejar error
                 ))
 //                .doAfterSuccess { pet ->
 //                    homeTextView.text = "First pet name is " + pet.name

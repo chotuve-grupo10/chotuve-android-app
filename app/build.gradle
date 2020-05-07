@@ -77,7 +77,7 @@ buildscript {
 
 generateSwagger {
     def input = file("../api-client/api.json")
-    new URL('https://petstore.swagger.io/v2/swagger.json')
+    new URL('http://127.0.0.1:5000/apispec_1.json')
             .withInputStream{ i -> input.withOutputStream{ it << i }}
     platform = "kotlin"
     packageName = "com.example.chotuve_android_client"
