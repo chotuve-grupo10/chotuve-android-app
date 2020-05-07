@@ -15,3 +15,9 @@
 
 - [x] armado de la estructura básica del proyecto de la aplicación
 - [ ] botón que envíe un ping al Application Server
+
+### Para generar el cliente del App Server desde la documentacion Swagger:
+
+```
+gradle app:generateSwagger
+```
