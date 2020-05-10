@@ -3,9 +3,10 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="title_upload">Upload video</string>
     <string name="ping_message">This is where we ping the App Server</string>
     <string name="ping_button">Ping, my friend</string>
-    <string name="firebase_button">Upload to FireBase</string>
 
+    <string name="title_upload">Upload video</string>
+    <string name="text_upload_video">In here you can upload your video</string>
+    <string name="firebase_button">Upload to FireBase</string>
 </resources>
