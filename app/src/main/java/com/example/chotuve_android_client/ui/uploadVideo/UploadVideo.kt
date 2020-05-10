@@ -1,13 +1,10 @@
-package com.example.chotuve_android_client.ui.upload_video
+package com.example.chotuve_android_client.ui.uploadVideo
 
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +14,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.chotuve_android_client.R
-import com.google.firebase
 import com.google.firebase.FirebaseApp
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -25,7 +21,7 @@ import java.util.*
 
 val PICK_IMAGE_CODE = 1000;         // Por qué ?!?
 
-class UploadVideo : Fragment() {
+class UploadVideoFragment : Fragment() {
 
     private lateinit var uploadVideoViewModel: UploadVideoViewModel
     private lateinit var alertDialog: AlertDialog.Builder
@@ -39,7 +35,12 @@ class UploadVideo : Fragment() {
         alertDialog = AlertDialog.Builder(this.getContext())
         uploadVideoViewModel =
                 ViewModelProviders.of(this).get(UploadVideoViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val root = inflater.inflate(R.layout.fragment_upload, container, false)
+
+//        val textView: TextView = root.findViewById(R.id.text_upload_video)
+//        uploadVideoViewModel.text.observe(viewLifecycleOwner, Observer {
+//            textView.text = it
+//        })
 
         return root
     }
@@ -68,7 +69,6 @@ class UploadVideo : Fragment() {
         val RESULT_LOAD_IMAGE = 0;
             if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
                 val selectedImage: Uri = data.data!!
-                // uploadToFirebase(selectedImage)
                 alertDialog.setMessage("Apparently, I have the file!")
                 uploadToFirebase(selectedImage)
             } else {

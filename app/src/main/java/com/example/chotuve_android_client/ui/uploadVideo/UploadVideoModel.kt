@@ -1,4 +1,4 @@
-package com.example.chotuve_android_client.ui.upload_video
+package com.example.chotuve_android_client.ui.uploadVideo
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

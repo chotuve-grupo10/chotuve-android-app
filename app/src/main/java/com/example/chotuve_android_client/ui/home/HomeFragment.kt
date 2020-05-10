@@ -39,10 +39,10 @@ class HomeFragment : Fragment() {
                 ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         // Aca estaba el texto de fondo de Home. Lo oculte!
-//        val textView: TextView = root.findViewById(R.id.text_home)
-//        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
+        val textView: TextView = root.findViewById(R.id.text_home)
+        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+            textView.text = it
+        })
         return root
     }
 
@@ -64,8 +64,8 @@ class HomeFragment : Fragment() {
                 .subscribeOn(Schedulers.io())
                 .subscribe({
                         serverStatus -> homeTextView.text = "App Server Status:  ${serverStatus.AppServer}\n" +
-                        "Media Server Status: ${serverStatus.MediaServer}\n" +
-                        "Auth Server Status: ${serverStatus.AuthServer}" ;
+                                "Media Server Status: ${serverStatus.MediaServer}\n" +
+                                "Auth Server Status: ${serverStatus.AuthServer}" ;
                         Log.i("App server", "App Server Status:  ${serverStatus.AppServer}");
                         Log.i("Media Server", "Media Server Status: ${serverStatus.MediaServer}");
                         Log.i("Auth Server", "Auth Server Status: ${serverStatus.AuthServer}");
