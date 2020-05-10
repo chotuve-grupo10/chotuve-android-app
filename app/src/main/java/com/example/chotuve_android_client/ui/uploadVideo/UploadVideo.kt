@@ -50,7 +50,7 @@ class UploadVideoFragment : Fragment() {
 
         // FireBase button
         view.findViewById<Button>(R.id.firebase_button).setOnClickListener {
-            val homeTextView = view.findViewById<TextView>(R.id.text_home)
+            val homeTextView = view.findViewById<TextView>(R.id.text_upload_video)
             homeTextView.text = "Getting Firebase storage instance"
 
             // Init op
