@@ -64,8 +64,8 @@ class HomeFragment : Fragment() {
                 .subscribeOn(Schedulers.io())
                 .subscribe({
                         serverStatus -> homeTextView.text = "App Server Status:  ${serverStatus.AppServer}\n" +
-                        "Media Server Status: ${serverStatus.MediaServer}\n" +
-                        "Auth Server Status: ${serverStatus.AuthServer}" ;
+                                "Media Server Status: ${serverStatus.MediaServer}\n" +
+                                "Auth Server Status: ${serverStatus.AuthServer}" ;
                         Log.i("App server", "App Server Status:  ${serverStatus.AppServer}");
                         Log.i("Media Server", "Media Server Status: ${serverStatus.MediaServer}");
                         Log.i("Auth Server", "Auth Server Status: ${serverStatus.AuthServer}");
