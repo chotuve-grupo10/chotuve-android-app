@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.apis.DefaultApi
+import com.example.chotuve_android_client.services.PingService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -52,27 +53,41 @@ class HomeFragment : Fragment() {
 
         view.findViewById<Button>(R.id.ping_button).setOnClickListener {
             val homeTextView = view.findViewById<TextView>(R.id.text_home)
-            val retrofit = Retrofit.Builder()
-                    //TODO sacar URL hardcoded (ver si se puede pasar a gradle profiles)
-                .baseUrl("https://chotuve-app-server-production.herokuapp.com/")
-                .addConverterFactory(MoshiConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
-            val pingService = retrofit.create(DefaultApi::class.java)
-            myCompositeDisposable?.add(pingService.apiPingGet()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe({
-                        serverStatus -> homeTextView.text = "App Server Status:  ${serverStatus.AppServer}\n" +
-                                "Media Server Status: ${serverStatus.MediaServer}\n" +
-                                "Auth Server Status: ${serverStatus.AuthServer}" ;
-                        Log.i("App server", "App Server Status:  ${serverStatus.AppServer}");
-                        Log.i("Media Server", "Media Server Status: ${serverStatus.MediaServer}");
-                        Log.i("Auth Server", "Auth Server Status: ${serverStatus.AuthServer}");
+//            val retrofit = Retrofit.Builder()
+//                    //TODO sacar URL hardcoded (ver si se puede pasar a gradle profiles)
+//                .baseUrl("https://chotuve-app-server-production.herokuapp.com/")
+//                .addConverterFactory(MoshiConverterFactory.create())
+//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                .build()
+//            val pingService = retrofit.create(DefaultApi::class.java)
+//            myCompositeDisposable?.add(pingService.apiPingGet()
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe({
+//                        serverStatus -> homeTextView.text = "App Server Status:  ${serverStatus.AppServer}\n" +
+//                                "Media Server Status: ${serverStatus.MediaServer}\n" +
+//                                "Auth Server Status: ${serverStatus.AuthServer}" ;
+//                        Log.i("App server", "App Server Status:  ${serverStatus.AppServer}");
+//                        Log.i("Media Server", "Media Server Status: ${serverStatus.MediaServer}");
+//                        Log.i("Auth Server", "Auth Server Status: ${serverStatus.AuthServer}");
+//
+//                    },
+//                    Throwable::printStackTrace  // TODO manejar error
+//                ))
+            val pingService = PingService()
+            pingService.pingServer(
+                myCompositeDisposable,
+                {
+                    serverStatus -> homeTextView.text = "App Server Status:  ${serverStatus?.AppServer}\n" +
+                            "Media Server Status: ${serverStatus?.MediaServer}\n" +
+                            "Auth Server Status: ${serverStatus?.AuthServer}" ;
+                    Log.i("App server", "App Server Status:  ${serverStatus?.AppServer}");
+                    Log.i("Media Server", "Media Server Status: ${serverStatus?.MediaServer}");
+                    Log.i("Auth Server", "Auth Server Status: ${serverStatus?.AuthServer}");
 
-                    },
-                    Throwable::printStackTrace  // TODO manejar error
-                ))
+                },
+                Throwable::printStackTrace  // TODO manejar error
+            )
 //                .doAfterSuccess { pet ->
 //                    homeTextView.text = "First pet name is " + pet.name
 //                }
