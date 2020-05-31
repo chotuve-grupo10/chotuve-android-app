@@ -6,6 +6,7 @@
 
 package com.example.chotuve_android_client.apis
 
+import com.example.chotuve_android_client.models.LoginResponse
 import com.example.chotuve_android_client.models.PingResponse
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -27,6 +28,29 @@ interface DefaultApi {
     @GET("/api/home/")
     fun apiHomeGet(): Completable
     /**
+     * Recibe una solicitud de login
+     * The endpoint is owned by defaultname service owner
+     * @param email user email (required)
+     * @param password secret password (required)
+     */
+    @POST("/api/login/")
+    fun apiLoginPost(
+        @retrofit2.http.Header("email") email: String,
+        @retrofit2.http.Header("password") password: String
+    ): Single<LoginResponse>
+    /**
+     * Recibe una solicitud de login utilizando Facebook
+     * The endpoint is owned by defaultname service owner
+     */
+    @POST("/api/login_with_facebook/")
+    fun apiLoginWithFacebookPost(): Completable
+    /**
+     * Recibe una solicitud de login utilizando Google
+     * The endpoint is owned by defaultname service owner
+     */
+    @POST("/api/login_with_google/")
+    fun apiLoginWithGooglePost(): Completable
+    /**
      * Este es un método para recibir información del estado de los servers
      * The endpoint is owned by defaultname service owner
      */
@@ -37,10 +61,28 @@ interface DefaultApi {
      * The endpoint is owned by defaultname service owner
      * @param email email of the user (required)
      * @param password secret password (required)
+     * @param fullNames name and last name of the user (required)
+     * @param phoneNumber phone number of the user (required)
+     * @param profilePicture profile picture (required)
      */
     @POST("/api/register/")
     fun apiRegisterPost(
         @retrofit2.http.Header("email") email: String,
-        @retrofit2.http.Header("password") password: String
+        @retrofit2.http.Header("password") password: String,
+        @retrofit2.http.Header("full_names") fullNames: String,
+        @retrofit2.http.Header("phone_number") phoneNumber: String,
+        @retrofit2.http.Header("profile_picture") profilePicture: Map<String, Any?>
     ): Completable
+    /**
+     * Recibe una solicitud de registro utilizando Facebook
+     * The endpoint is owned by defaultname service owner
+     */
+    @POST("/api/register_with_facebook/")
+    fun apiRegisterWithFacebookPost(): Completable
+    /**
+     * Recibe una solicitud de registro utilizando Google
+     * The endpoint is owned by defaultname service owner
+     */
+    @POST("/api/register_with_google/")
+    fun apiRegisterWithGooglePost(): Completable
 }
