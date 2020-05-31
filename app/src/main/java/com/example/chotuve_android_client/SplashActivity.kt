@@ -23,9 +23,9 @@ class SplashActivity : AppCompatActivity() {
     //    val accountManager = AccountManager.get(this)
     //    val accounts = accountManager.getAccountsByType("com.chotuve")
     //    if (accounts.isEmpty()) {
-    //        redirectTo(LoginActivity::class.java)
+            redirectTo(LoginActivity::class.java)
     //    } else {
-            redirectTo(MainActivity::class.java)
+    //       redirectTo(MainActivity::class.java)
     //    }
     }
 
