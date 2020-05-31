@@ -55,7 +55,7 @@
             app:layout_constraintTop_toBottomOf="@+id/username" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
         style="?android:attr/borderlessButtonStyle"
         android:background="@drawable/rounded_button"/>
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/login_with_fb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
