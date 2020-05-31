@@ -22,24 +22,24 @@ import com.google.firebase.storage.StorageReference
 import java.util.*
 import kotlin.reflect.jvm.internal.impl.types.AbstractTypeCheckerContext
 
-val PICK_IMAGE_CODE = 1000;         // Por qué ?!?
 val RESULT_LOAD_VIDEO = 0;
+val APPSPOT_URL = "gs://chotuve-android-app.appspot.com";
 
 class UploadVideoFragment : Fragment() {
 
     private lateinit var uploadVideoViewModel: UploadVideoViewModel
-    private lateinit var alertDialog: AlertDialog.Builder
+    private lateinit var alertDialogBuilder: AlertDialog.Builder
+    private lateinit var alertDialog: AlertDialog
     private lateinit var storageReference: StorageReference
-
     private lateinit var urlUploaded : String
-    private lateinit var uriTask : Task<Uri>
+    // private lateinit var uriTask : Task<Uri>
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        alertDialog = AlertDialog.Builder(this.getContext())
+        alertDialogBuilder = AlertDialog.Builder(this.getContext())
         uploadVideoViewModel =
                 ViewModelProviders.of(this).get(UploadVideoViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_upload, container, false)
@@ -55,13 +55,13 @@ class UploadVideoFragment : Fragment() {
             val homeTextView = view.findViewById<TextView>(R.id.text_upload_video)
             homeTextView.text = "Getting Firebase storage instance"
 
-            // Init op
+            // La posta es que acá se debería llamar a una Clase que se encargue de todo esto.
             getFileFromGallery(view);
+            // Ahora, teniendo el URL hay que mandárselo al AppServer
         }
     }
 
     fun getFileFromGallery(view: View) {
-
         startActivityForResult(
             Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI),
             RESULT_LOAD_VIDEO);
@@ -72,35 +72,26 @@ class UploadVideoFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
             if (requestCode == RESULT_LOAD_VIDEO && resultCode == RESULT_OK && null != data) {
                 val selectedVideo: Uri = data.data!!
-                alertDialog.setMessage("I have the file. Uploading it to firebase")
-                // alertDialog.show()
-                uriTask = uploadToFirebase(selectedVideo)
-                // TODO: cambiar el mensaje y mostrar la URL
-//                task.onSuccessTask({
-//                    val uri = storageReference.downloadUrl
-//                    alertDialog.setMessage("File correctly uploaded: " + uri.toString())
-//                })
-                alertDialog.show()
-
+                alertDialogBuilder.setMessage("Please wait. Uploading video...")
+                uploadToFirebase(selectedVideo)
             } else {
-                // handle error
-                //alertDialog.setMessage("Obviously something went wrong")
-                alertDialog.setMessage("You haven't chose a file. Please try again")
+                alertDialogBuilder.setMessage("You haven't chose a file. Please try again")
+                // alertDialog = alertDialogBuilder.show()
             }
-        alertDialog.show()
+        alertDialog = alertDialogBuilder.show()
+
     }
 
-    fun uploadToFirebase(videoUri : Uri) : Task<Uri> {
+    fun uploadToFirebase(videoUri : Uri)  { // : Task<Uri>
         this.getContext()?.let {
             FirebaseApp.initializeApp(it)
             Log.i("firebase", "Firebase App initialized")
         };
-        // TODO: definir ésta URL como constante
-        val firebaseInstance = FirebaseStorage.getInstance("gs://chotuve-android-app.appspot.com")
+        val firebaseInstance = FirebaseStorage.getInstance(APPSPOT_URL)
+        // TODO: cuando terminemos la lógica definir el path de videos
         storageReference = firebaseInstance.getReference("upload_test/" + UUID.randomUUID())
         val uploadTask = storageReference.putFile(videoUri)
 
-        // sería bueno apagar el boton ahora
         val taskHandlers = uploadTask.continueWithTask { task ->
             if (!task.isSuccessful) {
                 task.exception?.let {
@@ -110,14 +101,17 @@ class UploadVideoFragment : Fragment() {
             storageReference.downloadUrl
         }.addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                // alertDialog.cancel()
                 val url = task.result
-                val url_string = url!!.toString()
-                Log.d("This is Firebase Link ", url_string)
+                urlUploaded = url!!.toString()
+                Log.d("This is Firebase Link ", urlUploaded)
+                alertDialog.dismiss()
+                alertDialog = alertDialogBuilder.setMessage("Finished! The video was uploaded successfully").show()
+                // acá mismo hay que mandarle la URL al app_server
             } else {
-                // Handle failures
+                alertDialog.dismiss()
+                alertDialog = alertDialogBuilder.setMessage("Finished! The video was uploaded successfully").show()
             }
         }
-        // y acá lo prenderíamos de nuevo!
-        return taskHandlers;
     }
 }
