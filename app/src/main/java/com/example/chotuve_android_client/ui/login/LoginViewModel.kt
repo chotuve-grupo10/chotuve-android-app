@@ -8,8 +8,11 @@ import com.example.chotuve_android_client.data.LoginRepository
 import com.example.chotuve_android_client.data.Result
 
 import com.example.chotuve_android_client.R
+import io.reactivex.disposables.CompositeDisposable
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
+
+    private var myCompositeDisposable: CompositeDisposable? = null
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
@@ -18,6 +21,8 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     val loginResult: LiveData<LoginResult> = _loginResult
 
     fun login(username: String, password: String) {
+        myCompositeDisposable = CompositeDisposable()
+
         // can be launched in a separate asynchronous job
         val result = loginRepository.login(username, password)
 
@@ -27,6 +32,11 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         } else {
             _loginResult.value = LoginResult(error = R.string.login_failed)
         }
+    }
+
+    protected override fun onCleared() {
+        super.onCleared()
+        myCompositeDisposable?.clear()
     }
 
     fun loginDataChanged(username: String, password: String) {
