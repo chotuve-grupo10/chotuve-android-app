@@ -1,6 +1,6 @@
 package com.example.chotuve_android_client.data.model
 
-class Video(
+data class Video(
     val id: String,
     val title: String,
     val url: String
