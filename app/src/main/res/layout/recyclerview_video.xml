@@ -11,8 +11,8 @@
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="139dp"
+        android:layout_width="358dp"
+        android:layout_height="124dp"
         android:layout_margin="15dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="105dp"
@@ -20,8 +20,8 @@
 
         <TextView
             android:id="@+id/video_title"
-            android:layout_width="376dp"
-            android:layout_height="51dp"
+            android:layout_width="336dp"
+            android:layout_height="45dp"
             android:layout_margin="5dp"
             android:text="@{video.title}"
             android:textSize="20sp"
@@ -35,8 +35,8 @@
 
         <TextView
             android:id="@+id/video_url"
-            android:layout_width="375dp"
-            android:layout_height="49dp"
+            android:layout_width="337dp"
+            android:layout_height="41dp"
             android:layout_margin="10dp"
             android:text="@{video.url}"
             android:textSize="5sp"

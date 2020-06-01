@@ -41,9 +41,8 @@ class VideoAdapter(
         holder.recyclerviewVideoBinding.video = videos[position]
 
         // This sets 1 click listener to whole RecycleView Item
-//        holder.recyclerviewVideoBinding.root.setOnClickListener(
-//
-//        )
+//        holder.recyclerviewVideoBinding.root.setOnClickListener()
+
         // Here I can add clickListeners to different elements in coso
         holder.recyclerviewVideoBinding.videoTitle.setOnClickListener { view ->
             val ad = AlertDialog.Builder(view.context)
