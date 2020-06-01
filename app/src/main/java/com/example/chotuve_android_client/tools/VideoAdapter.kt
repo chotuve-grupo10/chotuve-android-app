@@ -1,5 +1,7 @@
 package com.example.chotuve_android_client.tools
 
+import android.app.AlertDialog
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,9 +39,17 @@ class VideoAdapter(
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
 
         holder.recyclerviewVideoBinding.video = videos[position]
-//        val video = videos[position]
-//        holder.view.video_url.text = video.url
 
+        // This sets 1 click listener to whole RecycleView Item
+//        holder.recyclerviewVideoBinding.root.setOnClickListener(
+//
+//        )
+        // Here I can add clickListeners to different elements in coso
+        holder.recyclerviewVideoBinding.videoTitle.setOnClickListener { view ->
+            val ad = AlertDialog.Builder(view.context)
+            ad.setMessage("You clicked on " + videos[position].title)
+            ad.show()
+        }
     }
 
     override fun getItemCount() =  videos.size
