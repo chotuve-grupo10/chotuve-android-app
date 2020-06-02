@@ -73,14 +73,15 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.firebase:firebase-storage:19.1.0'
     implementation 'com.google.android.material:material:1.1.0'
-
     implementation 'androidx.multidex:multidex:2.0.0'
+
 
 }
 
 buildscript {
     repositories {
         maven { url "https://plugins.gradle.org/m2/" }
+
     }
 
     dependencies {
@@ -97,3 +98,4 @@ generateSwagger {
 }
 
 apply plugin: 'com.google.gms.google-services'
+

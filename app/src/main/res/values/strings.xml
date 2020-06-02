@@ -27,4 +27,5 @@
     <string name="url_row">URL DEL VIDEO ESTO ES EN LINEAS GENERALES UN LINK LARGUISIMO</string>
     <string name="home_videos_message">Available videos:</string>
     <string name="textview">PlayVideoActivity</string>
+    <string name="title_activity_play_video">PlayVideoActivity</string>
 </resources>

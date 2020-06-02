@@ -54,6 +54,7 @@ class VideoAdapter(
 //        }
         holder.recyclerviewVideoBinding.root.setOnClickListener { view ->
             val intent: Intent = Intent(view.context, PlayVideoActivity::class.java)
+            intent.putExtra("video_to_play", videos[position])
             view.context.startActivity(intent)
         }
     }
