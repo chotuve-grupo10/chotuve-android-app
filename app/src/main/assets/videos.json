@@ -9,6 +9,11 @@
 		"id": "1",
 		"title": "Un carpincho tomando mate",
 		"url": "https://firebasestorage.googleapis.com/v0/b/chotuve-android-app.appspot.com/o/upload_test%2Fee1eb81e-901a-4909-b994-37eacb3ce88a?alt=media&token=e456cb69-db8d-4f04-b606-8df2faf44c6b"
+	},
+	{
+		"id": "2",
+		"title": "Eche corriendo Rally",
+		"url": "https://firebasestorage.googleapis.com/v0/b/chotuve-android-app.appspot.com/o/upload_test%2FVideoCompressor_20200523163353609.mp4?alt=media&token=aeb08058-b007-461d-b9d0-c88ed68222b8"
 	}
 	]
 }
