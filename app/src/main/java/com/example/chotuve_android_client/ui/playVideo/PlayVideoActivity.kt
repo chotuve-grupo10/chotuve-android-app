@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.MediaController
 import android.widget.TextView
 import android.widget.VideoView
 import androidx.lifecycle.Observer
@@ -42,6 +43,10 @@ class PlayVideoActivity : AppCompatActivity() {
                     if(file.exists()) {
                         Log.d("playvid", "OTRA VEZ soy la PlayVideoActivity y estoy bindeando el filePath")
                         videoView.setVideoURI(Uri.parse(video.url))
+                        val mediaController = MediaController(this)
+                        videoView.setMediaController(mediaController)
+                        mediaController.setAnchorView(videoView)
+                        videoView.requestFocus()
                         videoView.start()
                     }
                 } catch(e: FileNotFoundException)
