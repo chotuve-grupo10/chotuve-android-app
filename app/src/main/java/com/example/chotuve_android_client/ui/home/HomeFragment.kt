@@ -7,22 +7,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.apis.DefaultApi
+import com.example.chotuve_android_client.data.VideoRepository
 import com.example.chotuve_android_client.services.PingService
+import com.example.chotuve_android_client.tools.VideoAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 class HomeFragment : Fragment() {
 
+    private lateinit var factory : HomeViewModelFactory
     private lateinit var homeViewModel: HomeViewModel
     private var myCompositeDisposable: CompositeDisposable? = null
 
@@ -36,15 +42,27 @@ class HomeFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
+        // Acá hay que usar el factory, porque HomeViewModel ahora tiene un parametro.
+        // Otra aclaración: mi repositorio mañana será un servicio y hoy es una clase que lee un json
+        // le paso el contexto porque así estaba hecha y no pienso modificarlo. Obvio que esto
+        // rompe el patrón al medio. Pero a futuro no estará así
+        val repository = VideoRepository(this.context)
+        factory = HomeViewModelFactory(repository)
         homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel::class.java)
+                ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
+        homeViewModel.getVideos()
+        homeViewModel.videos.observe(viewLifecycleOwner, Observer { videos ->
+            recyclerview_home_videos.also{
+                it.layoutManager = LinearLayoutManager(requireContext())
+                it.setHasFixedSize(true)
+                it.adapter = VideoAdapter(videos)
+            }
+
+        })
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        // Aca estaba el texto de fondo de Home. Lo oculte!
-//        val textView: TextView = root.findViewById(R.id.text_home)
-//        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
         return root
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -77,10 +95,10 @@ class HomeFragment : Fragment() {
             val pingService = PingService()
             pingService.pingServer(
                 myCompositeDisposable,
-                {
-                    serverStatus -> homeTextView.text = "App Server Status:  ${serverStatus?.AppServer}\n" +
+                { serverStatus ->
+                    homeTextView.text = "App Server Status:  ${serverStatus?.AppServer}\n" +
                             "Media Server Status: ${serverStatus?.MediaServer}\n" +
-                            "Auth Server Status: ${serverStatus?.AuthServer}" ;
+                            "Auth Server Status: ${serverStatus?.AuthServer}";
                     Log.i("App server", "App Server Status:  ${serverStatus?.AppServer}");
                     Log.i("Media Server", "Media Server Status: ${serverStatus?.MediaServer}");
                     Log.i("Auth Server", "Auth Server Status: ${serverStatus?.AuthServer}");
