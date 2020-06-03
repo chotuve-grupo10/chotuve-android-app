@@ -3,6 +3,7 @@ package com.example.chotuve_android_client.services
 import com.example.chotuve_android_client.apis.DefaultApi
 import com.example.chotuve_android_client.models.LoginResponse
 import com.example.chotuve_android_client.models.PingResponse
+import com.example.chotuve_android_client.models.UserLogin
 import com.example.chotuve_android_client.tools.RetrofitObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -21,7 +22,7 @@ class LoginService {
         onSuccess: (serverStatus: LoginResponse?) -> Unit,
         onError: (throwable: Throwable) -> Unit
     ) {
-        disposable?.add(loginService.apiLoginPost(email, password)
+        disposable?.add(loginService.apiLoginPost(UserLogin(email, password))
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(onSuccess, onError))

@@ -8,6 +8,8 @@ package com.example.chotuve_android_client.apis
 
 import com.example.chotuve_android_client.models.LoginResponse
 import com.example.chotuve_android_client.models.PingResponse
+import com.example.chotuve_android_client.models.User
+import com.example.chotuve_android_client.models.UserLogin
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -28,28 +30,23 @@ interface DefaultApi {
     @GET("/api/home/")
     fun apiHomeGet(): Completable
     /**
-     * Recibe una solicitud de login
+     * Este servicio permitirá a los usuarios poder ingresar al sistema
      * The endpoint is owned by defaultname service owner
-     * @param email user email (required)
-     * @param password secret password (required)
+     * @param user User to login. (optional)
      */
     @POST("/api/login/")
     fun apiLoginPost(
-        @retrofit2.http.Header("email") email: String,
-        @retrofit2.http.Header("password") password: String
+        @retrofit2.http.Body user: UserLogin
     ): Single<LoginResponse>
     /**
-     * Recibe una solicitud de login utilizando Facebook
+     * Recibe una solicitud de login utilizando Firebase
      * The endpoint is owned by defaultname service owner
+     * @param authorization id token (required)
      */
-    @POST("/api/login_with_facebook/")
-    fun apiLoginWithFacebookPost(): Completable
-    /**
-     * Recibe una solicitud de login utilizando Google
-     * The endpoint is owned by defaultname service owner
-     */
-    @POST("/api/login_with_google/")
-    fun apiLoginWithGooglePost(): Completable
+    @POST("/api/login_with_firebase/")
+    fun apiLoginWithFirebasePost(
+        @retrofit2.http.Header("authorization") authorization: String
+    ): Completable
     /**
      * Este es un método para recibir información del estado de los servers
      * The endpoint is owned by defaultname service owner
@@ -57,32 +54,39 @@ interface DefaultApi {
     @GET("/api/ping/")
     fun apiPingGet(): Single<PingResponse>
     /**
-     * Recibe una solicitud de registro
+     * Este servicio permitirá a los usuarios darse de alta en el sistema
      * The endpoint is owned by defaultname service owner
-     * @param email email of the user (required)
-     * @param password secret password (required)
-     * @param fullNames name and last name of the user (required)
-     * @param phoneNumber phone number of the user (required)
-     * @param profilePicture profile picture (required)
+     * @param user The user to create. (optional)
      */
     @POST("/api/register/")
     fun apiRegisterPost(
-        @retrofit2.http.Header("email") email: String,
-        @retrofit2.http.Header("password") password: String,
-        @retrofit2.http.Header("full_names") fullNames: String,
-        @retrofit2.http.Header("phone_number") phoneNumber: String,
-        @retrofit2.http.Header("profile_picture") profilePicture: Map<String, Any?>
+        @retrofit2.http.Body user: User
     ): Completable
     /**
-     * Recibe una solicitud de registro utilizando Facebook
+     * Recibe una solicitud de registro utilizando Firebase
      * The endpoint is owned by defaultname service owner
+     * @param authorization id token (required)
      */
-    @POST("/api/register_with_facebook/")
-    fun apiRegisterWithFacebookPost(): Completable
+    @POST("/api/register_with_firebase/")
+    fun apiRegisterWithFirebasePost(
+        @retrofit2.http.Header("authorization") authorization: String
+    ): Completable
     /**
-     * Recibe una solicitud de registro utilizando Google
+     * Este es un método para recibir un token del auth server y validarlo
      * The endpoint is owned by defaultname service owner
+     * @param authorization bearer token (required)
      */
-    @POST("/api/register_with_google/")
-    fun apiRegisterWithGooglePost(): Completable
+    @GET("/api/validate_auth_token/")
+    fun apiValidateAuthTokenGet(
+        @retrofit2.http.Header("authorization") authorization: String
+    ): Completable
+    /**
+     * Este es un método para recibir un token y validarlo
+     * The endpoint is owned by defaultname service owner
+     * @param authorization bearer token (required)
+     */
+    @GET("/api/validate_token/")
+    fun apiValidateTokenGet(
+        @retrofit2.http.Header("authorization") authorization: String
+    ): Completable
 }

@@ -16,6 +16,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 
 import com.example.chotuve_android_client.R
+import com.example.chotuve_android_client.models.LoginResponse
 
 class LoginActivity : AppCompatActivity() {
 
@@ -31,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
 
-        loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
+        loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory(application))
             .get(LoginViewModel::class.java)
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
@@ -97,9 +98,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
+    private fun updateUiWithUser(model: LoginResponse) {
+        val welcome = "Your App token is"
+        val displayName = model.AppToken
         // TODO : initiate successful logged in experience
         Toast.makeText(
             applicationContext,
