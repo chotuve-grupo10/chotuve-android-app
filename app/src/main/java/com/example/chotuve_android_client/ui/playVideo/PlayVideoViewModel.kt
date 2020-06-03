@@ -13,10 +13,6 @@ import com.google.firebase.storage.StorageReference
 import java.io.File
 import java.lang.Exception
 
-// TODO: env var this
-val APPSPOT_URL = "gs://chotuve-android-app.appspot.com";
-
-
 class PlayVideoViewModel (private val video: Video) : ViewModel() {
 
     private val _title = MutableLiveData<String>().apply {

@@ -44,7 +44,6 @@ class PlayVideoActivity : AppCompatActivity() {
             playVideoViewModel.url.observe( this, Observer { url ->
                 videoView.setVideoURI(Uri.parse(url))
                 videoView.setMediaController(mediaController)
-                mediaController.setAnchorView(videoView)
                 videoView.requestFocus()
                 videoView.start()
             })
