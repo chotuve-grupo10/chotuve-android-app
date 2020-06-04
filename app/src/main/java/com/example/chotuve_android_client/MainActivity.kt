@@ -1,12 +1,14 @@
 package com.example.chotuve_android_client
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.chotuve_android_client.tools.TokenHolder
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +25,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_upload_video))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        Log.d("MainActivity", "App server token is ${TokenHolder.appServerToken}")
     }
 
 }

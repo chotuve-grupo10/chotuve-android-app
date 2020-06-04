@@ -11,7 +11,10 @@ import androidx.lifecycle.AndroidViewModel
 import com.example.chotuve_android_client.data.Result
 
 import com.example.chotuve_android_client.R
+import com.example.chotuve_android_client.data.model.UserCredentials
+import com.example.chotuve_android_client.models.UserLogin
 import com.example.chotuve_android_client.services.LoginService
+import com.example.chotuve_android_client.tools.TokenHolder
 import io.reactivex.disposables.CompositeDisposable
 
 class LoginViewModel(application: Application, private val loginService: LoginService) :
@@ -35,6 +38,10 @@ class LoginViewModel(application: Application, private val loginService: LoginSe
         loginService.login(username, password, myCompositeDisposable,
             {
                 Log.d(TAG, "Login correcto, se obtiene el token ${it?.AppToken}")
+                TokenHolder.init(
+                    UserCredentials.Password(UserLogin(username, password)),
+                    requireNotNull(it?.AppToken),
+                    requireNotNull(it?.AuthToken))
                 setAuthenticationModeInSharedPreferences("EMAIL_PASSWORD")
                 setCredentialsInSharedPreferences(username, password)
                 _loginResult.value =
