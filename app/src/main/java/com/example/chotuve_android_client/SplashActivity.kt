@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.chotuve_android_client.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 
@@ -16,6 +17,12 @@ import kotlinx.android.synthetic.main.activity_splash.*
  */
 class SplashActivity : AppCompatActivity() {
 
+    val loginLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -24,9 +31,11 @@ class SplashActivity : AppCompatActivity() {
     //    val accounts = accountManager.getAccountsByType("com.chotuve")
     //    if (accounts.isEmpty()) {
 //            redirectTo(LoginActivity::class.java)
+        loginLauncher.launch(Intent(this, LoginActivity::class.java))
     //    } else {
-           redirectTo(MainActivity::class.java)
+//           redirectTo(MainActivity::class.java)
     //    }
+
     }
 
     private fun redirectTo(activity: Class<out Activity>) {
