@@ -1,10 +1,12 @@
 package com.example.chotuve_android_client.tools
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.databinding.DataBindingUtil
 import com.example.chotuve_android_client.R
@@ -14,6 +16,7 @@ import kotlinx.android.synthetic.main.recyclerview_video.view.*
 // Esto es tremendo. Para que suceda, el xml se tiene que llamar recyclerview_LOQUEQUIERAS
 // La clase Kotlin esa te la genera sola
 import com.example.chotuve_android_client.databinding.RecyclerviewVideoBinding
+import com.example.chotuve_android_client.ui.playVideo.PlayVideoActivity
 
 
 class VideoAdapter(
@@ -44,10 +47,15 @@ class VideoAdapter(
 //        holder.recyclerviewVideoBinding.root.setOnClickListener()
 
         // Here I can add clickListeners to different elements in coso
-        holder.recyclerviewVideoBinding.videoTitle.setOnClickListener { view ->
-            val ad = AlertDialog.Builder(view.context)
-            ad.setMessage("You clicked on " + videos[position].title)
-            ad.show()
+//        holder.recyclerviewVideoBinding.videoTitle.setOnClickListener { view ->
+//            val ad = AlertDialog.Builder(view.context)
+//            ad.setMessage("You clicked on " + videos[position].title)
+//            ad.show()
+//        }
+        holder.recyclerviewVideoBinding.root.setOnClickListener { view ->
+            val intent: Intent = Intent(view.context, PlayVideoActivity::class.java)
+            intent.putExtra("video_to_play", videos[position])
+            view.context.startActivity(intent)
         }
     }
 
