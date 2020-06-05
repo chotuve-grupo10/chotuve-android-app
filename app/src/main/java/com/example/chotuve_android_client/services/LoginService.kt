@@ -2,7 +2,6 @@ package com.example.chotuve_android_client.services
 
 import com.example.chotuve_android_client.apis.DefaultApi
 import com.example.chotuve_android_client.models.LoginResponse
-import com.example.chotuve_android_client.models.PingResponse
 import com.example.chotuve_android_client.models.UserLogin
 import com.example.chotuve_android_client.tools.RetrofitObject
 import io.reactivex.android.schedulers.AndroidSchedulers

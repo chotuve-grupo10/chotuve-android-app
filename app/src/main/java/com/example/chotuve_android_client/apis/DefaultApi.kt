@@ -10,8 +10,11 @@ import com.example.chotuve_android_client.models.LoginResponse
 import com.example.chotuve_android_client.models.PingResponse
 import com.example.chotuve_android_client.models.User
 import com.example.chotuve_android_client.models.UserLogin
+import com.example.chotuve_android_client.models.Video
+import com.example.chotuve_android_client.models.VideoList
 import io.reactivex.Completable
 import io.reactivex.Single
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 
@@ -24,11 +27,35 @@ interface DefaultApi {
     @GET("/api/about/")
     fun apiAboutGet(): Completable
     /**
+     * Este servicio permitirá dar de baja un video en el sistema
+     * The endpoint is owned by defaultname service owner
+     * @param videoId video id (required)
+     */
+    @DELETE("/api/delete_video/{video_id}")
+    fun apiDeleteVideoVideoIdDelete(
+        @retrofit2.http.Path("video_id") videoId: Map<String, Any?>
+    ): Completable
+    /**
      * Este es un método para listar los videos en pantalla principal
      * The endpoint is owned by defaultname service owner
      */
     @GET("/api/home/")
     fun apiHomeGet(): Completable
+    /**
+     * Este servicio permitirá listar videos en el sistema
+     * The endpoint is owned by defaultname service owner
+     */
+    @GET("/api/list_videos/")
+    fun apiListVideosGet(): Single<VideoList>
+    /**
+     * Este servicio permitirá listar videos en el sistema
+     * The endpoint is owned by defaultname service owner
+     * @param userId user id (required)
+     */
+    @GET("/api/list_videos/{user_id}")
+    fun apiListVideosUserIdGet(
+        @retrofit2.http.Path("user_id") userId: Map<String, Any?>
+    ): Completable
     /**
      * Este servicio permitirá a los usuarios poder ingresar al sistema
      * The endpoint is owned by defaultname service owner
@@ -70,6 +97,15 @@ interface DefaultApi {
     @POST("/api/register_with_firebase/")
     fun apiRegisterWithFirebasePost(
         @retrofit2.http.Header("authorization") authorization: String
+    ): Completable
+    /**
+     * Este servicio permitirá dar de alta un video en el sistema
+     * The endpoint is owned by defaultname service owner
+     * @param video The video to upload. (optional)
+     */
+    @POST("/api/upload_video/")
+    fun apiUploadVideoPost(
+        @retrofit2.http.Body video: Video
     ): Completable
     /**
      * Este es un método para recibir un token del auth server y validarlo

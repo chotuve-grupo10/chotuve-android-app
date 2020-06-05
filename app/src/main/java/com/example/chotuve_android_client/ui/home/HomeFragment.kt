@@ -51,14 +51,13 @@ class HomeFragment : Fragment() {
         factory = HomeViewModelFactory(repository)
         homeViewModel =
                 ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
-        homeViewModel.getVideos()
+        homeViewModel.getVideosFromServer()
         homeViewModel.videos.observe(viewLifecycleOwner, Observer { videos ->
             recyclerview_home_videos.also{
                 it.layoutManager = LinearLayoutManager(requireContext())
                 it.setHasFixedSize(true)
                 it.adapter = VideoAdapter(videos)
             }
-
         })
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         return root
