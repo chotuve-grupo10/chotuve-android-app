@@ -6,8 +6,10 @@
 
 package com.example.chotuve_android_client.models
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.Parcelize
 
 /**
  * @property Id
@@ -16,6 +18,8 @@ import com.squareup.moshi.JsonClass
  * @property url
  * @property user
  */
+
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class VideoListInner(
     @Json(name = "_id") @field:Json(name = "_id") var Id: String? = null,
@@ -23,4 +27,4 @@ data class VideoListInner(
     @Json(name = "upload_date") @field:Json(name = "upload_date") var uploadDate: String? = null,
     @Json(name = "url") @field:Json(name = "url") var url: String? = null,
     @Json(name = "user") @field:Json(name = "user") var user: String? = null
-)
+) : Parcelable

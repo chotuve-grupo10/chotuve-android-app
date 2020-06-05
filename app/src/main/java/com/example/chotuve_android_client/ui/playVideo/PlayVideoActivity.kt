@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.chotuve_android_client.R
-import com.example.chotuve_android_client.data.model.Video
+import com.example.chotuve_android_client.models.VideoListInner
 
 
 class PlayVideoActivity : AppCompatActivity() {
@@ -23,7 +23,7 @@ class PlayVideoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play_video)
 
-        val video : Video? = intent.getParcelableExtra<Video>("video_to_play")
+        val video : VideoListInner? = intent.getParcelableExtra<VideoListInner>("video_to_play")
         if (video != null) {
             factory = PlayVideoViewModelFactory(video)
             playVideoViewModel =
