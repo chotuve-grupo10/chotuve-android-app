@@ -6,6 +6,4 @@
 
 package com.example.chotuve_android_client.models
 
-import kotlinx.android.parcel.Parcelize
-
 typealias VideoList = List<VideoListInner>
