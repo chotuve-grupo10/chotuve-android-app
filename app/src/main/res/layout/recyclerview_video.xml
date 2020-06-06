@@ -24,7 +24,7 @@
             android:layout_height="45dp"
             android:layout_margin="5dp"
             android:text="@{video.title}"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,12 +34,12 @@
             app:layout_constraintVertical_bias="0.298" />
 
         <TextView
-            android:id="@+id/video_url"
+            android:id="@+id/video_user_name"
             android:layout_width="337dp"
             android:layout_height="41dp"
             android:layout_margin="10dp"
-            android:text="@{video.url}"
-            android:textSize="5sp"
+            android:text="@{video.user}"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.208"
