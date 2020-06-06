@@ -20,10 +20,12 @@ class UploadVideoViewModel : ViewModel() {
 
     private lateinit var storageReference: StorageReference
     private lateinit var urlUploaded : String
+    private lateinit var uuidFileName : String
     private lateinit var alertDialog: AlertDialog
 
     private var _title = MutableLiveData<String>()
     private var _description = MutableLiveData<String>()
+    private var _user = MutableLiveData<String>()
     private var _publicOrPrivate = MutableLiveData<Boolean>()
 
     companion object {
@@ -55,7 +57,8 @@ class UploadVideoViewModel : ViewModel() {
         val firebaseInstance = FirebaseStorage.getInstance(APPSPOT_URL)
 
         // TODO: cuando terminemos la lógica definir el path de videos
-        storageReference = firebaseInstance.getReference("upload_test/" + UUID.randomUUID())
+        uuidFileName = UUID.randomUUID().toString()
+        storageReference = firebaseInstance.getReference("upload_test/" + uuidFileName)
         val uploadTask = storageReference.putFile(videoUri)
 
         val taskHandlers = uploadTask.continueWithTask { task ->
@@ -75,13 +78,15 @@ class UploadVideoViewModel : ViewModel() {
                 val myCompositeDisposable = CompositeDisposable()
                 val uploadVideoService = UploadVideoService()
 
-                // TODO: agregar nombre del archivo, usuario de la sesión y ubicación
                 val video: VideoToUpload = VideoToUpload(
-                    description = _description.value,
-                    isPrivate = _publicOrPrivate.value,
                     title = _title.value,
                     url = urlUploaded,
-                    user = "usuario_hardcodeado"
+                    user = _user.value,
+                    description = _description.value,
+                    fileName = uuidFileName,
+                    latitude = "-72.544969",
+                    longitude = "-13.163175",
+                    isPrivate = _publicOrPrivate.value
                 )
 
                 uploadVideoService.uploadVideo(
@@ -121,15 +126,17 @@ class UploadVideoViewModel : ViewModel() {
     public fun updateValues(
                 title : String?,
                 description : String?,
+                user : String?,
                 publicOrPrivateVideo : Boolean
             ) {
         _title.value = title
         _description.value = description
+        _user.value = user
         _publicOrPrivate.value = publicOrPrivateVideo
 
-        Log.d(TAG, "El título será ${title}")
-        Log.d(TAG, "La descripción será ${description}")
-        Log.d(TAG, "El video es privado ${publicOrPrivateVideo}")
+        Log.d(TAG, "El título será ${title}\n" +  "La descripción será ${description}. " +
+                "El usuario es {$user}. " +
+                "El video es privado ${publicOrPrivateVideo}.")
     }
 
 }

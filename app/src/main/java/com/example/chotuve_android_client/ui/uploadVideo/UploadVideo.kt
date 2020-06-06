@@ -1,8 +1,12 @@
 package com.example.chotuve_android_client.ui.uploadVideo
 
+import android.app.Activity.MODE_PRIVATE
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
+import android.app.Application
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -51,13 +55,20 @@ class UploadVideoFragment : Fragment() {
             val editTitleView = view.findViewById<EditText>(R.id.editTextTitle)
             val editDescriptionView = view.findViewById<EditText>(R.id.editTextDescription)
             val publicOrPrivateVideo = view.findViewById<CheckBox>(R.id.checkBoxPrivate)
+            val username = getUser()
             uploadVideoViewModel.updateValues(
                 editTitleView.text.toString(),
                 editDescriptionView.text.toString(),
+                username,
                 publicOrPrivateVideo.isChecked()
             )
             getFileFromGallery();
         }
+    }
+
+    fun getUser(): String? {
+        val sharedPreference : SharedPreferences = this.activity!!.getSharedPreferences("username", Context.MODE_PRIVATE)
+        return sharedPreference.getString("username", "UserNotFound")
     }
 
     fun getFileFromGallery() {
