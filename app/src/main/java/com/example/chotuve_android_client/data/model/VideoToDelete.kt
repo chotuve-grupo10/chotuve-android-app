@@ -4,7 +4,7 @@ import kotlinx.android.parcel.Parcelize
 import android.os.Parcelable
 
 @Parcelize
-data class Video (
+data class VideoToDelete (
     val title: String,
     val url: String,
     val user: String

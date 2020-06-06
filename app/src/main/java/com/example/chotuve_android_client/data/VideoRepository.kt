@@ -1,8 +1,7 @@
 package com.example.chotuve_android_client.data
 
 import android.content.Context
-import android.net.Uri
-import com.example.chotuve_android_client.data.model.Video
+import com.example.chotuve_android_client.data.model.VideoToDelete
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -10,8 +9,8 @@ class VideoRepository(
     val context : Context?
 ) {
 
-    fun getVideosFromFile(filename: String): ArrayList<Video> {
-        val videosList = ArrayList<Video>()
+    fun getVideosFromFile(filename: String): ArrayList<VideoToDelete> {
+        val videosList = ArrayList<VideoToDelete>()
 
         try {
             // Load data
@@ -21,7 +20,7 @@ class VideoRepository(
 
             // Get Recipe objects from data
             (0 until videos.length()).mapTo(videosList) {
-                Video(videos.getJSONObject(it).getString("id"),
+                VideoToDelete(videos.getJSONObject(it).getString("id"),
                     videos.getJSONObject(it).getString("title"),
                     videos.getJSONObject(it).getString("url"))
             }

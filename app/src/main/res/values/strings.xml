@@ -7,7 +7,7 @@
     <string name="ping_button">Ping, my friend</string>
 
     <string name="title_upload">Upload video</string>
-    <string name="text_upload_video">In here you can upload your video</string>
+    <string name="text_upload_video">Bien, personalicemos este video!</string>
     <string name="firebase_button">Upload to FireBase</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
@@ -28,4 +28,7 @@
     <string name="home_videos_message">Available videos:</string>
     <string name="textview">PlayVideoActivity</string>
     <string name="title_activity_play_video">PlayVideoActivity</string>
+    <string name="edit_text_titulo">Título (opcional)</string>
+    <string name="edit_text_descripcion">Descripción (opcional)</string>
+    <string name="checkbox_video_privado">Este video es privado!</string>
 </resources>

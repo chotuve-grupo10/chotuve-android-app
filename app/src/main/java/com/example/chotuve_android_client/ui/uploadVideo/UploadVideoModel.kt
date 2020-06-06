@@ -9,6 +9,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.chotuve_android_client.models.VideoToUpload
 import com.example.chotuve_android_client.services.UploadVideoService
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -20,6 +21,10 @@ class UploadVideoViewModel : ViewModel() {
     private lateinit var storageReference: StorageReference
     private lateinit var urlUploaded : String
     private lateinit var alertDialog: AlertDialog
+
+    private var _title = MutableLiveData<String>()
+    private var _description = MutableLiveData<String>()
+    private var _publicOrPrivate = MutableLiveData<Boolean>()
 
     companion object {
         const val TAG = "UploadVideoViewModel"
@@ -69,8 +74,17 @@ class UploadVideoViewModel : ViewModel() {
 
                 val myCompositeDisposable = CompositeDisposable()
                 val uploadVideoService = UploadVideoService()
+                // TODO: refactor a VideoToUpload o algo así
+                val video : VideoToUpload = VideoToUpload (
+                    description = _description.value,
+                    isPrivate = _publicOrPrivate.value,
+                    title = _title.value,
+                    url = urlUploaded,
+                    user = "usuario_hardcodeado"
+                )
+
                 uploadVideoService.uploadVideo(
-                    urlUploaded,
+                    video,
                     myCompositeDisposable,
                     {
                         Log.d(TAG, "Video was correctly sent to Servers: ${it?.result}")
@@ -92,4 +106,17 @@ class UploadVideoViewModel : ViewModel() {
         }
     }
 
+    public fun updateValues(
+                title : String?,
+                description : String?,
+                publicOrPrivateVideo : Boolean
+            ) {
+        _title.value = title
+        _description.value = description
+        _publicOrPrivate.value = publicOrPrivateVideo
+
+        Log.d(TAG, "El título será ${title}")
+        Log.d(TAG, "La descripción será ${description}")
+        Log.d(TAG, "El video es privado ${publicOrPrivateVideo}")
+    }
 }

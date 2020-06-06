@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -34,6 +36,8 @@ class UploadVideoFragment : Fragment() {
                 ViewModelProviders.of(this).get(UploadVideoViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_upload, container, false)
 
+
+
         return root
     }
 
@@ -46,6 +50,14 @@ class UploadVideoFragment : Fragment() {
             homeTextView.text = "Getting Firebase storage instance"
             // La posta es que acá se debería llamar a una Clase que se encargue de todo esto.
             this.context?.let { it1 -> FirebaseApp.initializeApp(it1) }
+            val editTitleView = view.findViewById<EditText>(R.id.editTextTitle)
+            val editDescriptionView = view.findViewById<EditText>(R.id.editTextDescription)
+            val publicOrPrivateVideo = view.findViewById<CheckBox>(R.id.checkBoxPrivate)
+            uploadVideoViewModel.updateValues(
+                editTitleView.text.toString(),
+                editDescriptionView.text.toString(),
+                publicOrPrivateVideo.isChecked()
+            )
             getFileFromGallery();
         }
     }
