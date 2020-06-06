@@ -1,6 +1,7 @@
 package com.example.chotuve_android_client.services
 
 import com.example.chotuve_android_client.apis.DefaultApi
+import com.example.chotuve_android_client.models.UploadVideoResponse
 import com.example.chotuve_android_client.models.Video
 import com.example.chotuve_android_client.tools.RetrofitObject
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -16,7 +17,7 @@ class UploadVideoService {
     fun uploadVideo(
         url : String,
         disposable: CompositeDisposable?,
-        onSuccess: (serverStatus: UploadVideoResult?) -> Unit,
+        onSuccess: (uploadResponse: UploadVideoResponse?) -> Unit,
         onError: (throwable: Throwable) -> Unit
     ) {
         val video : Video = Video (

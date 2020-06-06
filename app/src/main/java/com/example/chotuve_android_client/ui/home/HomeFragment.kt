@@ -43,10 +43,7 @@ class HomeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        // Acá hay que usar el factory, porque HomeViewModel ahora tiene un parametro.
-        // Otra aclaración: mi repositorio mañana será un servicio y hoy es una clase que lee un json
-        // le paso el contexto porque así estaba hecha y no pienso modificarlo. Obvio que esto
-        // rompe el patrón al medio. Pero a futuro no estará así
+        // TODO: VideoRepository se creó para levantar los videos de un JSON. y lo cierto es que ya no se está usando para nada
         val repository = VideoRepository(this.context)
         factory = HomeViewModelFactory(repository)
         homeViewModel =
@@ -70,27 +67,6 @@ class HomeFragment : Fragment() {
 
         view.findViewById<Button>(R.id.ping_button).setOnClickListener {
             val homeTextView = view.findViewById<TextView>(R.id.text_home)
-//            val retrofit = Retrofit.Builder()
-//                    //TODO sacar URL hardcoded (ver si se puede pasar a gradle profiles)
-//                .baseUrl("https://chotuve-app-server-production.herokuapp.com/")
-//                .addConverterFactory(MoshiConverterFactory.create())
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//                .build()
-//            val pingService = retrofit.create(DefaultApi::class.java)
-//            myCompositeDisposable?.add(pingService.apiPingGet()
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeOn(Schedulers.io())
-//                .subscribe({
-//                        serverStatus -> homeTextView.text = "App Server Status:  ${serverStatus.AppServer}\n" +
-//                                "Media Server Status: ${serverStatus.MediaServer}\n" +
-//                                "Auth Server Status: ${serverStatus.AuthServer}" ;
-//                        Log.i("App server", "App Server Status:  ${serverStatus.AppServer}");
-//                        Log.i("Media Server", "Media Server Status: ${serverStatus.MediaServer}");
-//                        Log.i("Auth Server", "Auth Server Status: ${serverStatus.AuthServer}");
-//
-//                    },
-//                    Throwable::printStackTrace  // TODO manejar error
-//                ))
             val pingService = PingService()
             pingService.pingServer(
                 myCompositeDisposable,
@@ -105,11 +81,6 @@ class HomeFragment : Fragment() {
                 },
                 Throwable::printStackTrace  // TODO manejar error
             )
-//                .doAfterSuccess { pet ->
-//                    homeTextView.text = "First pet name is " + pet.name
-//                }
-//                .doOnError { t -> homeTextView.text = t.message }
-//                .doFinally { homeTextView.text = "Terminado" }
         }
 
     }

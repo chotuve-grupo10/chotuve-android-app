@@ -10,10 +10,6 @@ class VideoRepository(
     val context : Context?
 ) {
 
-//    fun getVideos() : ArrayList<Video> {
-//        // TODO: endpoint /api/home/ me dará 10 videos en formato json
-//    }
-
     fun getVideosFromFile(filename: String): ArrayList<Video> {
         val videosList = ArrayList<Video>()
 

@@ -13,6 +13,6 @@ import com.squareup.moshi.JsonClass
  * @property result
  */
 @JsonClass(generateAdapter = true)
-data class UploadResponse(
+data class UploadVideoResponse(
     @Json(name = "result") @field:Json(name = "result") var result: String? = null
 )

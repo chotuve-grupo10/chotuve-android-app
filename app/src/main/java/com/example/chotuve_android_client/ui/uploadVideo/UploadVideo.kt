@@ -55,7 +55,6 @@ class UploadVideoFragment : Fragment() {
             uploadVideoViewModel.getFileFromGallery(),
             RESULT_LOAD_VIDEO
         )
-
     }
 
     // For the ActivityResult:
@@ -63,5 +62,4 @@ class UploadVideoFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
             uploadVideoViewModel.dispatcherToFirebase(requestCode, resultCode, data, alertDialogBuilder)
     }
-
 }

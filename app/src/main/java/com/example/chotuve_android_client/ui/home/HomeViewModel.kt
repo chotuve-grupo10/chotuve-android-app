@@ -13,6 +13,9 @@ class HomeViewModel(
     private val repository: VideoRepository
 ) : ViewModel() {
 
+    companion object {
+        const val TAG = "HomeViewModel"
+    }
     private val homeListVideos : HomeListVideosService = HomeListVideosService()
 
     // Tengo mi objeto MutableLiveData pero expongo hacia afuera solo el LiveData
@@ -21,26 +24,22 @@ class HomeViewModel(
         get() = _mutableVideos
 
     // Now i get the videos!
-    fun getVideos() {   // esto era suspend y necesita una coroutine para ser ejecutada
-//        val videos = repository.getVideosFromFile("videos.json")
-//        _mutableVideos.value = videos
-    }
 
     fun getVideosFromServer() {
         Log.d("HVModelM", "Now, getting the videos from server..")
         homeListVideos.listVideos(
             CompositeDisposable(),
             {
-            Log.d("HVModelM", "This was somehow successfull....!")
+            Log.d(TAG, "This was somehow successfull....!")
                 if (it != null) {
-                    Log.d("HVModelM", "Este largo tiene la lista " +
+                    Log.d(TAG, "Este largo tiene la lista " +
                             it.size.toString())
                 }
              _mutableVideos.value = it
             },
             {
                 it.printStackTrace()
-                Log.d("HVModelM", "Error getting listVideos for HomeFragment")
+                Log.d(TAG, "Error getting listVideos for HomeFragment")
             }
         )
     }
