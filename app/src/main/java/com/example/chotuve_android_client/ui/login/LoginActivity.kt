@@ -1,6 +1,7 @@
 package com.example.chotuve_android_client.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -14,15 +15,32 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.models.LoginResponse
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.SignInButton
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
+    private val gso : GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        .requestEmail()
+        .requestIdToken(getString(R.string.default_web_client_id))
+        .build()
+    private val googleSignInClient : GoogleSignInClient = GoogleSignIn.getClient(this, gso)
+    val googleLoginLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()) {
+                val intent = googleSignInClient.signInIntent
+                startActivityForResult(intent, GOOGLE_SIGN_IN)
+                finish()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_login)
@@ -30,9 +48,11 @@ class LoginActivity : AppCompatActivity() {
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
+        val googleSignInButton = findViewById<SignInButton>(R.id.google_sign_in_button);
         val loading = findViewById<ProgressBar>(R.id.loading)
 
-        loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory(application))
+        loginViewModel = ViewModelProviders.of(this,
+                LoginViewModelFactory(application, googleSignInClient))
             .get(LoginViewModel::class.java)
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {

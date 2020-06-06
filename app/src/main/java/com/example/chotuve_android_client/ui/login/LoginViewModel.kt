@@ -5,19 +5,24 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import android.util.Patterns
 import androidx.lifecycle.AndroidViewModel
-import com.example.chotuve_android_client.data.Result
 
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.data.model.UserCredentials
 import com.example.chotuve_android_client.models.UserLogin
 import com.example.chotuve_android_client.services.LoginService
 import com.example.chotuve_android_client.tools.TokenHolder
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import io.reactivex.disposables.CompositeDisposable
 
-class LoginViewModel(application: Application, private val loginService: LoginService) :
+const val GOOGLE_SIGN_IN : Int = 9001
+
+class LoginViewModel(
+    application: Application,
+    private val loginService: LoginService,
+    private val googleSignInClient: GoogleSignInClient
+) :
         AndroidViewModel(application) {
 
     companion object {
