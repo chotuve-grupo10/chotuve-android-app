@@ -57,7 +57,7 @@ class UploadVideoFragment : Fragment() {
             val editTitleView = view.findViewById<EditText>(R.id.editTextTitle)
             val editDescriptionView = view.findViewById<EditText>(R.id.editTextDescription)
             val publicOrPrivateVideo = view.findViewById<CheckBox>(R.id.checkBoxPrivate)
-            val username = getUser()
+            val username = TokenHolder.username
             uploadVideoViewModel.updateValues(
                 editTitleView.text.toString(),
                 editDescriptionView.text.toString(),
@@ -66,15 +66,6 @@ class UploadVideoFragment : Fragment() {
             )
             getFileFromGallery();
         }
-    }
-
-    fun getUser(): String? {
-//        val sharedPreference : SharedPreferences = this.activity!!.getSharedPreferences("username", Context.MODE_PRIVATE)
-//        return sharedPreference.getString("username", "UserNotFound")
-
-//        val userCredentials : UserCredentials = TokenHolder.credentials
-//        userCredentials.getEmail()
-        return "Diegote"
     }
 
     fun getFileFromGallery() {
