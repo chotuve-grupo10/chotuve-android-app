@@ -5,9 +5,9 @@ import android.os.Parcelable
 
 @Parcelize
 data class Video (
-    val id: String,
     val title: String,
-    val url: String
+    val url: String,
+    val user: String
 ) : Parcelable {
     // Acá expongo lo que necesito exponer
 }
