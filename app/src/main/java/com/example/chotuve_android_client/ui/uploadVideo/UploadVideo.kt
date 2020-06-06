@@ -36,8 +36,6 @@ class UploadVideoFragment : Fragment() {
                 ViewModelProviders.of(this).get(UploadVideoViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_upload, container, false)
 
-
-
         return root
     }
 
@@ -46,8 +44,8 @@ class UploadVideoFragment : Fragment() {
 
         // FireBase button
         view.findViewById<Button>(R.id.firebase_button).setOnClickListener {
-            val homeTextView = view.findViewById<TextView>(R.id.text_upload_video)
-            homeTextView.text = "Getting Firebase storage instance"
+//            val homeTextView = view.findViewById<TextView>(R.id.text_upload_video)
+//            homeTextView.text = "Getting Firebase storage instance"
             // La posta es que acá se debería llamar a una Clase que se encargue de todo esto.
             this.context?.let { it1 -> FirebaseApp.initializeApp(it1) }
             val editTitleView = view.findViewById<EditText>(R.id.editTextTitle)

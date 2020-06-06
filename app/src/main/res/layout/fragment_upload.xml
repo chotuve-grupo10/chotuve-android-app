@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.198" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/firebase_button"
         android:layout_width="207dp"
         android:layout_height="107dp"

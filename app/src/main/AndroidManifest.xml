@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.playVideo.PlayVideoActivity"
             android:label="@string/title_activity_play_video"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".SplashActivity"
             android:label="@string/title_activity_splash"
@@ -37,7 +37,7 @@
             android:label="@string/title_activity_login" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+            android:theme="@style/AppTheme"
             android:label="@string/app_name"/>
     </application>
 
