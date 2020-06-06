@@ -11,7 +11,10 @@ import com.squareup.moshi.JsonClass
 
 /**
  * @property description
+ * @property fileName
  * @property isPrivate
+ * @property latitude
+ * @property longitude
  * @property title
  * @property url
  * @property user
@@ -19,7 +22,10 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class VideoToUpload(
     @Json(name = "description") @field:Json(name = "description") var description: String? = null,
+    @Json(name = "fileName") @field:Json(name = "fileName") var fileName: String? = null,
     @Json(name = "isPrivate") @field:Json(name = "isPrivate") var isPrivate: Boolean? = null,
+    @Json(name = "latitude") @field:Json(name = "latitude") var latitude: String? = null,
+    @Json(name = "longitude") @field:Json(name = "longitude") var longitude: String? = null,
     @Json(name = "title") @field:Json(name = "title") var title: String? = null,
     @Json(name = "url") @field:Json(name = "url") var url: String? = null,
     @Json(name = "user") @field:Json(name = "user") var user: String? = null
