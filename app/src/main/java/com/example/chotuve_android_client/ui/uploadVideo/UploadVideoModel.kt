@@ -135,7 +135,7 @@ class UploadVideoViewModel : ViewModel() {
         _publicOrPrivate.value = publicOrPrivateVideo
 
         Log.d(TAG, "El título será ${title}\n" +  "La descripción será ${description}. " +
-                "El usuario es {$user}. " +
+                "El usuario es ${user}. " +
                 "El video es privado ${publicOrPrivateVideo}.")
     }
 

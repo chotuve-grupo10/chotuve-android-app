@@ -19,6 +19,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.chotuve_android_client.R
+import com.example.chotuve_android_client.data.model.UserCredentials
+import com.example.chotuve_android_client.tools.TokenHolder
 import com.google.firebase.FirebaseApp
 import com.google.firebase.storage.StorageReference
 
@@ -67,8 +69,12 @@ class UploadVideoFragment : Fragment() {
     }
 
     fun getUser(): String? {
-        val sharedPreference : SharedPreferences = this.activity!!.getSharedPreferences("username", Context.MODE_PRIVATE)
-        return sharedPreference.getString("username", "UserNotFound")
+//        val sharedPreference : SharedPreferences = this.activity!!.getSharedPreferences("username", Context.MODE_PRIVATE)
+//        return sharedPreference.getString("username", "UserNotFound")
+
+//        val userCredentials : UserCredentials = TokenHolder.credentials
+//        userCredentials.getEmail()
+        return "Diegote"
     }
 
     fun getFileFromGallery() {
