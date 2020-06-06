@@ -74,8 +74,9 @@ class UploadVideoViewModel : ViewModel() {
 
                 val myCompositeDisposable = CompositeDisposable()
                 val uploadVideoService = UploadVideoService()
-                // TODO: refactor a VideoToUpload o algo así
-                val video : VideoToUpload = VideoToUpload (
+
+                // TODO: agregar nombre del archivo, usuario de la sesión y ubicación
+                val video: VideoToUpload = VideoToUpload(
                     description = _description.value,
                     isPrivate = _publicOrPrivate.value,
                     title = _title.value,
@@ -89,19 +90,30 @@ class UploadVideoViewModel : ViewModel() {
                     {
                         Log.d(TAG, "Video was correctly sent to Servers: ${it?.result}")
                         alertDialog.dismiss()
-                        alertDialog = alertDialogBuilder.setMessage("Listo! El video fue subido exitosamente!").show()
+                        alertDialog =
+                            alertDialogBuilder.setMessage("Listo! El video fue subido exitosamente!")
+                                .show()
                     },
                     {
                         it.printStackTrace()
-                        Log.d(TAG, "Error sending video to servers. Attention! This video was however uploaded to Firebase, and its reference got lost in the ether")
+                        Log.d(
+                            TAG,
+                            "Error sending video to servers. Attention! This video was however uploaded to Firebase, and its reference got lost in the ether"
+                        )
                         alertDialog.dismiss()
-                        alertDialog = alertDialogBuilder.setMessage("Ups. Algo salió mal. Porfavor, ¿podrías intentarlo nuevamente?").show()
+                        alertDialog =
+                            alertDialogBuilder.setMessage("Ups. Algo salió mal. Porfavor, ¿podrías intentarlo nuevamente?")
+                                .show()
                     }
-                    )
+                )
                 // acá mismo hay que mandarle la URL al app_server
             } else {
+                Log.d(TAG, "Error with Firebase. Apparently the video could not be sent")
                 alertDialog.dismiss()
-                alertDialog = alertDialogBuilder.setMessage("Finished! The video was uploaded successfully").show()
+                alertDialog =
+                    alertDialogBuilder.setMessage("Ups. Algo salió mal con uno de nuestros proveedores de servicios. Porfavor, ¿podrías intentarlo nuevamente?")
+                        .show()
+
             }
         }
     }
@@ -119,4 +131,5 @@ class UploadVideoViewModel : ViewModel() {
         Log.d(TAG, "La descripción será ${description}")
         Log.d(TAG, "El video es privado ${publicOrPrivateVideo}")
     }
+
 }
