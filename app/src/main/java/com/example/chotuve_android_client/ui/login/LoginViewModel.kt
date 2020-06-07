@@ -44,6 +44,7 @@ class LoginViewModel(
             {
                 Log.d(TAG, "Login correcto, se obtiene el token ${it?.AppToken}")
                 TokenHolder.init(
+                    username,
                     UserCredentials.Password(UserLogin(username, password)),
                     requireNotNull(it?.AppToken),
                     requireNotNull(it?.AuthToken))
