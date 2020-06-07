@@ -43,9 +43,7 @@ class HomeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        // TODO: VideoRepository se creó para levantar los videos de un JSON. y lo cierto es que ya no se está usando para nada
-        val repository = VideoRepository(this.context)
-        factory = HomeViewModelFactory(repository)
+        factory = HomeViewModelFactory()
         homeViewModel =
                 ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
         homeViewModel.getVideosFromServer()

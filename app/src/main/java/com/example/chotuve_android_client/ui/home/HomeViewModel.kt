@@ -23,25 +23,8 @@ class HomeViewModel(
     val videos : LiveData<VideoList>
         get() = _mutableVideos
 
-    // Now i get the videos!
-
     fun getVideosFromServer() {
-        Log.d(TAG, "Now, getting the videos from server..")
-        homeListVideos.listVideos(
-            CompositeDisposable(),
-            {
-            Log.d(TAG, "This was somehow successfull....!")
-                if (it != null) {
-                    Log.d(TAG, "Este largo tiene la lista " +
-                            it.size.toString())
-                }
-             _mutableVideos.value = it
-            },
-            {
-                it.printStackTrace()
-                Log.d(TAG, "Error getting listVideos for HomeFragment")
-            }
-        )
+        repository.getVideosForHome(_mutableVideos);
     }
 
 }
