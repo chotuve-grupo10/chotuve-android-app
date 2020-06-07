@@ -16,8 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.playVideo.PlayVideoActivity"
-            android:label="@string/title_activity_play_video"
-            android:theme="@style/AppTheme"/>
+            android:label="@string/title_activity_play_video"/>
         <activity
             android:name=".SplashActivity"
             android:label="@string/title_activity_splash"

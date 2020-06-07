@@ -66,6 +66,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.ping_button).setOnClickListener {
+            // TODO: Mutable Live Data in here
             val homeTextView = view.findViewById<TextView>(R.id.text_home)
             val pingService = PingService()
             pingService.pingServer(

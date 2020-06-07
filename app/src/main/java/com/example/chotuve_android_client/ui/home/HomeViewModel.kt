@@ -26,7 +26,7 @@ class HomeViewModel(
     // Now i get the videos!
 
     fun getVideosFromServer() {
-        Log.d("HVModelM", "Now, getting the videos from server..")
+        Log.d(TAG, "Now, getting the videos from server..")
         homeListVideos.listVideos(
             CompositeDisposable(),
             {
