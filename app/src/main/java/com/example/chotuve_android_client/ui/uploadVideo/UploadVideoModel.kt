@@ -26,6 +26,8 @@ class UploadVideoViewModel : ViewModel() {
     private var _title = MutableLiveData<String>()
     private var _description = MutableLiveData<String>()
     private var _user = MutableLiveData<String>()
+    private var _latitude = MutableLiveData<String>()
+    private var _longitude = MutableLiveData<String>()
     private var _publicOrPrivate = MutableLiveData<Boolean>()
 
     companion object {
@@ -127,15 +129,19 @@ class UploadVideoViewModel : ViewModel() {
                 title : String?,
                 description : String?,
                 user : String?,
+                latitude : String?,
+                longitude : String?,
                 publicOrPrivateVideo : Boolean
             ) {
         _title.value = title
         _description.value = description
         _user.value = user
+        _latitude.value = latitude
+        _longitude.value = longitude
         _publicOrPrivate.value = publicOrPrivateVideo
 
         Log.d(TAG, "El título será ${title}\n" +  "La descripción será ${description}. " +
-                "El usuario es ${user}. " +
+                "El usuario es ${user}. " + "Su ubicación es ${latitude}, ${longitude}. " +
                 "El video es privado ${publicOrPrivateVideo}.")
     }
 

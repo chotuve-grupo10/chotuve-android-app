@@ -19,9 +19,8 @@ class VideoRepository() {
         homeListVideos.listVideos(
             CompositeDisposable(),
             {
-                Log.d(TAG, "This was somehow successfull....!")
                 if (it != null) {
-                    Log.d(TAG, "Este largo tiene la lista " +
+                    Log.d(TAG, "La lista de videos de Home tiene este largo: " +
                             it.size.toString())
                 }
                 _mutableVideos.value = it
