@@ -16,4 +16,5 @@ object TokenHolder {
         this.appServerToken = appServerToken
         this.authServerToken = authServerToken
     }
+
 }
