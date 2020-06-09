@@ -60,8 +60,6 @@ class UploadVideoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // ask for permissions
-        val permissions = checkPermissions()
-        Log.d(TAG, "Permission is " + permissions.toString())
         if (!checkPermissions()) {
             askUserForPermissions()
         }
@@ -122,6 +120,7 @@ class UploadVideoFragment : Fragment() {
     }
 
     private fun askUserForPermissions() {
+        // herramienta propia del Fragment (o la activity)
         requestPermissions(
             arrayOf(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -131,6 +130,7 @@ class UploadVideoFragment : Fragment() {
         )
     }
 
+    @SuppressLint("MissingPermission")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -141,7 +141,7 @@ class UploadVideoFragment : Fragment() {
                 // Granted. Start getting the location information
                 if (isLocationEnabled()) {
                     Log.d(TAG, "Permission is granted and location is enabled")
-
+                    getLastLocation()
                 } else {
                     Log.d(TAG, "Permission is granted BUT location is not enabled")
                 }
@@ -150,7 +150,7 @@ class UploadVideoFragment : Fragment() {
     }
 
     private fun isLocationEnabled(): Boolean {
-//        var locationManager: LocationManager = getSystemService<LocationManager>(this.context!!, Context.LOCATION_SERVICE) as LocationManager
+        // Depende del contexto
         var locationManager: LocationManager =
             this.context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
@@ -159,28 +159,8 @@ class UploadVideoFragment : Fragment() {
     }
 
     @SuppressLint("MissingPermission")
-    private fun setLocationData() {
-        mFusedLocationClient.lastLocation.addOnCompleteListener { task ->
-            try {
-                var location: Location? = task.result
-                if (location == null) {
-                    LATITUDE = null
-                    LONGITUDE = null
-                } else {
-                    LATITUDE = location.latitude.toString()
-                    LATITUDE = location.longitude.toString()
-                }
-            } catch (apiException: ApiException) {
-                Log.d(
-                    TAG,
-                    "Este dispositivo NO tiene la capacidad de obtener la ubicación geográfica"
-                )
-            }
-        }
-    }
-
-    @SuppressLint("MissingPermission")
     private fun getLastLocation() {
+        // El objeto FusedLocationClient depende del contexto
         mFusedLocationClient!!.lastLocation
             .addOnCompleteListener { task ->
                 if (task.isSuccessful && task.result != null) {

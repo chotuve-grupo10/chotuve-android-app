@@ -1,5 +1,6 @@
 package com.example.chotuve_android_client.ui.uploadVideo
 
+import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
