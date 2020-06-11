@@ -2,11 +2,7 @@ package com.example.chotuve_android_client.ui.login
 
 import android.app.Activity
 import android.content.Intent
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -16,7 +12,10 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.models.LoginResponse
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -24,20 +23,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 
+
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
-    private val gso : GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestEmail()
-        .requestIdToken(getString(R.string.default_web_client_id))
-        .build()
-    private val googleSignInClient : GoogleSignInClient = GoogleSignIn.getClient(this, gso)
-    val googleLoginLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()) {
-                val intent = googleSignInClient.signInIntent
-                startActivityForResult(intent, GOOGLE_SIGN_IN)
-                finish()
-    }
+    private lateinit var gso : GoogleSignInOptions
+    private lateinit var googleSignInClient : GoogleSignInClient
+//    val googleLoginLauncher = registerForActivityResult(
+//            ActivityResultContracts.StartActivityForResult()) {
+//                val intent = googleSignInClient.signInIntent
+//                startActivityForResult(intent, GOOGLE_SIGN_IN)
+//                finish()
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -50,6 +47,12 @@ class LoginActivity : AppCompatActivity() {
         val login = findViewById<Button>(R.id.login)
         val googleSignInButton = findViewById<SignInButton>(R.id.google_sign_in_button);
         val loading = findViewById<ProgressBar>(R.id.loading)
+
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         loginViewModel = ViewModelProviders.of(this,
                 LoginViewModelFactory(application, googleSignInClient))
@@ -115,6 +118,11 @@ class LoginActivity : AppCompatActivity() {
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
             }
+        }
+
+        googleSignInButton.setOnClickListener {
+            val signInIntent: Intent = googleSignInClient.signInIntent
+            startActivityForResult(signInIntent, GOOGLE_SIGN_IN)
         }
     }
 
