@@ -8,10 +8,11 @@ package com.example.chotuve_android_client.apis
 
 import com.example.chotuve_android_client.models.LoginResponse
 import com.example.chotuve_android_client.models.PingResponse
+import com.example.chotuve_android_client.models.UploadVideoResponse
 import com.example.chotuve_android_client.models.User
 import com.example.chotuve_android_client.models.UserLogin
-import com.example.chotuve_android_client.models.Video
 import com.example.chotuve_android_client.models.VideoList
+import com.example.chotuve_android_client.models.VideoToUpload
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.DELETE
@@ -105,8 +106,8 @@ interface DefaultApi {
      */
     @POST("/api/upload_video/")
     fun apiUploadVideoPost(
-        @retrofit2.http.Body video: Video
-    ): Completable
+        @retrofit2.http.Body video: VideoToUpload
+    ): Single<UploadVideoResponse>
     /**
      * Este es un método para recibir un token del auth server y validarlo
      * The endpoint is owned by defaultname service owner

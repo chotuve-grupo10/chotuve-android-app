@@ -10,13 +10,9 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
- * @property title
- * @property url
- * @property user
+ * @property result
  */
 @JsonClass(generateAdapter = true)
-data class Video(
-    @Json(name = "title") @field:Json(name = "title") var title: String,
-    @Json(name = "url") @field:Json(name = "url") var url: String,
-    @Json(name = "user") @field:Json(name = "user") var user: String
+data class UploadVideoResponse(
+    @Json(name = "result") @field:Json(name = "result") var result: String? = null
 )
