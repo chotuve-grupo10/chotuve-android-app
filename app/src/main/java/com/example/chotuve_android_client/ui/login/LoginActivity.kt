@@ -19,9 +19,12 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.models.LoginResponse
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 
 
 class LoginActivity : AppCompatActivity() {
@@ -29,12 +32,20 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var gso : GoogleSignInOptions
     private lateinit var googleSignInClient : GoogleSignInClient
-//    val googleLoginLauncher = registerForActivityResult(
-//            ActivityResultContracts.StartActivityForResult()) {
-//                val intent = googleSignInClient.signInIntent
-//                startActivityForResult(intent, GOOGLE_SIGN_IN)
-//                finish()
-//    }
+    val googleLoginLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()) {
+                println("ACA ENTRA AL ACTIVITY RESULT!!!!")
+                //TODO Firebase
+                //TODO manejar it.resultCode != ActivityResult.RESULT_OK
+                val task : Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(it.data)
+                try {
+                    val account = task.getResult(ApiException::class.java)
+                    println("ACCOUNT::::: " + account?.idToken)
+                } catch (e : ApiException) {
+                    e.printStackTrace()
+                }
+                println()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -122,8 +133,12 @@ class LoginActivity : AppCompatActivity() {
 
         googleSignInButton.setOnClickListener {
             val signInIntent: Intent = googleSignInClient.signInIntent
-            startActivityForResult(signInIntent, GOOGLE_SIGN_IN)
+            googleLoginLauncher.launch(signInIntent)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun updateUiWithUser(model: LoginResponse) {
