@@ -31,4 +31,6 @@
     <string name="edit_text_titulo">Título (opcional)</string>
     <string name="edit_text_descripcion">Descripción (opcional)</string>
     <string name="checkbox_video_privado">Este video es privado!</string>
+    <string name="upload_profile_pic">Subir una foto de perfil</string>
+    <string name="register">Registrarme</string>
 </resources>
