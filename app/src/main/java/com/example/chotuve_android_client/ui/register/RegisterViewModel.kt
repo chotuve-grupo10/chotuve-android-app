@@ -2,23 +2,25 @@ package com.example.chotuve_android_client.ui.register
 
 import android.text.Editable
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.chotuve_android_client.R
-import com.example.chotuve_android_client.data.model.UserCredentials
-import com.example.chotuve_android_client.models.UserLogin
-import com.example.chotuve_android_client.tools.TokenHolder
-import com.example.chotuve_android_client.ui.login.LoginResult
-import com.example.chotuve_android_client.ui.login.LoginViewModel
+import com.example.chotuve_android_client.services.RegisterService
 import io.reactivex.disposables.CompositeDisposable
 import java.util.*
 
-class RegisterViewModel {
+class RegisterViewModel() {
 
     companion object {
         const val TAG = "RegisterViewModel"
         const val MIN_PASSWORD = 5
     }
 
+    private val _registerResult = MutableLiveData<RegisterResult>()
+    val registerResult: LiveData<RegisterResult> = _registerResult
+
     private var myCompositeDisposable: CompositeDisposable? = null
+    private val registerService = RegisterService()
 
     private var _fullName : String? = null
     private var _phoneNumber : String? = null
@@ -27,25 +29,25 @@ class RegisterViewModel {
 
     fun register() {
         myCompositeDisposable = CompositeDisposable()
-//        loginService.login(username, password, myCompositeDisposable,
-//            {
-//                Log.d(LoginViewModel.TAG, "Login correcto, se obtiene el token ${it?.AppToken}")
-//                TokenHolder.init(
-//                    username,
-//                    UserCredentials.Password(UserLogin(username, password)),
-//                    requireNotNull(it?.AppToken),
-//                    requireNotNull(it?.AuthToken))
-//                setAuthenticationModeInSharedPreferences("EMAIL_PASSWORD")
-//                setCredentialsInSharedPreferences(username, password)
-//                _loginResult.value =
-//                    LoginResult(success = it)
-//            },
-//            {
-//                it.printStackTrace()
-//                _loginResult.value = LoginResult(error = R.string.login_failed)
-//            }
-//        )
-        // registerService
+        registerService.register(
+            _fullName.toString(),
+            _phoneNumber.toString(),
+            _email.toString(),
+            _password.toString(),
+            "image01.jpg",
+            myCompositeDisposable,
+            {
+                if (it != null) {
+                    Log.d(TAG, "Usuario registrado con éxito: " + it.messageResult.toString())
+                    // Me gustaría ahora que me lleve a Login!
+                    _registerResult.value =
+                        RegisterResult(success = it)
+                }
+            }, {
+                Log.e(TAG, "La operación de registro no funcionó: " + it.toString())
+                it.printStackTrace()
+                _registerResult.value = RegisterResult(error="Error registrando usuario. Tu solicitud falló")
+            })
     }
 
     fun validateData(): String? {
@@ -65,8 +67,7 @@ class RegisterViewModel {
             return "Tu contraseña debe tener al menos 5 caracteres"
         }
         register()
-        return null;
-
+        return null
     }
 
     fun itemIsValid(_item : String?) : Boolean {

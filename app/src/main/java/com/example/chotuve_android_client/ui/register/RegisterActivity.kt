@@ -1,14 +1,19 @@
 package com.example.chotuve_android_client.ui.register
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.example.chotuve_android_client.R
+import com.example.chotuve_android_client.ui.login.LoginActivity
 import com.google.android.material.textfield.TextInputEditText
 
 class RegisterActivity : AppCompatActivity() {
@@ -35,12 +40,25 @@ class RegisterActivity : AppCompatActivity() {
         val email = findViewById<TextInputEditText>(R.id.email)
         val password = findViewById<TextInputEditText>(R.id.password)
 
+        registerViewModel.registerResult.observe(this, Observer { registerResult->
+
+            if (registerResult.error != null) {
+                showLoginFailed(registerResult.error)
+            }
+            if (registerResult.success != null) {
+                Log.d(TAG, "Ahora nos vamos al activity de login")
+                val i = Intent(this, LoginActivity::class.java)
+                finish()
+                startActivity(i)
+            }
+        })
+
+
         val register = findViewById<Button>(R.id.register)
 
         register.setOnClickListener {
             registerViewModel.updateValues(fullName.text, phoneNumber.text, email.text, password.text)
             val result : String? = registerViewModel.validateData()
-            Log.d(TAG, "Result es ${result}")
             if (result != null) {
                 showLoginFailed(result)
             }
