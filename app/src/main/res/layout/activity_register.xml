@@ -64,7 +64,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:hint="E-mail"
-            android:inputType="textEmailSubject" />
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

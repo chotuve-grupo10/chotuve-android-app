@@ -14,6 +14,7 @@ class RegisterViewModel() {
     companion object {
         const val TAG = "RegisterViewModel"
         const val MIN_PASSWORD = 5
+        const val ERROR_409 = "HTTP 409 CONFLICT"
     }
 
     private val _registerResult = MutableLiveData<RegisterResult>()
@@ -38,15 +39,19 @@ class RegisterViewModel() {
             myCompositeDisposable,
             {
                 if (it != null) {
-                    Log.d(TAG, "Usuario registrado con éxito: " + it.messageResult.toString())
+                    Log.d(TAG, "Usuario registrado con éxito.")
                     // Me gustaría ahora que me lleve a Login!
                     _registerResult.value =
                         RegisterResult(success = it)
                 }
             }, {
-                Log.e(TAG, "La operación de registro no funcionó: " + it.toString())
                 it.printStackTrace()
-                _registerResult.value = RegisterResult(error="Error registrando usuario. Tu solicitud falló")
+                Log.e(TAG, "La operación de registro no funcionó: " + it.message)
+                if (it.message == ERROR_409) {
+                    _registerResult.value = RegisterResult(error="Un momento... este mail ya tiene una cuenta asociada!")
+                }else {
+                    _registerResult.value = RegisterResult(error="Error registrando usuario. Tu solicitud falló")
+                }
             })
     }
 

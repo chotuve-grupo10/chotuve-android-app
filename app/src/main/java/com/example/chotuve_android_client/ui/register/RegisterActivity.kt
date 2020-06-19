@@ -47,9 +47,10 @@ class RegisterActivity : AppCompatActivity() {
             }
             if (registerResult.success != null) {
                 Log.d(TAG, "Ahora nos vamos al activity de login")
-                val i = Intent(this, LoginActivity::class.java)
-                finish()
-                startActivity(i)
+                // Comento lo que estaba haciendo antes!
+//                val i = Intent(this, LoginActivity::class.java)
+//                finish()  // supongo que esto rompía, pero en realidad me lo robé del loginActivity :(
+//                startActivity(i)
             }
         })
 
