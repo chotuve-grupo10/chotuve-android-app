@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
@@ -18,6 +19,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.models.LoginResponse
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
+import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -57,8 +64,29 @@ class LoginActivity : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
         val googleSignInButton = findViewById<SignInButton>(R.id.google_sign_in_button);
+        val facebookLoginButton = findViewById<LoginButton>(R.id.fb_login_button);
         val loading = findViewById<ProgressBar>(R.id.loading)
 
+        // Facebook
+        val callbackManager = CallbackManager.Factory.create();
+        facebookLoginButton.setPermissions("email")
+
+        facebookLoginButton.registerCallback(callbackManager,
+            object : FacebookCallback<LoginResult> {
+                override fun onSuccess(loginResult: LoginResult?) {
+                    Log.d("LoginActivity", "Facebook token: " + loginResult?.accessToken?.token)
+                }
+
+                override fun onCancel() {
+                    Log.d("LoginActivity", "onCancel")
+                }
+
+                override fun onError(error: FacebookException?) {
+                    Log.d("LoginActivity", "onError", error)
+                }
+            })
+
+        // Google
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .requestIdToken(getString(R.string.default_web_client_id))
