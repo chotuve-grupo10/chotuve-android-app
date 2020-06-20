@@ -39,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var gso : GoogleSignInOptions
     private lateinit var googleSignInClient : GoogleSignInClient
+    val callbackManager = CallbackManager.Factory.create()
     val googleLoginLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()) {
                 println("ACA ENTRA AL ACTIVITY RESULT!!!!")
@@ -68,7 +69,6 @@ class LoginActivity : AppCompatActivity() {
         val loading = findViewById<ProgressBar>(R.id.loading)
 
         // Facebook
-        val callbackManager = CallbackManager.Factory.create();
         facebookLoginButton.setPermissions("email")
 
         facebookLoginButton.registerCallback(callbackManager,
@@ -167,6 +167,9 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        // Pass the activity result back to the Facebook SDK
+        callbackManager.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun updateUiWithUser(model: LoginResponse) {
