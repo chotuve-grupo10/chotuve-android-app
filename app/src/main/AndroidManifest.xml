@@ -6,17 +6,17 @@
         android:name="android.permission.GET_ACCOUNTS"
         android:maxSdkVersion="22" />
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <activity android:name="com.facebook.FacebookActivity" android:configChanges= "keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:label="@string/app_name" />
         <activity android:name="com.facebook.CustomTabActivity" android:exported="true">
@@ -28,29 +28,35 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.playVideo.PlayVideoActivity"
-            android:label="@string/title_activity_play_video"/>
+        <activity
+            android:name=".ui.register.RegisterActivity">
+        </activity>
+
+        <activity
+            android:name=".ui.playVideo.PlayVideoActivity"
+            android:label="@string/title_activity_play_video" />
+
         <activity
             android:name=".SplashActivity"
             android:label="@string/title_activity_splash"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:label="@string/app_name"-->
-<!--            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>-->
+
+        </activity> <!-- <activity -->
+        <!-- android:name=".MainActivity" -->
+        <!-- android:label="@string/app_name" -->
+        <!-- android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity> -->
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
