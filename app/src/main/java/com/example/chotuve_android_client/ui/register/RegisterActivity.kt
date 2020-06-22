@@ -51,6 +51,11 @@ class RegisterActivity : AppCompatActivity() {
 //                val i = Intent(this, LoginActivity::class.java)
 //                finish()  // supongo que esto rompía, pero en realidad me lo robé del loginActivity :(
 //                startActivity(i)
+                val respuesta = Intent()
+                respuesta.putExtra("email", email.text)
+                respuesta.putExtra("password", password.text)
+                setResult(Activity.RESULT_OK, respuesta)
+                finish()
             }
         })
 
