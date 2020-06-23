@@ -8,9 +8,10 @@ package com.example.chotuve_android_client.apis
 
 import com.example.chotuve_android_client.models.LoginResponse
 import com.example.chotuve_android_client.models.PingResponse
+import com.example.chotuve_android_client.models.RegisterResponse
 import com.example.chotuve_android_client.models.UploadVideoResponse
-import com.example.chotuve_android_client.models.User
 import com.example.chotuve_android_client.models.UserLogin
+import com.example.chotuve_android_client.models.UserRegister
 import com.example.chotuve_android_client.models.VideoList
 import com.example.chotuve_android_client.models.VideoToUpload
 import io.reactivex.Completable
@@ -88,8 +89,8 @@ interface DefaultApi {
      */
     @POST("/api/register/")
     fun apiRegisterPost(
-        @retrofit2.http.Body user: User
-    ): Completable
+        @retrofit2.http.Body user: UserRegister
+    ): Single<RegisterResponse>
     /**
      * Recibe una solicitud de registro utilizando Firebase
      * The endpoint is owned by defaultname service owner

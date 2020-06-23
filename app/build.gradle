@@ -43,7 +43,11 @@ android {
         jvmTarget = "1.8"
     }
 
+    lintOptions {
+        abortOnError false
+    }
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -73,6 +77,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.firebase:firebase-storage:19.1.0'
+    implementation 'com.google.firebase:firebase-auth:19.1.0'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.facebook.android:facebook-login:[5,6)'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.multidex:multidex:2.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
