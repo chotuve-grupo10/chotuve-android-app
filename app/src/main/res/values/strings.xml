@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">chotuve_android_client</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_search">Search</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_user">User profile</string>
     <string name="ping_message">This is where we ping the App Server</string>
     <string name="ping_button">Ping, my friend</string>
 
@@ -38,4 +39,8 @@
     <string name="fb_login_protocol_scheme">fb937489686691669</string>
     <string name="not_registered">Not registered?</string>
     <string name="create_account">REGISTER</string>
+
+    <string name="search_users_bar">Search another user by its email</string>
+
+
 </resources>

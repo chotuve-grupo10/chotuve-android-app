@@ -2,15 +2,17 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--https://material.io/resources/icons/?style=baseline-->
+
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_search_24px"
+        android:title="@string/title_search" />
 
     <item
         android:id="@+id/navigation_notifications"
@@ -20,5 +22,10 @@
         android:id="@+id/navigation_upload_video"
         android:icon="@drawable/ic_upload_24dp"
         android:title="@string/title_upload" />
+
+<!--    <item-->
+<!--        android:id="@+id/navitation_user"-->
+<!--        android:icon="@drawable/ic_home_black_24dp"-->
+<!--        android:title="@string/title_user" />-->
 
 </menu>
