@@ -22,9 +22,17 @@
         android:name="com.example.chotuve_android_client.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
     <fragment
         android:id="@+id/navigation_upload_video"
         android:name="com.example.chotuve_android_client.ui.uploadVideo.UploadVideoFragment"
         android:label="@string/title_upload"
         tools:layout="@layout/fragment_upload" />
+
+    <fragment
+        android:id="@+id/navigation_user_profile"
+        android:name="com.example.chotuve_android_client.ui.userProfile.UserProfileFragment"
+        android:label="@string/title_user"
+        tools:layout="@layout/fragment_user_profile" />
+
 </navigation>
