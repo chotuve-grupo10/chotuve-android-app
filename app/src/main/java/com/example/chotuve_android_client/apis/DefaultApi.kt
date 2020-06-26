@@ -6,10 +6,25 @@
 
 package com.example.chotuve_android_client.apis
 
-import com.example.chotuve_android_client.models.*
+import com.example.chotuve_android_client.models.AcceptFriendshipResponse
+import com.example.chotuve_android_client.models.CommentVideo
+import com.example.chotuve_android_client.models.CommentVideoResponse
+import com.example.chotuve_android_client.models.LoginResponse
+import com.example.chotuve_android_client.models.PingResponse
+import com.example.chotuve_android_client.models.RegisterResponse
+import com.example.chotuve_android_client.models.RejectFriendshipResponse
+import com.example.chotuve_android_client.models.RequestFriendshipResponse
+import com.example.chotuve_android_client.models.UploadVideoResponse
+import com.example.chotuve_android_client.models.UserLogin
+import com.example.chotuve_android_client.models.UserRegister
+import com.example.chotuve_android_client.models.VideoList
+import com.example.chotuve_android_client.models.VideoToUpload
 import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.http.*
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.PUT
 
 @JvmSuppressWildcards
 interface DefaultApi {
@@ -104,7 +119,7 @@ interface DefaultApi {
      * Este servicio permite aceptar una solicitud de contacto de usuario y crear una relación de amistad
      * The endpoint is owned by defaultname service owner
      * @param userId my id (required)
-     * @param newFriendsId potential new friend&#39;s id (required)
+     * @param newFriendsId potential new friends id (required)
      */
     @POST("/api/users/{user_email}/friends/{new_friends_email}/accept")
     fun apiUsersUserEmailFriendsNewFriendsEmailAcceptPost(
@@ -115,7 +130,7 @@ interface DefaultApi {
      * Este servicio permitirá dar de alta una solicitud de contacto de usuario
      * The endpoint is owned by defaultname service owner
      * @param userId my id (required)
-     * @param newFriendsId potential new friend&#39;s id (required)
+     * @param newFriendsId potential new friends id (required)
      */
     @POST("/api/users/{user_email}/friends/{new_friends_email}")
     fun apiUsersUserEmailFriendsNewFriendsEmailPost(
@@ -126,7 +141,7 @@ interface DefaultApi {
      * Este servicio permite rechazar una solicitud de contacto de usuario
      * The endpoint is owned by defaultname service owner
      * @param userId my id (required)
-     * @param newFriendsId potential new friend&#39;s id (required)
+     * @param newFriendsId potential new friends id (required)
      */
     @POST("/api/users/{user_email}/friends/{new_friends_email}/reject")
     fun apiUsersUserEmailFriendsNewFriendsEmailRejectPost(
@@ -136,12 +151,12 @@ interface DefaultApi {
     /**
      * Este servicio permite obtener información del usuario (y sus amigos)
      * The endpoint is owned by defaultname service owner
-     * @param userId my id (required)
+     * @param userEmail email del usuario (required)
      */
     @GET("/api/users/{user_email}/information")
     fun apiUsersUserEmailInformationGet(
-        @Path("user_email") userId: String?
-    ): Single<FriendsInformationList>
+        @retrofit2.http.Path("user_email") userEmail: Map<String, Any?>
+    ): Completable
     /**
      * Este es un método para recibir un token del auth server y validarlo
      * The endpoint is owned by defaultname service owner
