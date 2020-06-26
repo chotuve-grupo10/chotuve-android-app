@@ -6,9 +6,14 @@
 
 package com.example.chotuve_android_client.apis
 
+import com.example.chotuve_android_client.models.AcceptFriendshipResponse
+import com.example.chotuve_android_client.models.CommentVideo
+import com.example.chotuve_android_client.models.CommentVideoResponse
 import com.example.chotuve_android_client.models.LoginResponse
 import com.example.chotuve_android_client.models.PingResponse
 import com.example.chotuve_android_client.models.RegisterResponse
+import com.example.chotuve_android_client.models.RejectFriendshipResponse
+import com.example.chotuve_android_client.models.RequestFriendshipResponse
 import com.example.chotuve_android_client.models.UploadVideoResponse
 import com.example.chotuve_android_client.models.UserLogin
 import com.example.chotuve_android_client.models.UserRegister
@@ -19,6 +24,7 @@ import io.reactivex.Single
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 
 @JvmSuppressWildcards
 interface DefaultApi {
@@ -110,6 +116,48 @@ interface DefaultApi {
         @retrofit2.http.Body video: VideoToUpload
     ): Single<UploadVideoResponse>
     /**
+     * Este servicio permite aceptar una solicitud de contacto de usuario y crear una relación de amistad
+     * The endpoint is owned by defaultname service owner
+     * @param userId my id (required)
+     * @param newFriendsId potential new friend&#39;s id (required)
+     */
+    @POST("/api/users/{user_email}/friends/{new_friends_email}/accept")
+    fun apiUsersUserEmailFriendsNewFriendsEmailAcceptPost(
+        @retrofit2.http.Path("user_id") userId: Map<String, Any?>,
+        @retrofit2.http.Path("new_friends_id") newFriendsId: Map<String, Any?>
+    ): Single<AcceptFriendshipResponse>
+    /**
+     * Este servicio permitirá dar de alta una solicitud de contacto de usuario
+     * The endpoint is owned by defaultname service owner
+     * @param userId my id (required)
+     * @param newFriendsId potential new friend&#39;s id (required)
+     */
+    @POST("/api/users/{user_email}/friends/{new_friends_email}")
+    fun apiUsersUserEmailFriendsNewFriendsEmailPost(
+        @retrofit2.http.Path("user_id") userId: Map<String, Any?>,
+        @retrofit2.http.Path("new_friends_id") newFriendsId: Map<String, Any?>
+    ): Single<RequestFriendshipResponse>
+    /**
+     * Este servicio permite rechazar una solicitud de contacto de usuario
+     * The endpoint is owned by defaultname service owner
+     * @param userId my id (required)
+     * @param newFriendsId potential new friend&#39;s id (required)
+     */
+    @POST("/api/users/{user_email}/friends/{new_friends_email}/reject")
+    fun apiUsersUserEmailFriendsNewFriendsEmailRejectPost(
+        @retrofit2.http.Path("user_id") userId: Map<String, Any?>,
+        @retrofit2.http.Path("new_friends_id") newFriendsId: Map<String, Any?>
+    ): Single<RejectFriendshipResponse>
+    /**
+     * Este servicio permite obtener información del usuario (y sus amigos)
+     * The endpoint is owned by defaultname service owner
+     * @param userId my id (required)
+     */
+    @GET("/api/users/{user_email}/information")
+    fun apiUsersUserEmailInformationGet(
+        @retrofit2.http.Path("user_id") userId: Map<String, Any?>
+    ): Completable
+    /**
      * Este es un método para recibir un token del auth server y validarlo
      * The endpoint is owned by defaultname service owner
      * @param authorization bearer token (required)
@@ -127,4 +175,15 @@ interface DefaultApi {
     fun apiValidateTokenGet(
         @retrofit2.http.Header("authorization") authorization: String
     ): Completable
+    /**
+     * Este servicio permitirá dar de alta un comentario en un video
+     * The endpoint is owned by defaultname service owner
+     * @param videoId id del video (required)
+     * @param user User making comment. (optional)
+     */
+    @PUT("/api/videos/{video_id}/comment")
+    fun apiVideosVideoIdCommentPut(
+        @retrofit2.http.Path("video_id") videoId: Map<String, Any?>,
+        @retrofit2.http.Body user: CommentVideo
+    ): Single<CommentVideoResponse>
 }
