@@ -9,6 +9,7 @@ package com.example.chotuve_android_client.apis
 import com.example.chotuve_android_client.models.AcceptFriendshipResponse
 import com.example.chotuve_android_client.models.CommentVideo
 import com.example.chotuve_android_client.models.CommentVideoResponse
+import com.example.chotuve_android_client.models.FriendsInformationList
 import com.example.chotuve_android_client.models.LoginResponse
 import com.example.chotuve_android_client.models.PingResponse
 import com.example.chotuve_android_client.models.RegisterResponse
@@ -156,7 +157,7 @@ interface DefaultApi {
     @GET("/api/users/{user_email}/information")
     fun apiUsersUserEmailInformationGet(
         @retrofit2.http.Path("user_email") userEmail: String
-    ): Completable
+    ): Single<FriendsInformationList>
     /**
      * Este es un método para recibir un token del auth server y validarlo
      * The endpoint is owned by defaultname service owner
