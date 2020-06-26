@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="165dp"
+        android:layout_margin="15dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="35dp">
+
+<!--        android:text="@{video.title}"-->
+        <TextView
+            android:id="@+id/video_title"
+            android:layout_width="364dp"
+            android:layout_height="45dp"
+            android:layout_margin="5dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.298" />
+
+<!--        android:text="@{video.user}"-->
+        <TextView
+            android:id="@+id/video_user_name"
+            android:layout_width="361dp"
+            android:layout_height="41dp"
+            android:layout_margin="10dp"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.208"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.387"
+            tools:ignore="SmallSp" />
+
+        <Button
+            android:id="@+id/button_search_users"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="32dp"
+            android:layout_height="47dp"
+            android:layout_weight="1"
+            android:background="@color/extremely_light_red"
+            android:layout_marginLeft="15dp"
+            app:icon="@drawable/ic_search_24px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.931"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.209" />
+
+
+    </LinearLayout>
+
+
+    </layout>
