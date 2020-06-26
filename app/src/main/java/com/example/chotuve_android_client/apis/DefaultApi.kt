@@ -41,7 +41,7 @@ interface DefaultApi {
      */
     @DELETE("/api/delete_video/{video_id}")
     fun apiDeleteVideoVideoIdDelete(
-        @retrofit2.http.Path("video_id") videoId: Map<String, Any?>
+        @retrofit2.http.Path("video_id") videoId: String
     ): Completable
     /**
      * Este es un método para listar los videos en pantalla principal
@@ -62,7 +62,7 @@ interface DefaultApi {
      */
     @GET("/api/list_videos/{user_id}")
     fun apiListVideosUserIdGet(
-        @retrofit2.http.Path("user_id") userId: Map<String, Any?>
+        @retrofit2.http.Path("user_id") userId: String
     ): Completable
     /**
      * Este servicio permitirá a los usuarios poder ingresar al sistema
@@ -123,8 +123,8 @@ interface DefaultApi {
      */
     @POST("/api/users/{user_email}/friends/{new_friends_email}/accept")
     fun apiUsersUserEmailFriendsNewFriendsEmailAcceptPost(
-        @retrofit2.http.Path("user_id") userId: Map<String, Any?>,
-        @retrofit2.http.Path("new_friends_id") newFriendsId: Map<String, Any?>
+        @retrofit2.http.Path("user_id") userId: String,
+        @retrofit2.http.Path("new_friends_id") newFriendsId: String
     ): Single<AcceptFriendshipResponse>
     /**
      * Este servicio permitirá dar de alta una solicitud de contacto de usuario
@@ -134,8 +134,8 @@ interface DefaultApi {
      */
     @POST("/api/users/{user_email}/friends/{new_friends_email}")
     fun apiUsersUserEmailFriendsNewFriendsEmailPost(
-        @retrofit2.http.Path("user_id") userId: Map<String, Any?>,
-        @retrofit2.http.Path("new_friends_id") newFriendsId: Map<String, Any?>
+        @retrofit2.http.Path("user_id") userId: String,
+        @retrofit2.http.Path("new_friends_id") newFriendsId: String
     ): Single<RequestFriendshipResponse>
     /**
      * Este servicio permite rechazar una solicitud de contacto de usuario
@@ -145,8 +145,8 @@ interface DefaultApi {
      */
     @POST("/api/users/{user_email}/friends/{new_friends_email}/reject")
     fun apiUsersUserEmailFriendsNewFriendsEmailRejectPost(
-        @retrofit2.http.Path("user_id") userId: Map<String, Any?>,
-        @retrofit2.http.Path("new_friends_id") newFriendsId: Map<String, Any?>
+        @retrofit2.http.Path("user_id") userId: String,
+        @retrofit2.http.Path("new_friends_id") newFriendsId: String
     ): Single<RejectFriendshipResponse>
     /**
      * Este servicio permite obtener información del usuario (y sus amigos)
@@ -155,7 +155,7 @@ interface DefaultApi {
      */
     @GET("/api/users/{user_email}/information")
     fun apiUsersUserEmailInformationGet(
-        @retrofit2.http.Path("user_email") userEmail: Map<String, Any?>
+        @retrofit2.http.Path("user_email") userEmail: String
     ): Completable
     /**
      * Este es un método para recibir un token del auth server y validarlo
@@ -183,7 +183,7 @@ interface DefaultApi {
      */
     @PUT("/api/videos/{video_id}/comment")
     fun apiVideosVideoIdCommentPut(
-        @retrofit2.http.Path("video_id") videoId: Map<String, Any?>,
+        @retrofit2.http.Path("video_id") videoId: String,
         @retrofit2.http.Body user: CommentVideo
     ): Single<CommentVideoResponse>
 }
