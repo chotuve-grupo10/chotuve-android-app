@@ -6,25 +6,10 @@
 
 package com.example.chotuve_android_client.apis
 
-import com.example.chotuve_android_client.models.AcceptFriendshipResponse
-import com.example.chotuve_android_client.models.CommentVideo
-import com.example.chotuve_android_client.models.CommentVideoResponse
-import com.example.chotuve_android_client.models.LoginResponse
-import com.example.chotuve_android_client.models.PingResponse
-import com.example.chotuve_android_client.models.RegisterResponse
-import com.example.chotuve_android_client.models.RejectFriendshipResponse
-import com.example.chotuve_android_client.models.RequestFriendshipResponse
-import com.example.chotuve_android_client.models.UploadVideoResponse
-import com.example.chotuve_android_client.models.UserLogin
-import com.example.chotuve_android_client.models.UserRegister
-import com.example.chotuve_android_client.models.VideoList
-import com.example.chotuve_android_client.models.VideoToUpload
+import com.example.chotuve_android_client.models.*
 import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.PUT
+import retrofit2.http.*
 
 @JvmSuppressWildcards
 interface DefaultApi {
@@ -155,8 +140,8 @@ interface DefaultApi {
      */
     @GET("/api/users/{user_email}/information")
     fun apiUsersUserEmailInformationGet(
-        @retrofit2.http.Path("user_id") userId: Map<String, Any?>
-    ): Completable
+        @Path("user_email") userId: String?
+    ): Single<FriendsInformationList>
     /**
      * Este es un método para recibir un token del auth server y validarlo
      * The endpoint is owned by defaultname service owner

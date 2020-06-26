@@ -12,23 +12,22 @@ class UserRepository {
         private val userProfileService : UserProfileService = UserProfileService()
     }
 
-    fun getFriendsInformation()  { // Esto recibirá _mutableVideos : MutableLiveData<UserList>
-//        Log.d(VideoRepository.TAG, "Now, getting the videos from server..")
-//        VideoRepository.homeListVideos.listVideos(
-//            CompositeDisposable(),
-//            {
-//                if (it != null) {
-//                    Log.d(
-//                        VideoRepository.TAG, "La lista de videos de Home tiene este largo: " +
-//                            it.size.toString())
-//                }
-//                _mutableVideos.value = it
-//            },
-//            {
-//                it.printStackTrace()
-//                Log.d(VideoRepository.TAG, "Error getting listVideos for HomeFragment")
-//            }
-//        )
+    fun getFriendsInformation(user_email : String, _mutableSize : MutableLiveData<Int>)  { // Esto recibirá _mutableVideos : MutableLiveData<UserList>
+        Log.d(VideoRepository.TAG, "Now, getting friends from server..")
+        userProfileService.listFriends(
+            user_email,
+            CompositeDisposable(),
+            {
+                if (it != null) {
+                    Log.d(TAG, "Tengo esta cantidad de amigos: " + it.size.toString())
+                }
+                _mutableSize.value = it!!.size
+            },
+            {
+                it.printStackTrace()
+                Log.d(VideoRepository.TAG, "Error getting users for UserProfile")
+            }
+        )
     }
 
 }

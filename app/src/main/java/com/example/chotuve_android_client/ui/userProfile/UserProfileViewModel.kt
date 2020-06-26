@@ -11,13 +11,14 @@ class UserProfileViewModel : ViewModel() {
     private val repository: UserRepository = UserRepository()
 
     private val _text = MutableLiveData<String>().apply {
-        val username = TokenHolder.username
-        value = "Welcome, ${username}"
+        value = "Welcome, ${TokenHolder.username}"
     }
     val text: LiveData<String> = _text
 
-    fun getUsersFromServer() {
-        repository.getFriendsInformation();
+    private val _num = MutableLiveData<Int>()
+
+    fun getFriendsFromServer() {
+        repository.getFriendsInformation(TokenHolder.username, _num);
     }
 
 }
