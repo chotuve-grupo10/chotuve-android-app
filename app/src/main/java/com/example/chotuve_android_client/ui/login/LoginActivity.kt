@@ -29,7 +29,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.*
 
 
 class LoginActivity : AppCompatActivity() {
@@ -37,16 +39,17 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var gso : GoogleSignInOptions
     private lateinit var googleSignInClient : GoogleSignInClient
+    private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     val callbackManager = CallbackManager.Factory.create()
     val googleLoginLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()) {
                 println("ACA ENTRA AL ACTIVITY RESULT!!!!")
-                //TODO Firebase
                 //TODO manejar it.resultCode != ActivityResult.RESULT_OK
                 val task : Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(it.data)
                 try {
                     val account = task.getResult(ApiException::class.java)
                     println("ACCOUNT::::: " + account?.idToken)
+                    login(GoogleAuthProvider.getCredential(account?.idToken, null))
                 } catch (e : ApiException) {
                     e.printStackTrace()
                 }
@@ -78,6 +81,7 @@ class LoginActivity : AppCompatActivity() {
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult?) {
                     Log.d("LoginActivity", "Facebook token: " + loginResult?.accessToken?.token)
+                    login(FacebookAuthProvider.getCredential(loginResult?.accessToken!!.token))
                 }
 
                 override fun onCancel() {
@@ -196,6 +200,35 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+    }
+
+    fun login(credential: AuthCredential) {
+        firebaseAuth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("firebaseAuthWithGoogle", "signInWithCredential:success")
+                    val user = firebaseAuth.currentUser
+                    if (user != null) {
+                        user.getIdToken(true)
+                            .addOnCompleteListener(OnCompleteListener<GetTokenResult> { task ->
+                                if (task.isSuccessful) {
+                                    val idToken = task.result!!.token
+                                    Log.d("firebaseAuthWithGoogle"
+                                        ,
+                                        "TOKEN:$idToken"
+                                    )
+                                    loginViewModel.login(idToken!!)
+                                } else {
+                                    // TODO Handle error -> task.getException();
+                                }
+                            })
+                    }
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("firebaseAuthWithGoogle", "signInWithCredential:failure", task.exception)
+                }
+            }
     }
 }
 
