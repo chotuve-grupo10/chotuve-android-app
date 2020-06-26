@@ -14,7 +14,7 @@ class UserProfileService {
     private val userProfileService = retrofit.create(DefaultApi::class.java)
 
     fun listFriends(
-        userId : String?,
+        userId : String,
         disposable: CompositeDisposable?,
         onSuccess: (friends: FriendsInformationList?) -> Unit,
         onError: (throwable: Throwable) -> Unit

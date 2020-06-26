@@ -2,6 +2,7 @@ package com.example.chotuve_android_client.data
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.example.chotuve_android_client.models.FriendsInformationList
 import com.example.chotuve_android_client.services.UserProfileService
 import io.reactivex.disposables.CompositeDisposable
 
@@ -12,7 +13,7 @@ class UserRepository {
         private val userProfileService : UserProfileService = UserProfileService()
     }
 
-    fun getFriendsInformation(user_email : String, _mutableSize : MutableLiveData<Int>)  { // Esto recibirá _mutableVideos : MutableLiveData<UserList>
+    fun getFriendsInformation(user_email : String, _mutableSize : MutableLiveData<FriendsInformationList>)  { // Esto recibirá _mutableVideos : MutableLiveData<UserList>
         Log.d(VideoRepository.TAG, "Now, getting friends from server..")
         userProfileService.listFriends(
             user_email,
@@ -21,7 +22,7 @@ class UserRepository {
                 if (it != null) {
                     Log.d(TAG, "Tengo esta cantidad de amigos: " + it.size.toString())
                 }
-                _mutableSize.value = it!!.size
+                _mutableSize.value = it
             },
             {
                 it.printStackTrace()

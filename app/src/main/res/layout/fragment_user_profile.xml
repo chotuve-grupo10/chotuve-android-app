@@ -7,6 +7,7 @@
     tools:context=".ui.userProfile.UserProfileFragment">
 
     <!--android:text="@string/user_profile_title"-->
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="335dp"
@@ -16,20 +17,19 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.087" />
+        app:layout_constraintVertical_bias="0.023" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_user_profile_friends"
-        android:layout_width="match_parent"
-        android:layout_height="545dp"
+        android:layout_width="415dp"
+        android:layout_height="488dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.994"
-        tools:listitem="@layout/recyclerview_users" />
+        tools:listitem="@layout/recyclerview_friends" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
