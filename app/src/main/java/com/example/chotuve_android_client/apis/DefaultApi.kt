@@ -117,6 +117,15 @@ interface DefaultApi {
         @retrofit2.http.Body video: VideoToUpload
     ): Single<UploadVideoResponse>
     /**
+     * Este servicio permite obtener información del usuario (y sus amigos)
+     * The endpoint is owned by defaultname service owner
+     * @param userEmail email del usuario (required)
+     */
+    @GET("/api/users/{user_email}/friends")
+    fun apiUsersUserEmailFriendsGet(
+        @retrofit2.http.Path("user_email") userEmail: String
+    ): Single<FriendsInformationList>
+    /**
      * Este servicio permite aceptar una solicitud de contacto de usuario y crear una relación de amistad
      * The endpoint is owned by defaultname service owner
      * @param userId my id (required)
@@ -149,15 +158,6 @@ interface DefaultApi {
         @retrofit2.http.Path("user_id") userId: String,
         @retrofit2.http.Path("new_friends_id") newFriendsId: String
     ): Single<RejectFriendshipResponse>
-    /**
-     * Este servicio permite obtener información del usuario (y sus amigos)
-     * The endpoint is owned by defaultname service owner
-     * @param userEmail email del usuario (required)
-     */
-    @GET("/api/users/{user_email}/information")
-    fun apiUsersUserEmailInformationGet(
-        @retrofit2.http.Path("user_email") userEmail: String
-    ): Single<FriendsInformationList>
     /**
      * Este es un método para recibir un token del auth server y validarlo
      * The endpoint is owned by defaultname service owner
