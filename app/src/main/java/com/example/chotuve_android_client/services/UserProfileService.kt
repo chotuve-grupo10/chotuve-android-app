@@ -14,12 +14,12 @@ class UserProfileService {
     private val userProfileService = retrofit.create(DefaultApi::class.java)
 
     fun listFriends(
-        userId : String,
+        user_email : String,
         disposable: CompositeDisposable?,
         onSuccess: (friends: FriendsInformationList?) -> Unit,
         onError: (throwable: Throwable) -> Unit
     ) {
-        disposable?.add(userProfileService.apiUsersUserEmailInformationGet(userId)
+        disposable?.add(userProfileService.apiUsersUserEmailFriendsGet(user_email)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(onSuccess, onError))
