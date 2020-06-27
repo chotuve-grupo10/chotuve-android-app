@@ -68,14 +68,15 @@ interface DefaultApi {
         @retrofit2.http.Body user: UserLogin
     ): Single<LoginResponse>
     /**
-     * Recibe una solicitud de login utilizando Firebase
+     * Recibe una solicitud de login utilizando Firebase.
+     * Si el login es exitoso pero el usuario no está registrado en la plataforma, se<br/>lo registra automáticamente<br/>
      * The endpoint is owned by defaultname service owner
      * @param authorization id token (required)
      */
     @POST("/api/login_with_firebase/")
     fun apiLoginWithFirebasePost(
         @retrofit2.http.Header("authorization") authorization: String
-    ): Completable
+    ): Single<LoginResponse>
     /**
      * Este es un método para recibir información del estado de los servers
      * The endpoint is owned by defaultname service owner
