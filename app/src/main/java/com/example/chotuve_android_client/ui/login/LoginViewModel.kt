@@ -14,6 +14,8 @@ import com.example.chotuve_android_client.models.UserLogin
 import com.example.chotuve_android_client.services.LoginService
 import com.example.chotuve_android_client.tools.TokenHolder
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.disposables.CompositeDisposable
 
 const val GOOGLE_SIGN_IN : Int = 9001
@@ -50,6 +52,29 @@ class LoginViewModel(
                     requireNotNull(it?.AuthToken))
                 setAuthenticationModeInSharedPreferences("EMAIL_PASSWORD")
                 setCredentialsInSharedPreferences(username, password)
+                _loginResult.value =
+                    LoginResult(success = it)
+            },
+            {
+                it.printStackTrace()
+                _loginResult.value = LoginResult(error = R.string.login_failed)
+            }
+        )
+    }
+
+    // TODO refactor (ver que se repite la logica del metodo anterior)
+    fun login(firebaseToken : String) {
+        myCompositeDisposable = CompositeDisposable()
+        loginService.login(firebaseToken, myCompositeDisposable,
+            {
+                Log.d(TAG, "Login correcto, se obtiene el token ${it?.AppToken}")
+                TokenHolder.init(
+                    "Firebase user", // TODO poner username real
+                    UserCredentials.FirebaseToken(firebaseToken),
+                    requireNotNull(it?.AppToken),
+                    requireNotNull(it?.AuthToken))
+                setAuthenticationModeInSharedPreferences("FIREBASE_TOKEN")
+                setCredentialsInSharedPreferences("Firebase user", firebaseToken)
                 _loginResult.value =
                     LoginResult(success = it)
             },

@@ -1,5 +1,6 @@
 package com.example.chotuve_android_client.services
 
+import android.util.Log
 import com.example.chotuve_android_client.apis.DefaultApi
 import com.example.chotuve_android_client.models.LoginResponse
 import com.example.chotuve_android_client.models.UserLogin
@@ -22,6 +23,19 @@ class LoginService {
         onError: (throwable: Throwable) -> Unit
     ) {
         disposable?.add(loginService.apiLoginPost(UserLogin(email, password))
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(onSuccess, onError))
+    }
+
+    fun login(
+        firebaseToken: String,
+        disposable: CompositeDisposable?,
+        onSuccess: (serverStatus: LoginResponse?) -> Unit,
+        onError: (throwable: Throwable) -> Unit
+    ) {
+        Log.d("LoginService", "A punto de hacer login con firebase token $firebaseToken")
+        disposable?.add(loginService.apiLoginWithFirebasePost(firebaseToken)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(onSuccess, onError))
