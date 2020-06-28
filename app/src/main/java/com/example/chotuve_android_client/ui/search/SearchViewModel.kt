@@ -26,7 +26,7 @@ class SearchViewModel : ViewModel() {
         get() = _users
 
     fun updateText(this_user : Editable?) {
-        _text.value = this_user.toString()
+        _text.value = "Tu búsqueda: " + this_user.toString()
     }
 
     fun getUsersWithFilter(filter : String?) {

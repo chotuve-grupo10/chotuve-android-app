@@ -5,25 +5,25 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chotuve_android_client.models.FriendsInformationList
-import com.example.chotuve_android_client.databinding.RecyclerviewFriendsBinding
+import com.example.chotuve_android_client.databinding.RecyclerviewUsersBinding
 import com.example.chotuve_android_client.R
 
-class UserAdapter(
+class UsersAdapter(
     val users : FriendsInformationList
-) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+) : RecyclerView.Adapter<UsersAdapter.UserViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserAdapter.UserViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersAdapter.UserViewHolder {
         return UserViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.recyclerview_friends,
+                R.layout.recyclerview_users,
                 parent,
                 false
             )
         )
     }
 
-    override fun onBindViewHolder(holder: UserAdapter.UserViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: UsersAdapter.UserViewHolder, position: Int) {
         holder.recyclerviewUsersBinding.user = users[position]
         // setOnClickListener
         // Here I can add clickListeners to different elements in coso
@@ -38,6 +38,6 @@ class UserAdapter(
     override fun getItemCount() = users.size
 
     inner class UserViewHolder(
-        val recyclerviewUsersBinding : RecyclerviewFriendsBinding
+        val recyclerviewUsersBinding : RecyclerviewUsersBinding
     ) : RecyclerView.ViewHolder(recyclerviewUsersBinding.root)
 }
