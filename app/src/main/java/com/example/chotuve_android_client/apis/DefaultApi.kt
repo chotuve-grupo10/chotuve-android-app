@@ -6,9 +6,15 @@
 
 package com.example.chotuve_android_client.apis
 
+import com.example.chotuve_android_client.models.AcceptFriend
+import com.example.chotuve_android_client.models.CommentVideo
+import com.example.chotuve_android_client.models.CommentVideoResponse
+import com.example.chotuve_android_client.models.FriendsInformationList
 import com.example.chotuve_android_client.models.LoginResponse
 import com.example.chotuve_android_client.models.PingResponse
 import com.example.chotuve_android_client.models.RegisterResponse
+import com.example.chotuve_android_client.models.RequestFriendshipResponse
+import com.example.chotuve_android_client.models.RespondFriendshipResponse
 import com.example.chotuve_android_client.models.UploadVideoResponse
 import com.example.chotuve_android_client.models.UserLogin
 import com.example.chotuve_android_client.models.UserRegister
@@ -18,7 +24,9 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.PUT
 
 @JvmSuppressWildcards
 interface DefaultApi {
@@ -35,7 +43,7 @@ interface DefaultApi {
      */
     @DELETE("/api/delete_video/{video_id}")
     fun apiDeleteVideoVideoIdDelete(
-        @retrofit2.http.Path("video_id") videoId: Map<String, Any?>
+        @retrofit2.http.Path("video_id") videoId: String
     ): Completable
     /**
      * Este es un método para listar los videos en pantalla principal
@@ -56,7 +64,7 @@ interface DefaultApi {
      */
     @GET("/api/list_videos/{user_id}")
     fun apiListVideosUserIdGet(
-        @retrofit2.http.Path("user_id") userId: Map<String, Any?>
+        @retrofit2.http.Path("user_id") userId: String
     ): Completable
     /**
      * Este servicio permitirá a los usuarios poder ingresar al sistema
@@ -111,6 +119,48 @@ interface DefaultApi {
         @retrofit2.http.Body video: VideoToUpload
     ): Single<UploadVideoResponse>
     /**
+     * Este servicio permitirá filtrar usuarios
+     * The endpoint is owned by defaultname service owner
+     * @param filter filtering data (required)
+     */
+    @GET("/api/users")
+    fun apiUsersGet(
+        @retrofit2.http.Path("filter") filter: String
+    ): Single<FriendsInformationList>
+    /**
+     * Este servicio permite obtener información del usuario (y sus amigos)
+     * The endpoint is owned by defaultname service owner
+     * @param userEmail email del usuario (required)
+     */
+    @GET("/api/users/{user_email}/friends")
+    fun apiUsersUserEmailFriendsGet(
+        @retrofit2.http.Path("user_email") userEmail: String
+    ): Single<FriendsInformationList>
+    /**
+     * Este servicio permite aceptar una solicitud de contacto de usuario y crear una relación de amistad
+     * The endpoint is owned by defaultname service owner
+     * @param userEmail my email (required)
+     * @param newFriendsEmail potential new friends email (required)
+     * @param responseBody Document containing true for accept, false for reject. (optional)
+     */
+    @PATCH("/api/users/{user_email}/friends/{new_friends_email}")
+    fun apiUsersUserEmailFriendsNewFriendsEmailPatch(
+        @retrofit2.http.Path("user_email") userEmail: String,
+        @retrofit2.http.Path("new_friends_email") newFriendsEmail: String,
+        @retrofit2.http.Body responseBody: AcceptFriend
+    ): Single<RespondFriendshipResponse>
+    /**
+     * Este servicio permitirá dar de alta una solicitud de contacto de usuario
+     * The endpoint is owned by defaultname service owner
+     * @param userEmail my email (required)
+     * @param newFriendsEmail potential new friends email (required)
+     */
+    @POST("/api/users/{user_email}/friends/{new_friends_email}")
+    fun apiUsersUserEmailFriendsNewFriendsEmailPost(
+        @retrofit2.http.Path("user_email") userEmail: String,
+        @retrofit2.http.Path("new_friends_email") newFriendsEmail: String
+    ): Single<RequestFriendshipResponse>
+    /**
      * Este es un método para recibir un token del auth server y validarlo
      * The endpoint is owned by defaultname service owner
      * @param authorization bearer token (required)
@@ -128,4 +178,15 @@ interface DefaultApi {
     fun apiValidateTokenGet(
         @retrofit2.http.Header("authorization") authorization: String
     ): Completable
+    /**
+     * Este servicio permitirá dar de alta un comentario en un video
+     * The endpoint is owned by defaultname service owner
+     * @param videoId id del video (required)
+     * @param user User making comment. (optional)
+     */
+    @PUT("/api/videos/{video_id}/comment")
+    fun apiVideosVideoIdCommentPut(
+        @retrofit2.http.Path("video_id") videoId: String,
+        @retrofit2.http.Body user: CommentVideo
+    ): Single<CommentVideoResponse>
 }
