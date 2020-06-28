@@ -125,7 +125,7 @@ interface DefaultApi {
      */
     @GET("/api/users")
     fun apiUsersGet(
-        @retrofit2.http.Query("filter") filter: Map<String, Any?>?
+        @retrofit2.http.Query("filter") filter: String?
     ): Single<FriendsInformationList>
     /**
      * Este servicio permite obtener información del usuario (y sus amigos)
