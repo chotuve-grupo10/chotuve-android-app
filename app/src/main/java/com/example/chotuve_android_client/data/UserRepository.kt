@@ -13,7 +13,7 @@ class UserRepository {
         private val userProfileService : UserProfileService = UserProfileService()
     }
 
-    fun getFriendsInformation(user_email : String, _mutableSize : MutableLiveData<FriendsInformationList>)  { // Esto recibirá _mutableVideos : MutableLiveData<UserList>
+    fun getFriendsInformation(user_email : String, _friends : MutableLiveData<FriendsInformationList>)  { // Esto recibirá _mutableVideos : MutableLiveData<UserList>
         Log.d(VideoRepository.TAG, "Now, getting friends from server..")
         userProfileService.listFriends(
             user_email,
@@ -22,7 +22,7 @@ class UserRepository {
                 if (it != null) {
                     Log.d(TAG, "Tengo esta cantidad de amigos: " + it.size.toString())
                 }
-                _mutableSize.value = it
+                _friends.value = it
             },
             {
                 it.printStackTrace()
