@@ -6,15 +6,15 @@
 
 package com.example.chotuve_android_client.apis
 
-import com.example.chotuve_android_client.models.AcceptFriendshipResponse
+import com.example.chotuve_android_client.models.AcceptFriend
 import com.example.chotuve_android_client.models.CommentVideo
 import com.example.chotuve_android_client.models.CommentVideoResponse
 import com.example.chotuve_android_client.models.FriendsInformationList
 import com.example.chotuve_android_client.models.LoginResponse
 import com.example.chotuve_android_client.models.PingResponse
 import com.example.chotuve_android_client.models.RegisterResponse
-import com.example.chotuve_android_client.models.RejectFriendshipResponse
 import com.example.chotuve_android_client.models.RequestFriendshipResponse
+import com.example.chotuve_android_client.models.RespondFriendshipResponse
 import com.example.chotuve_android_client.models.UploadVideoResponse
 import com.example.chotuve_android_client.models.UserLogin
 import com.example.chotuve_android_client.models.UserRegister
@@ -24,6 +24,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 
@@ -75,14 +76,15 @@ interface DefaultApi {
         @retrofit2.http.Body user: UserLogin
     ): Single<LoginResponse>
     /**
-     * Recibe una solicitud de login utilizando Firebase
+     * Recibe una solicitud de login utilizando Firebase.
+     * Si el login es exitoso pero el usuario no está registrado en la plataforma, se<br/>lo registra automáticamente<br/>
      * The endpoint is owned by defaultname service owner
      * @param authorization id token (required)
      */
     @POST("/api/login_with_firebase/")
     fun apiLoginWithFirebasePost(
         @retrofit2.http.Header("authorization") authorization: String
-    ): Completable
+    ): Single<LoginResponse>
     /**
      * Este es un método para recibir información del estado de los servers
      * The endpoint is owned by defaultname service owner
@@ -117,6 +119,15 @@ interface DefaultApi {
         @retrofit2.http.Body video: VideoToUpload
     ): Single<UploadVideoResponse>
     /**
+     * Este servicio permitirá filtrar usuarios
+     * The endpoint is owned by defaultname service owner
+     * @param filter filtering data (required)
+     */
+    @GET("/api/users")
+    fun apiUsersGet(
+        @retrofit2.http.Path("filter") filter: String
+    ): Single<FriendsInformationList>
+    /**
      * Este servicio permite obtener información del usuario (y sus amigos)
      * The endpoint is owned by defaultname service owner
      * @param userEmail email del usuario (required)
@@ -128,36 +139,27 @@ interface DefaultApi {
     /**
      * Este servicio permite aceptar una solicitud de contacto de usuario y crear una relación de amistad
      * The endpoint is owned by defaultname service owner
-     * @param userId my id (required)
-     * @param newFriendsId potential new friends id (required)
+     * @param userEmail my email (required)
+     * @param newFriendsEmail potential new friends email (required)
+     * @param responseBody Document containing true for accept, false for reject. (optional)
      */
-    @POST("/api/users/{user_email}/friends/{new_friends_email}/accept")
-    fun apiUsersUserEmailFriendsNewFriendsEmailAcceptPost(
-        @retrofit2.http.Path("user_id") userId: String,
-        @retrofit2.http.Path("new_friends_id") newFriendsId: String
-    ): Single<AcceptFriendshipResponse>
+    @PATCH("/api/users/{user_email}/friends/{new_friends_email}")
+    fun apiUsersUserEmailFriendsNewFriendsEmailPatch(
+        @retrofit2.http.Path("user_email") userEmail: String,
+        @retrofit2.http.Path("new_friends_email") newFriendsEmail: String,
+        @retrofit2.http.Body responseBody: AcceptFriend
+    ): Single<RespondFriendshipResponse>
     /**
      * Este servicio permitirá dar de alta una solicitud de contacto de usuario
      * The endpoint is owned by defaultname service owner
-     * @param userId my id (required)
-     * @param newFriendsId potential new friends id (required)
+     * @param userEmail my email (required)
+     * @param newFriendsEmail potential new friends email (required)
      */
     @POST("/api/users/{user_email}/friends/{new_friends_email}")
     fun apiUsersUserEmailFriendsNewFriendsEmailPost(
-        @retrofit2.http.Path("user_id") userId: String,
-        @retrofit2.http.Path("new_friends_id") newFriendsId: String
+        @retrofit2.http.Path("user_email") userEmail: String,
+        @retrofit2.http.Path("new_friends_email") newFriendsEmail: String
     ): Single<RequestFriendshipResponse>
-    /**
-     * Este servicio permite rechazar una solicitud de contacto de usuario
-     * The endpoint is owned by defaultname service owner
-     * @param userId my id (required)
-     * @param newFriendsId potential new friends id (required)
-     */
-    @POST("/api/users/{user_email}/friends/{new_friends_email}/reject")
-    fun apiUsersUserEmailFriendsNewFriendsEmailRejectPost(
-        @retrofit2.http.Path("user_id") userId: String,
-        @retrofit2.http.Path("new_friends_id") newFriendsId: String
-    ): Single<RejectFriendshipResponse>
     /**
      * Este es un método para recibir un token del auth server y validarlo
      * The endpoint is owned by defaultname service owner

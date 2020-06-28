@@ -10,11 +10,9 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
- * @property messageResult
- * @property status
+ * @property response
  */
 @JsonClass(generateAdapter = true)
-data class AcceptFriendshipResponse(
-    @Json(name = "message_result") @field:Json(name = "message_result") var messageResult: Map<String, Any?>? = null,
-    @Json(name = "status") @field:Json(name = "status") var status: Int? = null
+data class AcceptFriend(
+    @Json(name = "response") @field:Json(name = "response") var response: Boolean? = null
 )
