@@ -33,6 +33,7 @@ class SearchFragment : Fragment() {
         goAndSearchUsers.setOnClickListener {
             val searchUsersBar = root.findViewById<TextInputEditText>(R.id.search_users_bar)
             searchViewModel.updateText(searchUsersBar.text)
+            searchViewModel.getUsersWithFilter(searchUsersBar.text.toString())
         }
 
         return root
