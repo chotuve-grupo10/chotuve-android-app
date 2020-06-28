@@ -121,11 +121,11 @@ interface DefaultApi {
     /**
      * Este servicio permitirá filtrar usuarios
      * The endpoint is owned by defaultname service owner
-     * @param filter filtering data (required)
+     * @param filter filtering data (optional)
      */
     @GET("/api/users")
     fun apiUsersGet(
-        @retrofit2.http.Path("filter") filter: String
+        @retrofit2.http.Query("filter") filter: Map<String, Any?>?
     ): Single<FriendsInformationList>
     /**
      * Este servicio permite obtener información del usuario (y sus amigos)
