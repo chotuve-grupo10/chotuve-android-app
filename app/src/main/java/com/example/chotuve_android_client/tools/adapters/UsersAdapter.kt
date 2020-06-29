@@ -69,7 +69,7 @@ class UsersAdapter(
                     val ad = AlertDialog.Builder(view.context)
                     ad.setMessage(error.message)
                     ad.show()
-                    
+
                 }
             }
         )
