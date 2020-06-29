@@ -9,7 +9,6 @@ package com.example.chotuve_android_client.apis
 import com.example.chotuve_android_client.models.AcceptFriend
 import com.example.chotuve_android_client.models.CommentVideo
 import com.example.chotuve_android_client.models.CommentVideoResponse
-import com.example.chotuve_android_client.models.FriendsInformationList
 import com.example.chotuve_android_client.models.LoginResponse
 import com.example.chotuve_android_client.models.PingResponse
 import com.example.chotuve_android_client.models.RegisterResponse
@@ -18,6 +17,7 @@ import com.example.chotuve_android_client.models.RespondFriendshipResponse
 import com.example.chotuve_android_client.models.UploadVideoResponse
 import com.example.chotuve_android_client.models.UserLogin
 import com.example.chotuve_android_client.models.UserRegister
+import com.example.chotuve_android_client.models.UsersInformationList
 import com.example.chotuve_android_client.models.VideoList
 import com.example.chotuve_android_client.models.VideoToUpload
 import io.reactivex.Completable
@@ -121,12 +121,14 @@ interface DefaultApi {
     /**
      * Este servicio permitirá filtrar usuarios
      * The endpoint is owned by defaultname service owner
+     * @param userEmail users email making request (required)
      * @param filter filtering data (optional)
      */
     @GET("/api/users")
     fun apiUsersGet(
+        @retrofit2.http.Header("User_email") userEmail: String,
         @retrofit2.http.Query("filter") filter: String?
-    ): Single<FriendsInformationList>
+    ): Single<UsersInformationList>
     /**
      * Este servicio permite obtener información del usuario (y sus amigos)
      * The endpoint is owned by defaultname service owner
@@ -135,7 +137,7 @@ interface DefaultApi {
     @GET("/api/users/{user_email}/friends")
     fun apiUsersUserEmailFriendsGet(
         @retrofit2.http.Path("user_email") userEmail: String
-    ): Single<FriendsInformationList>
+    ): Single<UsersInformationList>
     /**
      * Este servicio permite aceptar una solicitud de contacto de usuario y crear una relación de amistad
      * The endpoint is owned by defaultname service owner
