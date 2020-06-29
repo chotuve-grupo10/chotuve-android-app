@@ -1,5 +1,6 @@
-package com.example.chotuve_android_client.tools
+package com.example.chotuve_android_client.tools.factories
 
+import com.example.chotuve_android_client.tools.XNullable
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonReader
 import com.squareup.moshi.JsonWriter

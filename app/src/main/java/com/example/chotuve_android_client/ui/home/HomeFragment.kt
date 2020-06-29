@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chotuve_android_client.R
-import com.example.chotuve_android_client.tools.VideoAdapter
+import com.example.chotuve_android_client.tools.adapters.VideoAdapter
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -42,7 +42,10 @@ class HomeFragment : Fragment() {
             recyclerview_home_videos.also{
                 it.layoutManager = LinearLayoutManager(requireContext())
                 it.setHasFixedSize(true)
-                it.adapter = VideoAdapter(videos)
+                it.adapter =
+                    VideoAdapter(
+                        videos
+                    )
             }
         })
 

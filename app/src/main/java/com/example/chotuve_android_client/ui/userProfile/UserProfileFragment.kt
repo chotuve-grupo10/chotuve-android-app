@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chotuve_android_client.R
-import com.example.chotuve_android_client.tools.FriendsAdapter
+import com.example.chotuve_android_client.tools.adapters.FriendsAdapter
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 
 class UserProfileFragment : Fragment() {
@@ -35,7 +35,10 @@ class UserProfileFragment : Fragment() {
             recyclerview_user_profile_friends.also {
                 it.layoutManager = LinearLayoutManager(requireContext())
 //                it.setHasFixedSize(true)
-                it.adapter = FriendsAdapter(friends)
+                it.adapter =
+                    FriendsAdapter(
+                        friends
+                    )
             }
 
         })

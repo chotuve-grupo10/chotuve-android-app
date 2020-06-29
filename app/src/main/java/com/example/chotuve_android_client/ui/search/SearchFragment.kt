@@ -11,8 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chotuve_android_client.R
-import com.example.chotuve_android_client.tools.FriendsAdapter
-import com.example.chotuve_android_client.tools.UsersAdapter
+import com.example.chotuve_android_client.tools.adapters.UsersAdapter
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_search.*
 
@@ -41,7 +40,10 @@ class SearchFragment : Fragment() {
             searchViewModel.users.observe(viewLifecycleOwner, Observer {  users->
                 recyclerview_search_users.also {
                     it.layoutManager = LinearLayoutManager(requireContext())
-                    it.adapter = UsersAdapter(users)
+                    it.adapter =
+                        UsersAdapter(
+                            users
+                        )
                 }
             })
         }

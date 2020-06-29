@@ -1,4 +1,4 @@
-package com.example.chotuve_android_client.tools
+package com.example.chotuve_android_client.tools.adapters
 
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonReader

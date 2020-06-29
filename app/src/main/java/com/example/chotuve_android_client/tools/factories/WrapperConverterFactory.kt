@@ -1,4 +1,4 @@
-package com.example.chotuve_android_client.tools
+package com.example.chotuve_android_client.tools.factories
 
 import java.lang.reflect.Type
 import okhttp3.RequestBody

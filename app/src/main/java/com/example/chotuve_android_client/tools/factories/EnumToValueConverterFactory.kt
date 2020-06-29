@@ -1,4 +1,4 @@
-package com.example.chotuve_android_client.tools
+package com.example.chotuve_android_client.tools.factories
 
 import com.squareup.moshi.Json
 import java.lang.reflect.Type
@@ -7,7 +7,8 @@ import retrofit2.Retrofit
 
 internal class EnumToValueConverterFactory : Converter.Factory() {
 
-    private val enumConverter = EnumToValueConverter()
+    private val enumConverter =
+        EnumToValueConverter()
 
     override fun stringConverter(type: Type, annotations: Array<out Annotation>, retrofit: Retrofit): Converter<*, String>? {
         return if (type is Class<*> && type.isEnum) {

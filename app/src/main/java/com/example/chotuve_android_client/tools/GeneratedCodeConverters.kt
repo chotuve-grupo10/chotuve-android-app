@@ -1,5 +1,10 @@
 package com.example.chotuve_android_client.tools
 
+import com.example.chotuve_android_client.tools.adapters.TypesAdapterFactory
+import com.example.chotuve_android_client.tools.factories.CollectionFormatConverterFactory
+import com.example.chotuve_android_client.tools.factories.EnumToValueConverterFactory
+import com.example.chotuve_android_client.tools.factories.WrapperConverterFactory
+import com.example.chotuve_android_client.tools.factories.XNullableAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Converter
@@ -21,18 +26,18 @@ object GeneratedCodeConverters {
     @JvmStatic
     fun converterFactory(): Converter.Factory {
         return WrapperConverterFactory(
-                CollectionFormatConverterFactory(),
-                EnumToValueConverterFactory(),
-                MoshiConverterFactory.create(moshi)
+            CollectionFormatConverterFactory(),
+            EnumToValueConverterFactory(),
+            MoshiConverterFactory.create(moshi)
         )
     }
 
     @JvmStatic
     fun converterFactory(moshi: Moshi): Converter.Factory {
         return WrapperConverterFactory(
-                CollectionFormatConverterFactory(),
-                EnumToValueConverterFactory(),
-                MoshiConverterFactory.create(moshi)
+            CollectionFormatConverterFactory(),
+            EnumToValueConverterFactory(),
+            MoshiConverterFactory.create(moshi)
         )
     }
 }

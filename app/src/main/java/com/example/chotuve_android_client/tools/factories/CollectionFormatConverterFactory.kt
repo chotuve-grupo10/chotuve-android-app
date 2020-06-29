@@ -1,5 +1,9 @@
-package com.example.chotuve_android_client.tools
+package com.example.chotuve_android_client.tools.factories
 
+import com.example.chotuve_android_client.tools.CSV
+import com.example.chotuve_android_client.tools.PIPES
+import com.example.chotuve_android_client.tools.SSV
+import com.example.chotuve_android_client.tools.TSV
 import java.lang.reflect.Type
 import retrofit2.Converter
 import retrofit2.Retrofit
@@ -11,10 +15,18 @@ internal class CollectionFormatConverterFactory : Converter.Factory() {
         if (rawType == String::class.java || rawType == List::class.java)
             annotations.forEach {
                 when (it) {
-                    is CSV -> return CollectionFormatConverter(",")
-                    is SSV -> return CollectionFormatConverter(" ")
-                    is TSV -> return CollectionFormatConverter("\t")
-                    is PIPES -> return CollectionFormatConverter("|")
+                    is CSV -> return CollectionFormatConverter(
+                        ","
+                    )
+                    is SSV -> return CollectionFormatConverter(
+                        " "
+                    )
+                    is TSV -> return CollectionFormatConverter(
+                        "\t"
+                    )
+                    is PIPES -> return CollectionFormatConverter(
+                        "|"
+                    )
                 }
             }
         return null
