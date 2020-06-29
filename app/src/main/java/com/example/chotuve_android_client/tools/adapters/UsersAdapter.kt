@@ -10,19 +10,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chotuve_android_client.models.FriendsInformationList
 import com.example.chotuve_android_client.databinding.RecyclerviewUsersBinding
 import com.example.chotuve_android_client.R
-import com.example.chotuve_android_client.data.VideoRepository
-import com.example.chotuve_android_client.models.RequestFriendshipResponse
 import com.example.chotuve_android_client.services.RequestFriendshipService
 import com.example.chotuve_android_client.tools.TokenHolder
+import com.example.chotuve_android_client.tools.error_handlers.ServerMessageHttpExceptionHandler
 import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
-import retrofit2.Response
+
 
 class UsersAdapter(
     val users : FriendsInformationList
 ) : RecyclerView.Adapter<UsersAdapter.UserViewHolder>() {
 
     val TAG = "Users Adapter"
+    val FRIENDSHIP_REQUEST = "Friendship_request"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         return UserViewHolder(
@@ -62,19 +62,25 @@ class UsersAdapter(
             },
             {
                 it.printStackTrace()
-                Log.d(TAG, "Error sending friendship request")
-                Log.d(TAG, it.localizedMessage)
+                Log.d(TAG, "Error sending friendship request: ${it.localizedMessage}")
                 if(it is HttpException){
-                    // esto devuelve null
-                    val response : Response<RequestFriendshipResponse> = it.response() as Response<RequestFriendshipResponse>
-                    Log.d(TAG, response.body()?.messageResult.toString())
+//                    val response : Response<RequestFriendshipResponse> = it.response() as Response<RequestFriendshipResponse>
+//                    val message_response = response.
+//                    Log.d(TAG, "Response body es ${message_response}")
+//                    val ad = AlertDialog.Builder(view.context)
+//                    ad.setMessage(message_response)
+//                    ad.show()
+//                    val jsonErrorAsString = it.response().errorBody()?.string()
+//                    Log.d(TAG, "Error body es ${jsonErrorAsString}")
+//                    val message = JSONObject(jsonErrorAsString.toString())
+//                    Log.d(TAG, "Server message es ${message["Friendship_request"].toString()}")
+                    val error = ServerMessageHttpExceptionHandler(it, FRIENDSHIP_REQUEST)
+                    val ad = AlertDialog.Builder(view.context)
+                    ad.setMessage(error.message)
+                    ad.show()
                 }
-                val ad = AlertDialog.Builder(view.context)
-                ad.setMessage(it.message.toString())
-                ad.show()
             }
         )
-
     }
 
     inner class UserViewHolder(
