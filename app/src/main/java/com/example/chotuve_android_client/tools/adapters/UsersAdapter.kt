@@ -64,20 +64,12 @@ class UsersAdapter(
                 it.printStackTrace()
                 Log.d(TAG, "Error sending friendship request: ${it.localizedMessage}")
                 if(it is HttpException){
-//                    val response : Response<RequestFriendshipResponse> = it.response() as Response<RequestFriendshipResponse>
-//                    val message_response = response.
-//                    Log.d(TAG, "Response body es ${message_response}")
-//                    val ad = AlertDialog.Builder(view.context)
-//                    ad.setMessage(message_response)
-//                    ad.show()
-//                    val jsonErrorAsString = it.response().errorBody()?.string()
-//                    Log.d(TAG, "Error body es ${jsonErrorAsString}")
-//                    val message = JSONObject(jsonErrorAsString.toString())
-//                    Log.d(TAG, "Server message es ${message["Friendship_request"].toString()}")
+
                     val error = ServerMessageHttpExceptionHandler(it, FRIENDSHIP_REQUEST)
                     val ad = AlertDialog.Builder(view.context)
                     ad.setMessage(error.message)
                     ad.show()
+                    
                 }
             }
         )
