@@ -10,11 +10,9 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
- * @property serverMessage
- * @property status
+ * @property message
  */
 @JsonClass(generateAdapter = true)
-data class RequestFriendshipResponse(
-    @Json(name = "server_message") @field:Json(name = "server_message") var serverMessage: RequestFriendshipResponseServerMessage? = null,
-    @Json(name = "status") @field:Json(name = "status") var status: Int? = null
+data class ServerMessage(
+    @Json(name = "message") @field:Json(name = "message") var message: String? = null
 )
