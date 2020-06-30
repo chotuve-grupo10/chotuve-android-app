@@ -14,7 +14,7 @@ import com.squareup.moshi.JsonClass
  * @property status
  */
 @JsonClass(generateAdapter = true)
-data class RequestFriendshipResponse(
+data class BasicServerResponse(
     @Json(name = "server_message") @field:Json(name = "server_message") var serverMessage: BasicServerResponseServerMessage? = null,
     @Json(name = "status") @field:Json(name = "status") var status: Int? = null
 )
