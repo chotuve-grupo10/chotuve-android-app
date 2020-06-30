@@ -133,12 +133,12 @@ interface DefaultApi {
      * Este servicio permite aceptar una solicitud de contacto de usuario y crear una relación de amistad
      * The endpoint is owned by defaultname service owner
      * @param userEmail my email (required)
-     * @param newFriendsEmail potential new friends email (required)
+     * @param friendsEmail potential new friends email (required)
      */
     @DELETE("/api/users/{user_email}/friends/{friends_email}")
     fun apiUsersUserEmailFriendsFriendsEmailDelete(
         @retrofit2.http.Path("user_email") userEmail: String,
-        @retrofit2.http.Path("new_friends_email") newFriendsEmail: String
+        @retrofit2.http.Path("friends_email") friendsEmail: String
     ): Single<BasicServerResponse>
     /**
      * Este servicio permite obtener información del usuario (y sus amigos)
