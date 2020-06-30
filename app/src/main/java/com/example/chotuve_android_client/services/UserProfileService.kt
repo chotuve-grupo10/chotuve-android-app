@@ -1,7 +1,7 @@
 package com.example.chotuve_android_client.services
 
 import com.example.chotuve_android_client.apis.DefaultApi
-import com.example.chotuve_android_client.models.FriendsInformationList
+import com.example.chotuve_android_client.models.UsersInformationList
 import com.example.chotuve_android_client.tools.RetrofitObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -16,7 +16,7 @@ class UserProfileService {
     fun listFriends(
         user_email : String,
         disposable: CompositeDisposable?,
-        onSuccess: (friends: FriendsInformationList?) -> Unit,
+        onSuccess: (friends: UsersInformationList?) -> Unit,
         onError: (throwable: Throwable) -> Unit
     ) {
         disposable?.add(userProfileService.apiUsersUserEmailFriendsGet(user_email)

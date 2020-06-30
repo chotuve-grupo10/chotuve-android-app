@@ -2,9 +2,10 @@ package com.example.chotuve_android_client.data
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.chotuve_android_client.models.FriendsInformationList
+import com.example.chotuve_android_client.models.UsersInformationList
 import com.example.chotuve_android_client.services.SearchUserService
 import com.example.chotuve_android_client.services.UserProfileService
+import com.example.chotuve_android_client.tools.TokenHolder
 import io.reactivex.disposables.CompositeDisposable
 
 class UserRepository {
@@ -15,7 +16,7 @@ class UserRepository {
         private val searchUsersService : SearchUserService = SearchUserService()
     }
 
-    fun getFriendsInformation(user_email : String, _friends : MutableLiveData<FriendsInformationList>)  {
+    fun getFriendsInformation(user_email : String, _friends : MutableLiveData<UsersInformationList>)  {
         Log.d(VideoRepository.TAG, "Now, getting friends from server..")
         userProfileService.listFriends(
             user_email,
@@ -33,9 +34,10 @@ class UserRepository {
         )
     }
 
-    fun getUsers(filter : String, _users : MutableLiveData<FriendsInformationList>) {
+    fun getUsers(user_email : String, filter : String, _users : MutableLiveData<UsersInformationList>) {
         Log.d(VideoRepository.TAG, "Now, getting users filtered from server..")
         searchUsersService.getUsersFiltered(
+            user_email,
             filter,
             CompositeDisposable(),
             {

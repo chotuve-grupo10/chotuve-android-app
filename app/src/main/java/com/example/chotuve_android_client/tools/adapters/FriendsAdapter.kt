@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.chotuve_android_client.models.FriendsInformationList
+import com.example.chotuve_android_client.models.UsersInformationList
 import com.example.chotuve_android_client.databinding.RecyclerviewFriendsBinding
 import com.example.chotuve_android_client.R
 
 class FriendsAdapter(
-    val users : FriendsInformationList
+    val users : UsersInformationList
 ) : RecyclerView.Adapter<FriendsAdapter.UserViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {

@@ -64,7 +64,7 @@ class UploadVideoViewModel : ViewModel() {
         storageReference = firebaseInstance.getReference("upload_test/" + uuidFileName)
         val uploadTask = storageReference.putFile(videoUri)
 
-        val taskHandlers = uploadTask.continueWithTask { task ->
+        uploadTask.continueWithTask { task ->
             if (!task.isSuccessful) {
                 task.exception?.let {
                     throw it

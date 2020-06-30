@@ -6,7 +6,7 @@
     <data>
         <variable
             name="user"
-            type="com.example.chotuve_android_client.models.FriendsInformationListInner" />
+            type="com.example.chotuve_android_client.models.UsersInformationListInner" />
     </data>
 
     <LinearLayout

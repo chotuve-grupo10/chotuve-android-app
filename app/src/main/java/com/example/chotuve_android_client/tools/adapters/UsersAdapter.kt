@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.chotuve_android_client.models.FriendsInformationList
+import com.example.chotuve_android_client.models.UsersInformationList
 import com.example.chotuve_android_client.databinding.RecyclerviewUsersBinding
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.services.RequestFriendshipService
@@ -18,7 +18,7 @@ import retrofit2.HttpException
 
 
 class UsersAdapter(
-    val users : FriendsInformationList
+    val users : UsersInformationList
 ) : RecyclerView.Adapter<UsersAdapter.UserViewHolder>() {
 
     val TAG = "Users Adapter"
@@ -64,12 +64,10 @@ class UsersAdapter(
                 it.printStackTrace()
                 Log.d(TAG, "Error sending friendship request: ${it.localizedMessage}")
                 if(it is HttpException){
-
                     val error = ServerMessageHttpExceptionHandler(it, FRIENDSHIP_REQUEST)
                     val ad = AlertDialog.Builder(view.context)
                     ad.setMessage(error.message)
                     ad.show()
-
                 }
             }
         )

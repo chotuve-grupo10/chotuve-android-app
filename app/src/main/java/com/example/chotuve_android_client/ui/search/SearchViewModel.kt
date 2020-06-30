@@ -6,7 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.chotuve_android_client.data.UserRepository
-import com.example.chotuve_android_client.models.FriendsInformationList
+import com.example.chotuve_android_client.models.UsersInformationList
+import com.example.chotuve_android_client.tools.TokenHolder
 
 class SearchViewModel : ViewModel() {
 
@@ -21,8 +22,8 @@ class SearchViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
 
-    private val _users = MutableLiveData<FriendsInformationList>()
-    val users : LiveData<FriendsInformationList>
+    private val _users = MutableLiveData<UsersInformationList>()
+    val users : LiveData<UsersInformationList>
         get() = _users
 
     fun updateText(this_user : Editable?) {
@@ -30,7 +31,7 @@ class SearchViewModel : ViewModel() {
     }
 
     fun getUsersWithFilter(filter : String?) {
-        var string_filter : String? = null
+        var string_filter : String?
         if (filter ==  null) {
             string_filter = ""
         } else {
@@ -38,7 +39,7 @@ class SearchViewModel : ViewModel() {
         }
 
         Log.d(TAG, "I'm about to get users with filter ${string_filter}")
-        repository.getUsers(string_filter, _users)
+        repository.getUsers(TokenHolder.username, string_filter, _users)
     }
 
 

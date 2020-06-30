@@ -12,8 +12,13 @@ class ServerMessageHttpExceptionHandler(
 
     init {
         val TAG = "ServerMessageError"
-        val throwableAsJson = error_throwable.response().errorBody()?.string()
-        Log.d(TAG, "Error body es ${throwableAsJson}")
-        message = JSONObject(throwableAsJson)[key].toString()
+//        val throwableAsJson = error_throwable.response().errorBody()?.toString()
+        val throwableAsString = error_throwable.response().errorBody()!!.charStream().readText()
+        Log.d(TAG, "Error body es ${throwableAsString}")
+        try {
+            message = JSONObject(throwableAsString)[key].toString()
+        } catch (e: Exception) {
+            message = "An unknown error occured. Could not reach server message"
+        }
     }
 }
