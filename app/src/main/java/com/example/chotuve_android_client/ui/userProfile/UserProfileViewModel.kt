@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.chotuve_android_client.data.UserRepository
-import com.example.chotuve_android_client.models.FriendsInformationList
+import com.example.chotuve_android_client.models.UsersInformationList
 import com.example.chotuve_android_client.tools.TokenHolder
 
 class UserProfileViewModel : ViewModel() {
@@ -17,9 +17,8 @@ class UserProfileViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
 
-    private val _num = MutableLiveData<Int>()
-    private val _friends = MutableLiveData<FriendsInformationList>()
-    val friends : LiveData<FriendsInformationList>
+    private val _friends = MutableLiveData<UsersInformationList>()
+    val friends : LiveData<UsersInformationList>
         get() = _friends
 
     fun getFriendsFromServer() {

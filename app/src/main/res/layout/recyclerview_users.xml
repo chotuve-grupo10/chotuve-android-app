@@ -11,14 +11,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="135dp"
+        android:layout_height="115dp"
         android:layout_margin="15dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="105dp"
         tools:layout_editor_absoluteY="35dp">
 
         <TextView
-            android:id="@+id/video_title"
+            android:id="@+id/user_full_name"
             android:layout_width="364dp"
             android:layout_height="35dp"
             android:layout_margin="5dp"
@@ -33,7 +33,7 @@
             app:layout_constraintVertical_bias="0.298" />
 
         <TextView
-            android:id="@+id/video_user_name"
+            android:id="@+id/user_title"
             android:layout_width="361dp"
             android:layout_height="25dp"
             android:layout_marginLeft="5dp"
@@ -57,7 +57,7 @@
                 android:layout_width="32dp"
                 android:layout_height="37dp"
                 android:layout_marginLeft="15dp"
-                app:icon="@drawable/ic_account_circle_24px"
+                app:icon="@drawable/ic_add_circle_outline_24px"
                 app:iconTint="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -65,40 +65,36 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.209" />
-
-            <Button
-                android:id="@+id/button_message_friend"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                android:layout_width="32dp"
-                android:layout_height="37dp"
-                android:layout_marginLeft="15dp"
-                app:icon="@drawable/ic_mail_24px"
-                app:iconTint="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.209" />
-
-
-            <Button
-                android:id="@+id/button_delete_friend"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                android:layout_width="32dp"
-                android:layout_height="37dp"
-                android:layout_marginLeft="210dp"
-                app:icon="@drawable/ic_clear_24px"
-                app:iconTint="@color/light_red"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.209" />
-
-
         </LinearLayout>
 
+<!--            <Button-->
+<!--                android:id="@+id/button_message_friend"-->
+<!--                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"-->
+<!--                android:layout_width="32dp"-->
+<!--                android:layout_height="37dp"-->
+<!--                android:layout_marginLeft="15dp"-->
+<!--                app:icon="@drawable/ic_mail_24px"-->
+<!--                app:iconTint="@color/black"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="0.209" />-->
 
+
+<!--            <Button-->
+<!--                android:id="@+id/button_delete_friend"-->
+<!--                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"-->
+<!--                android:layout_width="32dp"-->
+<!--                android:layout_height="37dp"-->
+<!--                android:layout_marginLeft="210dp"-->
+<!--                app:icon="@drawable/ic_clear_24px"-->
+<!--                app:iconTint="@color/light_red"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="0.209" />-->
 
 <!--        <Button-->
 <!--            android:id="@+id/button_search_users"-->

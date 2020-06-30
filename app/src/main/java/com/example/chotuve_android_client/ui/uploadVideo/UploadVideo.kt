@@ -161,7 +161,7 @@ class UploadVideoFragment : Fragment() {
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
         // El objeto FusedLocationClient depende del contexto
-        mFusedLocationClient!!.lastLocation
+        mFusedLocationClient.lastLocation
             .addOnCompleteListener { task ->
                 if (task.isSuccessful && task.result != null) {
                     mLastLocation = task.result

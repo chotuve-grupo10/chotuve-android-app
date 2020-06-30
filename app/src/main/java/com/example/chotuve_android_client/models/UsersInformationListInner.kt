@@ -10,11 +10,11 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
- * @property serverMessage
- * @property status
+ * @property email
+ * @property fullName
  */
 @JsonClass(generateAdapter = true)
-data class RequestFriendshipResponse(
-    @Json(name = "server_message") @field:Json(name = "server_message") var serverMessage: RequestFriendshipResponseServerMessage? = null,
-    @Json(name = "status") @field:Json(name = "status") var status: Int? = null
+data class UsersInformationListInner(
+    @Json(name = "email") @field:Json(name = "email") var email: String? = null,
+    @Json(name = "fullName") @field:Json(name = "fullName") var fullName: String? = null
 )

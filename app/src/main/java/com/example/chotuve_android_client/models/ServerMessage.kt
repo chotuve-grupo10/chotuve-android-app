@@ -6,4 +6,13 @@
 
 package com.example.chotuve_android_client.models
 
-typealias FriendsInformationList = List<FriendsInformationListInner>
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+/**
+ * @property message
+ */
+@JsonClass(generateAdapter = true)
+data class ServerMessage(
+    @Json(name = "message") @field:Json(name = "message") var message: String? = null
+)

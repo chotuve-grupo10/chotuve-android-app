@@ -1,18 +1,18 @@
-package com.example.chotuve_android_client.tools
+package com.example.chotuve_android_client.tools.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.chotuve_android_client.models.FriendsInformationList
+import com.example.chotuve_android_client.models.UsersInformationList
 import com.example.chotuve_android_client.databinding.RecyclerviewFriendsBinding
 import com.example.chotuve_android_client.R
 
-class UserAdapter(
-    val users : FriendsInformationList
-) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+class FriendsAdapter(
+    val users : UsersInformationList
+) : RecyclerView.Adapter<FriendsAdapter.UserViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserAdapter.UserViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         return UserViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
@@ -23,8 +23,8 @@ class UserAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: UserAdapter.UserViewHolder, position: Int) {
-        holder.recyclerviewUsersBinding.user = users[position]
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+        holder.recyclerviewFriendsBinding.user = users[position]
         // setOnClickListener
         // Here I can add clickListeners to different elements in coso
 //        holder.recyclerviewVideoBinding.videoTitle.setOnClickListener { view ->
@@ -38,6 +38,6 @@ class UserAdapter(
     override fun getItemCount() = users.size
 
     inner class UserViewHolder(
-        val recyclerviewUsersBinding : RecyclerviewFriendsBinding
-    ) : RecyclerView.ViewHolder(recyclerviewUsersBinding.root)
+        val recyclerviewFriendsBinding : RecyclerviewFriendsBinding
+    ) : RecyclerView.ViewHolder(recyclerviewFriendsBinding.root)
 }

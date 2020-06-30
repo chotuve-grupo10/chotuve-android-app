@@ -1,7 +1,6 @@
-package com.example.chotuve_android_client.tools
+package com.example.chotuve_android_client.tools.adapters
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

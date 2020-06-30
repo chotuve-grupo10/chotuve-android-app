@@ -11,26 +11,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.011" />
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="404dp"
         android:layout_height="92dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025">
+        app:layout_constraintVertical_bias="0.092">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search_users_bar"
-            android:layout_width="390dp"
+            android:layout_width="381dp"
             android:layout_height="70dp"
             android:layout_margin="10dp"
             android:background="@color/white"
@@ -39,19 +42,34 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_search_users"
+        android:layout_width="match_parent"
+        android:layout_height="372dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.876"
+        tools:listitem="@layout/recyclerview_users" />
+
     <Button
         android:id="@+id/button_search_users"
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-        android:layout_width="32dp"
-        android:layout_height="47dp"
+        android:layout_width="31dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="250dp"
         android:layout_weight="1"
         android:background="@color/extremely_light_red"
         app:icon="@drawable/ic_search_24px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintHorizontal_bias="0.934"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.209" />
+        app:layout_constraintVertical_bias="0.238" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
