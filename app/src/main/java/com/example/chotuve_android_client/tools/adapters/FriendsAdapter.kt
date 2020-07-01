@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chotuve_android_client.models.UsersInformationList
 import com.example.chotuve_android_client.databinding.RecyclerviewFriendsBinding
 import com.example.chotuve_android_client.R
+import com.example.chotuve_android_client.models.UsersInformationListInner
 import com.example.chotuve_android_client.services.DeleteFriendshipService
 import com.example.chotuve_android_client.tools.TokenHolder
 import com.example.chotuve_android_client.tools.error_handlers.ServerMessageHttpExceptionHandler
@@ -17,11 +18,11 @@ import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
 
 class FriendsAdapter(
-    val users : UsersInformationList
+    var users : UsersInformationList
 ) : RecyclerView.Adapter<FriendsAdapter.FriendsViewHolder>() {
 
     val TAG = "FriendsAdapter"
-    val FRIENDSHIP_DELETE = "Friendship_delete"
+    val FRIENDSHIP_DELETE = "Delete_friendship_request"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendsViewHolder {
         return FriendsViewHolder(
@@ -43,14 +44,20 @@ class FriendsAdapter(
             Log.d(TAG, "User about to remove this friend " + users[position].fullName)
             deleteFriendship(view,
                 TokenHolder.username,
-                users[position].email.toString()
+                users[position].email.toString(),
+                position
             )
         }
     }
 
     override fun getItemCount() = users.size
 
-    fun deleteFriendship(view: View, user_email : String, friends_email : String) {
+    fun removeItem(position: Int) {
+        users = users.minus(users[position])
+        notifyDataSetChanged()
+    }
+
+    fun deleteFriendship(view: View, user_email : String, friends_email : String, position: Int) {
         val deleteFriendshipService = DeleteFriendshipService()
         deleteFriendshipService.deleteFriendship(
             user_email,
@@ -58,8 +65,12 @@ class FriendsAdapter(
             CompositeDisposable(),
             {
                 val ad = AlertDialog.Builder(view.context)
-                ad.setMessage("Usuario" + friends_email + " eliminado de la lista de amigos con éxito")
+                ad.setMessage("Usuario " + friends_email + " eliminado de la lista de amigos con éxito")
                 ad.show()
+                removeItem(position)
+                notifyItemRemoved(position)
+//                notifyItemRangeChanged(position, itemCount-1)
+//                notifyDataSetChanged()
             },
             {
                 it.printStackTrace()

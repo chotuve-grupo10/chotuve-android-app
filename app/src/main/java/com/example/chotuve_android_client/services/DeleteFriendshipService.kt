@@ -15,12 +15,12 @@ class DeleteFriendshipService {
 
     fun deleteFriendship(
         user_email : String,
-        new_friends_email : String,
+        friends_email : String,
         disposable: CompositeDisposable?,
         onSuccess: (users: BasicServerResponse?) -> Unit,
         onError: (throwable: Throwable) -> Unit
     ) {
-        disposable?.add(deleteFriendshipService.apiUsersUserEmailFriendsFriendsEmailDelete(user_email, new_friends_email)
+        disposable?.add(deleteFriendshipService.apiUsersUserEmailFriendsFriendsEmailDelete(user_email, friends_email)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(onSuccess, onError))
