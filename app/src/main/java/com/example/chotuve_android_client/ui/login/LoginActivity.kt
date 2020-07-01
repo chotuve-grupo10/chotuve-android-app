@@ -218,7 +218,7 @@ class LoginActivity : AppCompatActivity() {
                                         ,
                                         "TOKEN:$idToken"
                                     )
-                                    loginViewModel.login(idToken!!)
+                                    loginViewModel.loginWithFirebase(user.email!!, idToken!!)
                                 } else {
                                     // TODO Handle error -> task.getException();
                                 }
