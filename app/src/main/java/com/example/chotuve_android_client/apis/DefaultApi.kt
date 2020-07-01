@@ -7,13 +7,13 @@
 package com.example.chotuve_android_client.apis
 
 import com.example.chotuve_android_client.models.AcceptFriend
+import com.example.chotuve_android_client.models.BasicServerResponse
 import com.example.chotuve_android_client.models.CommentVideo
 import com.example.chotuve_android_client.models.CommentVideoResponse
 import com.example.chotuve_android_client.models.LoginResponse
 import com.example.chotuve_android_client.models.PingResponse
 import com.example.chotuve_android_client.models.RegisterResponse
 import com.example.chotuve_android_client.models.RequestFriendshipResponse
-import com.example.chotuve_android_client.models.RespondFriendshipResponse
 import com.example.chotuve_android_client.models.UploadVideoResponse
 import com.example.chotuve_android_client.models.UserLogin
 import com.example.chotuve_android_client.models.UserRegister
@@ -130,6 +130,17 @@ interface DefaultApi {
         @retrofit2.http.Query("filter") filter: String?
     ): Single<UsersInformationList>
     /**
+     * Este servicio permite aceptar una solicitud de contacto de usuario y crear una relación de amistad
+     * The endpoint is owned by defaultname service owner
+     * @param userEmail my email (required)
+     * @param friendsEmail potential new friends email (required)
+     */
+    @DELETE("/api/users/{user_email}/friends/{friends_email}")
+    fun apiUsersUserEmailFriendsFriendsEmailDelete(
+        @retrofit2.http.Path("user_email") userEmail: String,
+        @retrofit2.http.Path("friends_email") friendsEmail: String
+    ): Single<BasicServerResponse>
+    /**
      * Este servicio permite obtener información del usuario (y sus amigos)
      * The endpoint is owned by defaultname service owner
      * @param userEmail email del usuario (required)
@@ -150,7 +161,7 @@ interface DefaultApi {
         @retrofit2.http.Path("user_email") userEmail: String,
         @retrofit2.http.Path("new_friends_email") newFriendsEmail: String,
         @retrofit2.http.Body responseBody: AcceptFriend
-    ): Single<RespondFriendshipResponse>
+    ): Single<BasicServerResponse>
     /**
      * Este servicio permitirá dar de alta una solicitud de contacto de usuario
      * The endpoint is owned by defaultname service owner

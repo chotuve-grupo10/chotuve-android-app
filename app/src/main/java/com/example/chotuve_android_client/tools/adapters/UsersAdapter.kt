@@ -40,7 +40,8 @@ class UsersAdapter(
         holder.recyclerviewUsersBinding.buttonSeeProfile.setOnClickListener { view ->
             requestFriendship(view,
                 TokenHolder.username,
-                users[position].email.toString())
+                users[position].email.toString()
+            )
         }
 
     }
@@ -57,7 +58,7 @@ class UsersAdapter(
             CompositeDisposable(),
             {
                 val ad = AlertDialog.Builder(view.context)
-                ad.setMessage("La solicitud de amistad fue enviada con éxito!")
+                ad.setMessage("La solicitud de amistad fue enviada con éxito a " + new_friends_email)
                 ad.show()
             },
             {
