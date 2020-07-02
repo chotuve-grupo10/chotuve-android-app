@@ -63,13 +63,14 @@ class LoginViewModel(
     }
 
     // TODO refactor (ver que se repite la logica del metodo anterior)
-    fun login(firebaseToken : String) {
+    fun loginWithFirebase(username : String, firebaseToken : String) {
+        Log.d(TAG, "Username es ${username}")
         myCompositeDisposable = CompositeDisposable()
         loginService.login(firebaseToken, myCompositeDisposable,
             {
                 Log.d(TAG, "Login correcto, se obtiene el token ${it?.AppToken}")
                 TokenHolder.init(
-                    "Firebase user", // TODO poner username real
+                    username,
                     UserCredentials.FirebaseToken(firebaseToken),
                     requireNotNull(it?.AppToken),
                     requireNotNull(it?.AuthToken))
