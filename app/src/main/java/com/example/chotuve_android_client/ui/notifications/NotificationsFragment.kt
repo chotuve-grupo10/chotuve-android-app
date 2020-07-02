@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chotuve_android_client.R
-import com.example.chotuve_android_client.tools.adapters.FriendsAdapter
+import com.example.chotuve_android_client.tools.adapters.UsersAdapter
 import kotlinx.android.synthetic.main.fragment_notifications.*
 
 class NotificationsFragment : Fragment() {
@@ -30,15 +30,15 @@ class NotificationsFragment : Fragment() {
             textView.text = it
         })
 
-//        notificationsViewModel.getFriendsFromServer()
-        notificationsViewModel.friends.observe(viewLifecycleOwner, Observer { friends ->
+//        notificationsViewModel.getRequestsFromServer()
+        notificationsViewModel.users_requesting.observe(viewLifecycleOwner, Observer { users_requesting ->
             recyclerview_notifications.also {
                 it.layoutManager = LinearLayoutManager(requireContext())
-//                it.setHasFixedSize(true)
-//                it.adapter =
-//                    FriendsAdapter(
-//                        friends
-//                    )
+                it.setHasFixedSize(true)
+                it.adapter =
+                    UsersAdapter(
+                        users_requesting
+                    )
             }
 
         })

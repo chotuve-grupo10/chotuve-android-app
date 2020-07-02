@@ -16,8 +16,8 @@ class NotificationsViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
 
-    private val _friends = MutableLiveData<UsersInformationList>()
-    val friends : LiveData<UsersInformationList>
-        get() = _friends
+    private val _users_requesting = MutableLiveData<UsersInformationList>()
+    val users_requesting : LiveData<UsersInformationList>
+        get() = _users_requesting
 
 }
