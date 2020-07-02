@@ -8,7 +8,10 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chotuve_android_client.R
+import com.example.chotuve_android_client.tools.adapters.FriendsAdapter
+import kotlinx.android.synthetic.main.fragment_notifications.*
 
 class NotificationsFragment : Fragment() {
 
@@ -26,6 +29,20 @@ class NotificationsFragment : Fragment() {
         notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+
+//        notificationsViewModel.getFriendsFromServer()
+        notificationsViewModel.friends.observe(viewLifecycleOwner, Observer { friends ->
+            recyclerview_notifications.also {
+                it.layoutManager = LinearLayoutManager(requireContext())
+//                it.setHasFixedSize(true)
+//                it.adapter =
+//                    FriendsAdapter(
+//                        friends
+//                    )
+            }
+
+        })
+
         return root
     }
 }
