@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
-                android:drawableLeft="@drawable/ic_account_circle_24px"
+                android:drawableLeft="@drawable/ic_check_24px"
                 android:text="@string/accept_button"
                 app:iconTint="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
