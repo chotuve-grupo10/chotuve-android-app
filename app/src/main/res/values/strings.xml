@@ -20,7 +20,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
-    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_splash">ChoTuve</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="action_login_fb">Login with Facebook</string>
@@ -42,6 +42,9 @@
 
     <string name="search_users_bar">Search another user by its email</string>
     <string name="user_profile_title">Welcome, some random user in here we would put your mail/username</string>
+    <string name="friendship_request">Tenes una nueva solicitud de amistad</string>
+    <string name="accept_button">Aceptar</string>
+    <string name="reject_button">Rechazar</string>
 
 
 </resources>

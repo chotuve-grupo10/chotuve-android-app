@@ -2,7 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: "com.yelp.codegen.plugin"
+apply plugin: 'com.yelp.codegen.plugin'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -84,6 +85,9 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
+
+    implementation 'com.google.firebase:firebase-messaging:20.1.7'
+    implementation 'com.google.firebase:firebase-analytics:17.2.1'
 
 }
 

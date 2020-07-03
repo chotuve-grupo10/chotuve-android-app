@@ -174,6 +174,15 @@ interface DefaultApi {
         @retrofit2.http.Path("new_friends_email") newFriendsEmail: String
     ): Single<RequestFriendshipResponse>
     /**
+     * Este servicio permite obtener las solicitudes de amistad de un usuario
+     * The endpoint is owned by defaultname service owner
+     * @param userEmail email del usuario (required)
+     */
+    @GET("/api/users/{user_email}/requests")
+    fun apiUsersUserEmailRequestsGet(
+        @retrofit2.http.Path("user_email") userEmail: String
+    ): Single<UsersInformationList>
+    /**
      * Este es un método para recibir un token del auth server y validarlo
      * The endpoint is owned by defaultname service owner
      * @param authorization bearer token (required)
