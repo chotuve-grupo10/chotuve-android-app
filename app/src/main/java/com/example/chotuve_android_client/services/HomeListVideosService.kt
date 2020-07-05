@@ -14,11 +14,12 @@ class HomeListVideosService {
     private val homeListVideosService = retrofit.create(DefaultApi::class.java)
 
     fun listVideos(
+        user_email : String,
         disposable: CompositeDisposable?,
         onSuccess: (listVideos: VideoList?) -> Unit,
         onError: (throwable: Throwable) -> Unit
     ) {
-        disposable?.add(homeListVideosService.apiListVideosGet()
+        disposable?.add(homeListVideosService.apiVideosUserIdGet(user_email)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .subscribe(onSuccess, onError))

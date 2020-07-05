@@ -20,7 +20,7 @@ class UploadVideoService {
         onSuccess: (uploadResponse: UploadVideoResponse?) -> Unit,
         onError: (throwable: Throwable) -> Unit
     ) {
-        disposable?.add(uploadVideoService.apiUploadVideoPost(video)
+        disposable?.add(uploadVideoService.apiVideosPost(video)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(onSuccess, onError))
