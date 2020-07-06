@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             OnSuccessListener<InstanceIdResult> { instanceIdResult ->
                 val token = instanceIdResult.token
                 Log.d(TAG, "El token en ${TAG} es ${token}")
+                messagingService.addTokenToUser(token)
             })
 
     }
