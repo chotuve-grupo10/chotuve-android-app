@@ -57,7 +57,7 @@
 
 <!--        Agregados para importar Firebase Messaging y usar Notificacions Push-->
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name=".messaging.MyFirebaseMessagingService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

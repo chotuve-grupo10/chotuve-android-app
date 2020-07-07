@@ -1,4 +1,4 @@
-package com.example.chotuve_android_client
+package com.example.chotuve_android_client.messaging
 
 import android.util.Log
 import com.example.chotuve_android_client.services.AddTokenService
