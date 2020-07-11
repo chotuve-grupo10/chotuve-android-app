@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".messaging.MessagingActivity"
+            android:name="com.example.chotuve_android_client.ui.messaging.MessagingActivity"
             android:label="@string/title_activity_messaging"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 

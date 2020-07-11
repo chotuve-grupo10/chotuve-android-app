@@ -11,12 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chotuve_android_client.models.UsersInformationList
 import com.example.chotuve_android_client.databinding.RecyclerviewFriendsBinding
 import com.example.chotuve_android_client.R
-import com.example.chotuve_android_client.messaging.MessagingActivity
-import com.example.chotuve_android_client.models.UsersInformationListInner
+import com.example.chotuve_android_client.ui.messaging.MessagingActivity
 import com.example.chotuve_android_client.services.DeleteFriendshipService
 import com.example.chotuve_android_client.tools.TokenHolder
 import com.example.chotuve_android_client.tools.error_handlers.ServerMessageHttpExceptionHandler
-import com.example.chotuve_android_client.ui.playVideo.PlayVideoActivity
 import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
 
