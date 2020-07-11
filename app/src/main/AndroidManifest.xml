@@ -16,48 +16,55 @@
         android:roundIcon="@drawable/chotuve_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".messaging.MessagingActivity"
+            android:label="@string/title_activity_messaging"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-        <activity android:name="com.facebook.FacebookActivity" android:configChanges= "keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:label="@string/app_name" />
-        <activity android:name="com.facebook.CustomTabActivity" android:exported="true">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".ui.register.RegisterActivity">
-        </activity>
-
+        <activity android:name=".ui.register.RegisterActivity" />
         <activity
             android:name=".ui.playVideo.PlayVideoActivity"
             android:label="@string/title_activity_play_video" />
-
         <activity
             android:name=".SplashActivity"
             android:label="@string/title_activity_splash"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme" />
-
-<!--        Agregados para importar Firebase Messaging y usar Notificacions Push-->
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan" /> <!-- Agregados para importar Firebase Messaging y usar Notificacions Push -->
         <service
-            android:name=".messaging.MyFirebaseMessagingService"
+            android:name=".push_notifications.MyFirebaseMessagingService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -71,8 +78,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
-
-
     </application>
 
 </manifest>

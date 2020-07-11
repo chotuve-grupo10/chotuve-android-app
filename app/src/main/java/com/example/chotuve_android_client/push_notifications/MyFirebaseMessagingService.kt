@@ -1,9 +1,8 @@
-package com.example.chotuve_android_client.messaging
+package com.example.chotuve_android_client.push_notifications
 
 import android.util.Log
 import com.example.chotuve_android_client.services.AddTokenService
 import com.example.chotuve_android_client.tools.TokenHolder
-import com.example.chotuve_android_client.ui.uploadVideo.UploadVideoViewModel
 import com.google.firebase.messaging.FirebaseMessagingService
 import io.reactivex.disposables.CompositeDisposable
 
