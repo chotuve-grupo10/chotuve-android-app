@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.chotuve_android_client.models.VideoList
 import com.example.chotuve_android_client.services.HomeListVideosService
+import com.example.chotuve_android_client.tools.TokenHolder
 import io.reactivex.disposables.CompositeDisposable
 
 class VideoRepository() {
@@ -17,6 +18,7 @@ class VideoRepository() {
     fun getVideosForHome(_mutableVideos : MutableLiveData<VideoList>)  {
         Log.d(TAG, "Now, getting the videos from server..")
         homeListVideos.listVideos(
+            TokenHolder.username,
             CompositeDisposable(),
             {
                 if (it != null) {

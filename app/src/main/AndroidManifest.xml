@@ -57,7 +57,7 @@
 
 <!--        Agregados para importar Firebase Messaging y usar Notificacions Push-->
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name=".messaging.MyFirebaseMessagingService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -67,7 +67,7 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_mail_24px" />
+            android:resource="@drawable/ic_notifications_black_24dp" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
