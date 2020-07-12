@@ -9,7 +9,6 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chotuve_android_client.R
-import com.example.chotuve_android_client.models.VideoListInner
 import com.example.chotuve_android_client.tools.TokenHolder
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -27,14 +26,14 @@ class MessagingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_messaging)
 
-        var messagingModel : MessagingModel = MessagingModel()
+        var messagingModel = MessagingModel()
 
         val userIdReceivingMessage : String? = intent.getStringExtra("user_to_message_id")
         val userFullNameReceivingMessage : String? = intent.getStringExtra("user_to_message_full_name")
 
         setMessagingActivityTitle(userFullNameReceivingMessage.toString())
 
-        messagingModel.getMessagesFromFirestore(userIdReceivingMessage.toString())
+        messagingModel.getMessages(userIdReceivingMessage.toString())
         messagingModel.messages.observe(this, Observer {
             var adapter = GroupAdapter<GroupieViewHolder>()
             for (message in it) {
@@ -48,6 +47,8 @@ class MessagingActivity : AppCompatActivity() {
             recyclerView2.also {
                 it.layoutManager = LinearLayoutManager(this.applicationContext)
                 it.adapter = adapter
+                it.getAdapter()?.getItemCount()?.let { it1 -> it.smoothScrollToPosition(it1) };
+
             }
         })
 
@@ -57,6 +58,12 @@ class MessagingActivity : AppCompatActivity() {
             if (messageText.text.toString() != BLANK_STRING) {
                 messagingModel.sendNewMessage(messageText.text, userIdReceivingMessage!!)
                 messageText.text.clear()
+                recyclerView2.getAdapter()?.getItemCount()?.let { it1 ->
+                    recyclerView2.smoothScrollToPosition(
+                        it1
+                    )
+                };
+
             }
         }
     }
