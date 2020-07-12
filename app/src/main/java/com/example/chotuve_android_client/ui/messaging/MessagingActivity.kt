@@ -26,7 +26,7 @@ class MessagingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_messaging)
 
-        var messagingModel = MessagingModel()
+        val messagingModel = MessagingModel()
 
         val userIdReceivingMessage : String? = intent.getStringExtra("user_to_message_id")
         val userFullNameReceivingMessage : String? = intent.getStringExtra("user_to_message_full_name")
@@ -35,7 +35,7 @@ class MessagingActivity : AppCompatActivity() {
 
         messagingModel.getMessages(userIdReceivingMessage.toString())
         messagingModel.messages.observe(this, Observer {
-            var adapter = GroupAdapter<GroupieViewHolder>()
+            val adapter = GroupAdapter<GroupieViewHolder>()
             for (message in it) {
                 if (message.fromId == TokenHolder.username) {
                     adapter.add(ChatFromItem(message.text))
