@@ -16,10 +16,6 @@
         android:roundIcon="@drawable/chotuve_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name="com.example.chotuve_android_client.ui.messaging.MessagingActivity"
-            android:label="@string/title_activity_messaging"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -45,7 +41,12 @@
         <activity
             android:name=".ui.playVideo.PlayVideoActivity"
             android:label="@string/title_activity_play_video" />
+
         <activity
+            android:name="com.example.chotuve_android_client.ui.messaging.MessagingActivity"
+            android:label="@string/title_activity_messaging"/>
+
+    <activity
             android:name=".SplashActivity"
             android:label="@string/title_activity_splash"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">

@@ -54,7 +54,8 @@ class FriendsAdapter(
             val ad = AlertDialog.Builder(view.context)
             Log.d(TAG, "User about to chat with this friend " + users[position].fullName)
             val intent: Intent = Intent(view.context, MessagingActivity::class.java)
-//            intent.putExtra("video_to_play", videos[position])
+            intent.putExtra("user_to_message_id", users[position].email)
+            intent.putExtra("user_to_message_full_name", users[position].fullName)
             view.context.startActivity(intent)
         }
     }

@@ -30,6 +30,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
     }
 
 // To inline the bytecode built with JVM target 1.8 into
@@ -47,6 +48,13 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    // IMPORTANT!  Enables kotlin synthetic view properties.
+    // See: https://github.com/Kotlin/KEEP/blob/master/proposals/android-extensions-entity-caching.md
+    androidExtensions {
+        experimental = true
+    }
+
 }
 
 
@@ -86,9 +94,15 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
-
+    // for push notifications
     implementation 'com.google.firebase:firebase-messaging:20.1.7'
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
+    // for direct messaging
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'com.xwray:groupie:2.8.0'
+    implementation 'com.xwray:groupie-kotlin-android-extensions:2.8.0'
+    implementation 'com.google.firebase:firebase-firestore:21.2.1'
+
 
 }
 
