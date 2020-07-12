@@ -10,10 +10,13 @@ import com.example.chotuve_android_client.models.AcceptFriend
 import com.example.chotuve_android_client.models.BasicServerResponse
 import com.example.chotuve_android_client.models.CommentVideo
 import com.example.chotuve_android_client.models.CommentVideoResponse
+import com.example.chotuve_android_client.models.ErrorDeleteUserResponse
 import com.example.chotuve_android_client.models.LoginResponse
 import com.example.chotuve_android_client.models.PingResponse
 import com.example.chotuve_android_client.models.RegisterResponse
 import com.example.chotuve_android_client.models.RequestFriendshipResponse
+import com.example.chotuve_android_client.models.ServerTime
+import com.example.chotuve_android_client.models.SuccessfulDeleteUserResponse
 import com.example.chotuve_android_client.models.UploadVideoResponse
 import com.example.chotuve_android_client.models.UserLogin
 import com.example.chotuve_android_client.models.UserRegister
@@ -86,6 +89,12 @@ interface DefaultApi {
         @retrofit2.http.Header("authorization") authorization: String
     ): Completable
     /**
+     * Este servicio permite obtener la hora del Server
+     * The endpoint is owned by defaultname service owner
+     */
+    @GET("/api/time")
+    fun apiTimeGet(): Single<ServerTime>
+    /**
      * Este servicio permitirá filtrar usuarios
      * The endpoint is owned by defaultname service owner
      * @param userEmail users email making request (required)
@@ -96,6 +105,15 @@ interface DefaultApi {
         @retrofit2.http.Header("User_email") userEmail: String,
         @retrofit2.http.Query("filter") filter: String?
     ): Single<UsersInformationList>
+    /**
+     * Este servicio permite eliminar a un usuario
+     * The endpoint is owned by defaultname service owner
+     * @param userEmail my email (required)
+     */
+    @DELETE("/api/users/{user_email}")
+    fun apiUsersUserEmailDelete(
+        @retrofit2.http.Path("user_email") userEmail: String
+    ): Single<SuccessfulDeleteUserResponse>
     /**
      * Este servicio permite aceptar una solicitud de contacto de usuario y crear una relación de amistad
      * The endpoint is owned by defaultname service owner
