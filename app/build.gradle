@@ -102,6 +102,7 @@ dependencies {
     implementation 'com.xwray:groupie:2.8.0'
     implementation 'com.xwray:groupie-kotlin-android-extensions:2.8.0'
     implementation 'com.google.firebase:firebase-firestore:21.2.1'
+    implementation 'commons-net:commons-net:3.6'
 
 
 }
@@ -114,6 +115,7 @@ buildscript {
 
     dependencies {
         classpath "com.yelp.codegen:plugin:1.4.1"
+        classpath "commons-net:commons-net:3.6"
     }
 }
 
