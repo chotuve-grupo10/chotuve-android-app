@@ -3,6 +3,7 @@ package com.example.chotuve_android_client.ui.messaging
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.widget.Button
 import android.widget.EditText
 import androidx.annotation.RequiresApi
@@ -56,16 +57,20 @@ class MessagingActivity : AppCompatActivity() {
         val messageText = this.findViewById<EditText>(R.id.new_message)
         sendButton.setOnClickListener() {
             if (messageText.text.toString() != BLANK_STRING) {
-                messagingModel.sendNewMessage(messageText.text, userIdReceivingMessage!!)
+                sendMessage(messagingModel, messageText.text, userIdReceivingMessage!!)
                 messageText.text.clear()
-                recyclerView2.getAdapter()?.getItemCount()?.let { it1 ->
-                    recyclerView2.smoothScrollToPosition(
-                        it1
-                    )
-                };
-
             }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun sendMessage(messagingModel: MessagingModel, editText: Editable, userIdReceivingMessage: String) {
+        messagingModel.sendNewMessage(editText, userIdReceivingMessage!!)
+        recyclerView2.getAdapter()?.getItemCount()?.let { it1 ->
+            recyclerView2.smoothScrollToPosition(
+                it1
+            )
+        };
     }
 
     fun setMessagingActivityTitle(userName : String) {

@@ -6,38 +6,20 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import bolts.Task.delay
 import com.example.chotuve_android_client.data.MessagesRepository
 import com.example.chotuve_android_client.models.Message
 import com.example.chotuve_android_client.services.GetServerTimeService
 import com.example.chotuve_android_client.tools.TokenHolder
 import io.reactivex.disposables.CompositeDisposable
-import org.apache.commons.net.ntp.NTPUDPClient
-import org.apache.commons.net.ntp.TimeInfo
-import java.net.InetAddress
+import kotlinx.coroutines.*
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.util.*
-import kotlin.concurrent.thread
 
 
-class MessagingModel {
-
-//    companion object TimeLookup {
-//        const val TAG = "ObjTimeLookup"
-//        const val TIME_SERVER = "time-a.nist.gov"
-//
-//        @Throws(Exception::class)
-//        @JvmStatic
-//        fun main() {
-//            val timeClient = NTPUDPClient()
-//            val inetAddress: InetAddress = InetAddress.getByName(TIME_SERVER)
-//            val timeInfo: TimeInfo = timeClient.getTime(inetAddress)
-//            val returnTime: Long = timeInfo.getReturnTime()
-//            val time = Date(returnTime)
-//            Log.d(TAG, "Time from $TIME_SERVER: $time")
-//        }
-//    }
+class MessagingModel : ViewModel() {
 
     val TAG = "MessagingModel"
     val messagesRepository = MessagesRepository()
@@ -46,37 +28,24 @@ class MessagingModel {
     val messages : LiveData<List<Message>>
         get() = _messages
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun sendNewMessage(editText : Editable, userIdReceivingMessage : String) {
-        Log.d(TAG, "Nuevo mensaje es $editText de ${TokenHolder.username} y es para $userIdReceivingMessage")
-
-        val currentDateTime = getCurrentDateTime()
-
-        val message = hashMapOf(
-            "fromId" to TokenHolder.username,
-            "toId" to userIdReceivingMessage,
-            "text" to editText.toString(),
-            "timestamp" to currentDateTime.toString()
-        )
-
-        messagesRepository.sendMessage(message)
-    }
+    var _currentDateTime : String? = null
 
     fun getMessages(userIdReceivingMessage : String) {
-
         messagesRepository.getMessagesFromFirestore(userIdReceivingMessage, _messages)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getCurrentDateTime() : String? {
-
+//    suspend fun sendNewMessage(editText : Editable, userIdReceivingMessage : String)  {
+    suspend fun getServerTime() : String? {
         var currentDateTime : String? = null
-
         val getServerTimeService = GetServerTimeService()
         getServerTimeService.getServerTime(
             CompositeDisposable(),
             {
-                currentDateTime = it!!.timestamp
+                if (it != null) {
+                    currentDateTime = it.timestamp
+                    Log.d(TAG, "CurrentDateTime del server es ${it.timestamp}")
+                }
             }, {
                 it.printStackTrace()
                 Log.d(TAG, "Error getting time from AppServer: ${it.localizedMessage}")
@@ -84,12 +53,32 @@ class MessagingModel {
                     .ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")
                     .withZone(ZoneId.of("AGT"))
                     .format(Instant.now())
+                Log.d(TAG, "CurrentDateTime del mensaje ${currentDateTime}")
             }
         )
-        Log.d(TAG, "CurrentDateTime es ${currentDateTime}")
+//        val job = GlobalScope.async {
+//        }
+//        job.join()
+        Log.d(TAG, "CurrentDateTime del mensaje ${currentDateTime}")
         return currentDateTime
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+//    fun sendMessageToRepository(editText : Editable, userIdReceivingMessage : String, currentDateTime : String?) {
+    fun sendNewMessage(editText : Editable, userIdReceivingMessage : String) =
+    runBlocking {
+        Log.d(TAG, "Nuevo mensaje es $editText de ${TokenHolder.username} y es para $userIdReceivingMessage")
+        launch(Dispatchers.IO) {
+            val currentDateTime : String? = getServerTime()
+            val message = hashMapOf(
+                "fromId" to TokenHolder.username,
+                "toId" to userIdReceivingMessage,
+                "text" to editText.toString(),
+                "timestamp" to currentDateTime.toString()
+            )
+            messagesRepository.sendMessage(message)
+        }
+    }
 }
 
 

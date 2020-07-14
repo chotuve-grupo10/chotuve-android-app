@@ -5,10 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.chotuve_android_client.models.Message
 import com.example.chotuve_android_client.tools.TokenHolder
 import com.google.firebase.firestore.FirebaseFirestore
-import org.apache.commons.net.ntp.NTPUDPClient
-import org.apache.commons.net.ntp.TimeInfo
-import java.net.InetAddress
-import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
