@@ -23,17 +23,20 @@ class PlayVideoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play_video)
 
+
         val video : VideoListInner? = intent.getParcelableExtra<VideoListInner>("video_to_play")
         if (video != null) {
+            setPlayVideoActivityTitle(video.title.toString())
+
             factory = PlayVideoViewModelFactory(video)
             playVideoViewModel =
                 ViewModelProviders.of(this, factory).get(PlayVideoViewModel::class.java)
 
             // bind Title
-            val textView: TextView = this.findViewById(R.id.playVideoActivityTitle)
-            playVideoViewModel.title.observe(this,   Observer {
-                textView.text = it
-            })
+//            val textView: TextView = this.findViewById(R.id.playVideoActivityTitle)
+//            playVideoViewModel.title.observe(this,   Observer {
+//                textView.text = it
+//            })
 
             // prepare videoView
             val videoView : VideoView = this.findViewById(R.id.videoView)
@@ -50,5 +53,11 @@ class PlayVideoActivity : AppCompatActivity() {
 
         }
     }
+
+    fun setPlayVideoActivityTitle(userName : String) {
+        supportActionBar?.title = userName
+
+    }
+
 
 }
