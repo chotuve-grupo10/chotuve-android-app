@@ -32,12 +32,6 @@ class PlayVideoActivity : AppCompatActivity() {
             playVideoViewModel =
                 ViewModelProviders.of(this, factory).get(PlayVideoViewModel::class.java)
 
-            // bind Title
-//            val textView: TextView = this.findViewById(R.id.playVideoActivityTitle)
-//            playVideoViewModel.title.observe(this,   Observer {
-//                textView.text = it
-//            })
-
             // prepare videoView
             val videoView : VideoView = this.findViewById(R.id.videoView)
             val mediaController = MediaController(this)
@@ -56,7 +50,6 @@ class PlayVideoActivity : AppCompatActivity() {
 
     fun setPlayVideoActivityTitle(userName : String) {
         supportActionBar?.title = userName
-
     }
 
 
