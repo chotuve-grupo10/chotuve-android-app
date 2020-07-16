@@ -1,47 +1,56 @@
 package com.example.chotuve_android_client.ui.uploadVideo
 
-import android.app.Activity.RESULT_OK
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
-import android.net.Uri
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
+import android.widget.CheckBox
+import android.widget.EditText
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.example.chotuve_android_client.MainActivity
 import com.example.chotuve_android_client.R
-import com.google.android.gms.tasks.Task
+import com.example.chotuve_android_client.tools.TokenHolder
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.firebase.FirebaseApp
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import java.util.*
-import kotlin.reflect.jvm.internal.impl.types.AbstractTypeCheckerContext
 
-val PICK_IMAGE_CODE = 1000;         // Por qué ?!?
 val RESULT_LOAD_VIDEO = 0;
-
+val APPSPOT_URL = "gs://chotuve-android-app.appspot.com";
+val PERMISSION_ID = 42
+val TAG = "UploadVideoFragm"
 class UploadVideoFragment : Fragment() {
 
     private lateinit var uploadVideoViewModel: UploadVideoViewModel
-    private lateinit var alertDialog: AlertDialog.Builder
-    private lateinit var storageReference: StorageReference
+    private lateinit var alertDialogBuilder: AlertDialog.Builder
+    private lateinit var mFusedLocationClient: FusedLocationProviderClient
+    private var mLastLocation: Location? = null
+    private var LATITUDE: String? = null
+    private var LONGITUDE: String? = null
 
-    private lateinit var urlUploaded : String
-    private lateinit var uriTask : Task<Uri>
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        alertDialog = AlertDialog.Builder(this.getContext())
+        alertDialogBuilder = AlertDialog.Builder(this.getContext())
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this.context!!)
+
         uploadVideoViewModel =
-                ViewModelProviders.of(this).get(UploadVideoViewModel::class.java)
+            ViewModelProviders.of(this).get(UploadVideoViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_upload, container, false)
 
         return root
@@ -50,74 +59,119 @@ class UploadVideoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // ask for permissions
+        if (!checkPermissions()) {
+            askUserForPermissions()
+        }
+
         // FireBase button
         view.findViewById<Button>(R.id.firebase_button).setOnClickListener {
-            val homeTextView = view.findViewById<TextView>(R.id.text_upload_video)
-            homeTextView.text = "Getting Firebase storage instance"
+            this.context?.let { it1 -> FirebaseApp.initializeApp(it1) }
 
-            // Init op
-            getFileFromGallery(view);
+            val permissions = checkPermissions()
+            Log.d(TAG, "Permission is " + permissions.toString())
+            if (permissions) {
+                getLastLocation()
+            }
+
+            val editTitleView = view.findViewById<EditText>(R.id.editTextTitle)
+            val editDescriptionView = view.findViewById<EditText>(R.id.editTextDescription)
+            val publicOrPrivateVideo = view.findViewById<CheckBox>(R.id.checkBoxPrivate)
+            val username = TokenHolder.username
+            uploadVideoViewModel.updateValues(
+                editTitleView.text.toString(),
+                editDescriptionView.text.toString(),
+                username,
+                LATITUDE,
+                LONGITUDE,
+                publicOrPrivateVideo.isChecked()
+            )
+            getFileFromGallery();
         }
     }
 
-    fun getFileFromGallery(view: View) {
-
+    fun getFileFromGallery() {
         startActivityForResult(
-            Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI),
-            RESULT_LOAD_VIDEO);
+            uploadVideoViewModel.getFileFromGallery(),
+            RESULT_LOAD_VIDEO
+        )
     }
 
     // For the ActivityResult:
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-            if (requestCode == RESULT_LOAD_VIDEO && resultCode == RESULT_OK && null != data) {
-                val selectedVideo: Uri = data.data!!
-                alertDialog.setMessage("I have the file. Uploading it to firebase")
-                // alertDialog.show()
-                uriTask = uploadToFirebase(selectedVideo)
-                // TODO: cambiar el mensaje y mostrar la URL
-//                task.onSuccessTask({
-//                    val uri = storageReference.downloadUrl
-//                    alertDialog.setMessage("File correctly uploaded: " + uri.toString())
-//                })
-                alertDialog.show()
-
-            } else {
-                // handle error
-                //alertDialog.setMessage("Obviously something went wrong")
-                alertDialog.setMessage("You haven't chose a file. Please try again")
-            }
-        alertDialog.show()
+        uploadVideoViewModel.dispatcherToFirebase(requestCode, resultCode, data, alertDialogBuilder)
     }
 
-    fun uploadToFirebase(videoUri : Uri) : Task<Uri> {
-        this.getContext()?.let {
-            FirebaseApp.initializeApp(it)
-            Log.i("firebase", "Firebase App initialized")
-        };
-        // TODO: definir ésta URL como constante
-        val firebaseInstance = FirebaseStorage.getInstance("gs://chotuve-android-app.appspot.com")
-        storageReference = firebaseInstance.getReference("upload_test/" + UUID.randomUUID())
-        val uploadTask = storageReference.putFile(videoUri)
+    @SuppressLint("WrongConstant")
+    private fun checkPermissions(): Boolean {
+        if (checkSelfPermission(
+                this.context!!,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED &&
+            checkSelfPermission(
+                this.context!!,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            return true
+        }
+        return false
+    }
 
-        // sería bueno apagar el boton ahora
-        val taskHandlers = uploadTask.continueWithTask { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let {
-                    throw it
+    private fun askUserForPermissions() {
+        // herramienta propia del Fragment (o la activity)
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
+            PERMISSION_ID
+        )
+    }
+
+    @SuppressLint("MissingPermission")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == PERMISSION_ID) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                // Granted. Start getting the location information
+                if (isLocationEnabled()) {
+                    Log.d(TAG, "Permission is granted and location is enabled")
+                    getLastLocation()
+                } else {
+                    Log.d(TAG, "Permission is granted BUT location is not enabled")
                 }
             }
-            storageReference.downloadUrl
-        }.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val url = task.result
-                val url_string = url!!.toString()
-                Log.d("This is Firebase Link ", url_string)
-            } else {
-                // Handle failures
-            }
         }
-        // y acá lo prenderíamos de nuevo!
-        return taskHandlers;
     }
+
+    private fun isLocationEnabled(): Boolean {
+        // Depende del contexto
+        var locationManager: LocationManager =
+            this.context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getLastLocation() {
+        // El objeto FusedLocationClient depende del contexto
+        mFusedLocationClient.lastLocation
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful && task.result != null) {
+                    mLastLocation = task.result
+                    LATITUDE = mLastLocation!!.latitude.toString()
+                    LONGITUDE = mLastLocation!!.longitude.toString()
+                } else {
+                    Log.w(TAG, "getLastLocation:exception", task.exception)
+
+                }
+            }
+    }
+
 }

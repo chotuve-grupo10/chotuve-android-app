@@ -1,12 +1,50 @@
 <resources>
-    <string name="app_name">chotuve_android_client</string>
+    <string name="app_name">ChoTuve</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_search">Search</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_user">My spot</string>
     <string name="ping_message">This is where we ping the App Server</string>
     <string name="ping_button">Ping, my friend</string>
 
     <string name="title_upload">Upload video</string>
-    <string name="text_upload_video">In here you can upload your video</string>
+    <string name="text_upload_video">Bien, personalicemos este video!</string>
     <string name="firebase_button">Upload to FireBase</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_login">Login</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+    <string name="title_activity_splash">ChoTuve</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="action_login_fb">Login with Facebook</string>
+    <string name="title_row">Titulo de video</string>
+    <string name="url_row">URL DEL VIDEO ESTO ES EN LINEAS GENERALES UN LINK LARGUISIMO</string>
+    <string name="home_videos_message">Available videos:</string>
+    <string name="textview">PlayVideoActivity</string>
+    <string name="title_activity_play_video">PlayVideoActivity</string>
+    <string name="edit_text_titulo">Título (opcional)</string>
+    <string name="edit_text_descripcion">Descripción (opcional)</string>
+    <string name="checkbox_video_privado">Este video es privado!</string>
+    <string name="upload_profile_pic">Subir una foto de perfil</string>
+    <string name="register">Registrarme</string>
+
+    <string name="facebook_app_id">937489686691669</string>
+    <string name="fb_login_protocol_scheme">fb937489686691669</string>
+    <string name="not_registered">Not registered?</string>
+    <string name="create_account">REGISTER</string>
+
+    <string name="search_users_bar">Search another user by its email</string>
+    <string name="user_profile_title">Welcome, some random user in here we would put your mail/username</string>
+    <string name="friendship_request">Tenes una nueva solicitud de amistad</string>
+    <string name="accept_button">Aceptar</string>
+    <string name="reject_button">Rechazar</string>
+
+
 </resources>
