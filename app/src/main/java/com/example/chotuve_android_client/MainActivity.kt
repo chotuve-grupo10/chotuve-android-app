@@ -7,7 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.chotuve_android_client.messaging.MyFirebaseMessagingService
+import com.example.chotuve_android_client.push_notifications.MyFirebaseMessagingService
 import com.example.chotuve_android_client.tools.TokenHolder
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.bottomnavigation.BottomNavigationView

@@ -1,6 +1,7 @@
 package com.example.chotuve_android_client.tools.adapters
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chotuve_android_client.models.UsersInformationList
 import com.example.chotuve_android_client.databinding.RecyclerviewFriendsBinding
 import com.example.chotuve_android_client.R
-import com.example.chotuve_android_client.models.UsersInformationListInner
+import com.example.chotuve_android_client.ui.messaging.MessagingActivity
 import com.example.chotuve_android_client.services.DeleteFriendshipService
 import com.example.chotuve_android_client.tools.TokenHolder
 import com.example.chotuve_android_client.tools.error_handlers.ServerMessageHttpExceptionHandler
@@ -47,6 +48,15 @@ class FriendsAdapter(
                 users[position].email.toString(),
                 position
             )
+        }
+
+        holder.recyclerviewFriendsBinding.buttonMessageFriend.setOnClickListener { view ->
+            val ad = AlertDialog.Builder(view.context)
+            Log.d(TAG, "User about to chat with this friend " + users[position].fullName)
+            val intent: Intent = Intent(view.context, MessagingActivity::class.java)
+            intent.putExtra("user_to_message_id", users[position].email)
+            intent.putExtra("user_to_message_full_name", users[position].fullName)
+            view.context.startActivity(intent)
         }
     }
 
