@@ -229,12 +229,12 @@ interface DefaultApi {
      * Este servicio permitirá dar de alta un comentario en un video
      * The endpoint is owned by defaultname service owner
      * @param videoId id del video (required)
-     * @param user User making comment. (optional)
+     * @param comment comment information. (optional)
      */
     @POST("/api/videos/{video_id}/comments")
     fun apiVideosVideoIdCommentsPost(
         @retrofit2.http.Path("video_id") videoId: String,
-        @retrofit2.http.Body user: Comment
+        @retrofit2.http.Body comment: Comment
     ): Single<CommentVideoResponse>
     /**
      * Este servicio permitirá dar de baja un video en el sistema
@@ -249,34 +249,34 @@ interface DefaultApi {
      * Este servicio permitirá eliminar un dislike a un video
      * The endpoint is owned by defaultname service owner
      * @param videoId id del video (required)
-     * @param user data usuario que hace la request (optional)
+     * @param userData usuario que hace la request (optional)
      */
     @DELETE("/api/videos/{video_id}/dislikes")
     fun apiVideosVideoIdDislikesDelete(
         @retrofit2.http.Path("video_id") videoId: String,
-        @retrofit2.http.Body user data: UserData
+        @retrofit2.http.Body userData: UserData
     ): Single<Video>
     /**
      * Este servicio permitirá dar dislike a un video
      * The endpoint is owned by defaultname service owner
      * @param videoId id del video (required)
-     * @param user data usuario que hace la request (optional)
+     * @param userData usuario que hace la request (optional)
      */
     @POST("/api/videos/{video_id}/dislikes")
     fun apiVideosVideoIdDislikesPost(
         @retrofit2.http.Path("video_id") videoId: String,
-        @retrofit2.http.Body user data: UserData
+        @retrofit2.http.Body userData: UserData
     ): Single<Video>
     /**
      * Este servicio permitirá eliminar el like de un video
      * The endpoint is owned by defaultname service owner
      * @param videoId id del video (required)
-     * @param user data usuario que hace la request (optional)
+     * @param userData usuario que hace la request (optional)
      */
     @DELETE("/api/videos/{video_id}/likes")
     fun apiVideosVideoIdLikesDelete(
         @retrofit2.http.Path("video_id") videoId: String,
-        @retrofit2.http.Body user data: UserData
+        @retrofit2.http.Body userData: UserData
     ): Single<Video>
     /**
      * Este servicio permitirá likear un video

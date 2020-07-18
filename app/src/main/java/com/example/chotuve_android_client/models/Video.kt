@@ -20,6 +20,8 @@ import com.squareup.moshi.JsonClass
  * @property url
  * @property user
  */
+
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class Video(
     @Json(name = "_id") @field:Json(name = "_id") var Id: String? = null,
