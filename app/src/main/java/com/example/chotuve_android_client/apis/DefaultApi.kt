@@ -287,6 +287,6 @@ interface DefaultApi {
     @POST("/api/videos/{video_id}/likes")
     fun apiVideosVideoIdLikesPost(
         @retrofit2.http.Path("video_id") videoId: String,
-        @retrofit2.http.Body user data: UserAuthorizationData
+        @retrofit2.http.Body userData: UserAuthorizationData
     ): Single<Video>
 }
