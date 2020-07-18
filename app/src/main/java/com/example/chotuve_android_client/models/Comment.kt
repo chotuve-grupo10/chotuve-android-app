@@ -6,15 +6,19 @@
 
 package com.example.chotuve_android_client.models
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.Parcelize
 
 /**
  * @property text
  * @property user
  */
+
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class Comment(
     @Json(name = "text") @field:Json(name = "text") var text: String? = null,
     @Json(name = "user") @field:Json(name = "user") var user: String? = null
-)
+) : Parcelable
