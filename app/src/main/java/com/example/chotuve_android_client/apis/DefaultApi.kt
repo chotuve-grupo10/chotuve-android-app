@@ -8,7 +8,7 @@ package com.example.chotuve_android_client.apis
 
 import com.example.chotuve_android_client.models.AcceptFriend
 import com.example.chotuve_android_client.models.BasicServerResponse
-import com.example.chotuve_android_client.models.CommentVideo
+import com.example.chotuve_android_client.models.Comment
 import com.example.chotuve_android_client.models.CommentVideoResponse
 import com.example.chotuve_android_client.models.ErrorDeleteUserResponse
 import com.example.chotuve_android_client.models.LoginResponse
@@ -18,9 +18,11 @@ import com.example.chotuve_android_client.models.RequestFriendshipResponse
 import com.example.chotuve_android_client.models.ServerTime
 import com.example.chotuve_android_client.models.SuccessfulDeleteUserResponse
 import com.example.chotuve_android_client.models.UploadVideoResponse
+import com.example.chotuve_android_client.models.UserData
 import com.example.chotuve_android_client.models.UserLogin
 import com.example.chotuve_android_client.models.UserRegister
 import com.example.chotuve_android_client.models.UsersInformationList
+import com.example.chotuve_android_client.models.Video
 import com.example.chotuve_android_client.models.VideoList
 import com.example.chotuve_android_client.models.VideoToUpload
 import io.reactivex.Completable
@@ -186,7 +188,7 @@ interface DefaultApi {
     @GET("/api/users/{user_id}/videos/")
     fun apiUsersUserIdVideosGet(
         @retrofit2.http.Path("user_id") userId: String
-    ): Completable
+    ): Single<VideoList>
     /**
      * Este es un método para recibir un token del auth server y validarlo
      * The endpoint is owned by defaultname service owner
@@ -232,7 +234,7 @@ interface DefaultApi {
     @POST("/api/videos/{video_id}/comments")
     fun apiVideosVideoIdCommentsPost(
         @retrofit2.http.Path("video_id") videoId: String,
-        @retrofit2.http.Body user: CommentVideo
+        @retrofit2.http.Body user: Comment
     ): Single<CommentVideoResponse>
     /**
      * Este servicio permitirá dar de baja un video en el sistema
@@ -243,4 +245,48 @@ interface DefaultApi {
     fun apiVideosVideoIdDelete(
         @retrofit2.http.Path("video_id") videoId: String
     ): Completable
+    /**
+     * Este servicio permitirá eliminar un dislike a un video
+     * The endpoint is owned by defaultname service owner
+     * @param videoId id del video (required)
+     * @param user data usuario que hace la request (optional)
+     */
+    @DELETE("/api/videos/{video_id}/dislikes")
+    fun apiVideosVideoIdDislikesDelete(
+        @retrofit2.http.Path("video_id") videoId: String,
+        @retrofit2.http.Body user data: UserData
+    ): Single<Video>
+    /**
+     * Este servicio permitirá dar dislike a un video
+     * The endpoint is owned by defaultname service owner
+     * @param videoId id del video (required)
+     * @param user data usuario que hace la request (optional)
+     */
+    @POST("/api/videos/{video_id}/dislikes")
+    fun apiVideosVideoIdDislikesPost(
+        @retrofit2.http.Path("video_id") videoId: String,
+        @retrofit2.http.Body user data: UserData
+    ): Single<Video>
+    /**
+     * Este servicio permitirá eliminar el like de un video
+     * The endpoint is owned by defaultname service owner
+     * @param videoId id del video (required)
+     * @param user data usuario que hace la request (optional)
+     */
+    @DELETE("/api/videos/{video_id}/likes")
+    fun apiVideosVideoIdLikesDelete(
+        @retrofit2.http.Path("video_id") videoId: String,
+        @retrofit2.http.Body user data: UserData
+    ): Single<Video>
+    /**
+     * Este servicio permitirá likear un video
+     * The endpoint is owned by defaultname service owner
+     * @param videoId id del video (required)
+     * @param user data usuario que hace la request (optional)
+     */
+    @POST("/api/videos/{video_id}/likes")
+    fun apiVideosVideoIdLikesPost(
+        @retrofit2.http.Path("video_id") videoId: String,
+        @retrofit2.http.Body user data: UserData
+    ): Single<Video>
 }
