@@ -2,10 +2,10 @@ package com.example.chotuve_android_client.ui.playVideo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.chotuve_android_client.models.VideoListInner
+import com.example.chotuve_android_client.models.Video
 
 class PlayVideoViewModelFactory(
-    private val video: VideoListInner
+    private val video: Video
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")

@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.chotuve_android_client.models.VideoListInner
+import com.example.chotuve_android_client.models.Video
 
-class PlayVideoViewModel (private val video: VideoListInner) : ViewModel() {
+class PlayVideoViewModel (private val video: Video) : ViewModel() {
 
     private val _title = MutableLiveData<String>().apply {
         this.value = video.title

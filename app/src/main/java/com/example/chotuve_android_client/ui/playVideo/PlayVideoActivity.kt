@@ -1,17 +1,15 @@
 package com.example.chotuve_android_client.ui.playVideo
 
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.MediaController
-import android.widget.TextView
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.chotuve_android_client.R
-import com.example.chotuve_android_client.models.VideoListInner
+import com.example.chotuve_android_client.models.Video
 
 
 class PlayVideoActivity : AppCompatActivity() {
@@ -24,7 +22,7 @@ class PlayVideoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_play_video)
 
 
-        val video : VideoListInner? = intent.getParcelableExtra<VideoListInner>("video_to_play")
+        val video : Video? = intent.getParcelableExtra<Video>("video_to_play")
         if (video != null) {
             setPlayVideoActivityTitle(video.title.toString())
 
