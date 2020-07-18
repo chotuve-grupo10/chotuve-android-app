@@ -282,7 +282,7 @@ interface DefaultApi {
      * Este servicio permitirá likear un video
      * The endpoint is owned by defaultname service owner
      * @param videoId id del video (required)
-     * @param user data usuario que hace la request (optional)
+     * @param userData usuario que hace la request (optional)
      */
     @POST("/api/videos/{video_id}/likes")
     fun apiVideosVideoIdLikesPost(
