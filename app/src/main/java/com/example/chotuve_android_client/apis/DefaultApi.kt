@@ -18,7 +18,7 @@ import com.example.chotuve_android_client.models.RequestFriendshipResponse
 import com.example.chotuve_android_client.models.ServerTime
 import com.example.chotuve_android_client.models.SuccessfulDeleteUserResponse
 import com.example.chotuve_android_client.models.UploadVideoResponse
-import com.example.chotuve_android_client.models.UserData
+import com.example.chotuve_android_client.models.UserAuthorizationData
 import com.example.chotuve_android_client.models.UserLogin
 import com.example.chotuve_android_client.models.UserRegister
 import com.example.chotuve_android_client.models.UsersInformationList
@@ -254,7 +254,7 @@ interface DefaultApi {
     @DELETE("/api/videos/{video_id}/dislikes")
     fun apiVideosVideoIdDislikesDelete(
         @retrofit2.http.Path("video_id") videoId: String,
-        @retrofit2.http.Body user_data: UserData
+        @retrofit2.http.Body userData: UserAuthorizationData
     ): Single<Video>
     /**
      * Este servicio permitirá dar dislike a un video
@@ -265,7 +265,7 @@ interface DefaultApi {
     @POST("/api/videos/{video_id}/dislikes")
     fun apiVideosVideoIdDislikesPost(
         @retrofit2.http.Path("video_id") videoId: String,
-        @retrofit2.http.Body user_data: UserData
+        @retrofit2.http.Body userData: UserAuthorizationData
     ): Single<Video>
     /**
      * Este servicio permitirá eliminar el like de un video
@@ -276,7 +276,7 @@ interface DefaultApi {
     @DELETE("/api/videos/{video_id}/likes")
     fun apiVideosVideoIdLikesDelete(
         @retrofit2.http.Path("video_id") videoId: String,
-        @retrofit2.http.Body user_data: UserData
+        @retrofit2.http.Body userData: UserAuthorizationData
     ): Single<Video>
     /**
      * Este servicio permitirá likear un video
@@ -287,6 +287,6 @@ interface DefaultApi {
     @POST("/api/videos/{video_id}/likes")
     fun apiVideosVideoIdLikesPost(
         @retrofit2.http.Path("video_id") videoId: String,
-        @retrofit2.http.Body user_data: UserData
+        @retrofit2.http.Body user data: UserAuthorizationData
     ): Single<Video>
 }

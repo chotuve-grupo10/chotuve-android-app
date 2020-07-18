@@ -10,9 +10,9 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
- * @property message
+ * @property Authorization
  */
 @JsonClass(generateAdapter = true)
-data class ServerMessage(
-    @Json(name = "message") @field:Json(name = "message") var message: String? = null
+data class UserAuthorizationData(
+    @Json(name = "Authorization") @field:Json(name = "Authorization") var Authorization: String? = null
 )
