@@ -3,12 +3,10 @@ package com.example.chotuve_android_client.ui.playVideo
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.Surface
 import android.view.View
 import android.view.WindowManager
-import android.widget.MediaController
 import android.widget.TextView
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
@@ -41,7 +39,20 @@ class PlayVideoActivity : AppCompatActivity() {
 
             // prepare videoView
             var videoView : VideoView = this.findViewById(R.id.videoView)
-            val mediaController = MediaController(this)
+            val mediaController = FullScreenMediaController(this, playVideoViewModel.getVideo())
+
+            val fullScreen = intent.getStringExtra("fullScreenInd")
+            if ("y" == fullScreen) {
+                window.setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
+                )
+                videoView = this.findViewById(R.id.videoViewFullScreen)
+                hideSystemUI()
+                supportActionBar!!.hide()
+            } else {
+                var videoView : VideoView = this.findViewById(R.id.videoView)
+            }
 
             if(isLandScape()){
                 videoView = this.findViewById(R.id.videoViewFullScreen)

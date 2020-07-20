@@ -22,4 +22,8 @@ class PlayVideoViewModel (private val video: VideoListInner) : ViewModel() {
         Log.d("playvid", "Soy el PlayVideoViewModel y el video es este "
         + video.title + ". La URL es esta" + video.url)
     }
+
+    fun getVideo(): VideoListInner {
+        return video
+    }
 }
