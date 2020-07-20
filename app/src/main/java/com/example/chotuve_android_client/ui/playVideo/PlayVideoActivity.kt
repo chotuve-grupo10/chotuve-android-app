@@ -1,10 +1,13 @@
 package com.example.chotuve_android_client.ui.playVideo
 
-import android.graphics.Color
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
+import android.view.Surface
 import android.view.View
+import android.view.WindowManager
 import android.widget.MediaController
 import android.widget.TextView
 import android.widget.VideoView
@@ -37,8 +40,13 @@ class PlayVideoActivity : AppCompatActivity() {
             })
 
             // prepare videoView
-            val videoView : VideoView = this.findViewById(R.id.videoView)
+            var videoView : VideoView = this.findViewById(R.id.videoView)
             val mediaController = MediaController(this)
+
+            if(isLandScape()){
+                videoView = this.findViewById(R.id.videoViewFullScreen)
+                hideSystemUI()
+            }
 
             // bind fileUrl
             Log.d("playvid", "Soy la PlayVideoActivity y estoy bindeando el filePath")
@@ -52,10 +60,13 @@ class PlayVideoActivity : AppCompatActivity() {
         }
     }
 
- /* Esto oculta las barras de arriba y abajo. Quizas despues puede servir
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) hideSystemUI()
+    private fun isLandScape(): Boolean {
+        val display =
+            (getSystemService(Context.WINDOW_SERVICE) as WindowManager)
+                .defaultDisplay
+        val rotation = display.rotation
+        return (rotation == Surface.ROTATION_90
+                || rotation == Surface.ROTATION_270)
     }
 
     private fun hideSystemUI() {
@@ -79,5 +90,5 @@ class PlayVideoActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
-    }*/
+    }
 }
