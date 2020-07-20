@@ -3,13 +3,16 @@ package com.example.chotuve_android_client.ui.playVideo
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.MediaController
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.models.Video
+import com.example.chotuve_android_client.tools.TokenHolder
 
 
 class PlayVideoActivity : AppCompatActivity() {
@@ -20,7 +23,6 @@ class PlayVideoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play_video)
-
 
         val video : Video? = intent.getParcelableExtra<Video>("video_to_play")
         if (video != null) {
@@ -43,6 +45,19 @@ class PlayVideoActivity : AppCompatActivity() {
                 videoView.start()
             })
 
+            val like_button : Button = this.findViewById<Button>(R.id.button_like)
+            like_button.setBackgroundColor(ContextCompat.getColor(this, R.color.like_green))
+            like_button.setOnClickListener {
+                playVideoViewModel.likeVideo()
+            }
+//            if (video.likes!!.contains(TokenHolder.username)) {
+//            }
+//            else {
+//                like_button.setOnClickListener {  }
+//            }
+            val dislike_button : Button = this.findViewById<Button>(R.id.button_dislike)
+            dislike_button.setBackgroundColor(ContextCompat.getColor(this, R.color.light_red))
+
         }
     }
 
@@ -50,5 +65,8 @@ class PlayVideoActivity : AppCompatActivity() {
         supportActionBar?.title = userName
     }
 
+    fun setVideoValue(video : Video) {
+
+    }
 
 }

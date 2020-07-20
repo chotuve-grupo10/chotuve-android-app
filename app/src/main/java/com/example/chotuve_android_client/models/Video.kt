@@ -27,7 +27,7 @@ import kotlinx.android.parcel.Parcelize
 @JsonClass(generateAdapter = true)
 data class Video(
     @Json(name = "_id") @field:Json(name = "_id") var Id: String? = null,
-    @Json(name = "comments") @field:Json(name = "comments") var comments: Comment? = null,
+    @Json(name = "comments") @field:Json(name = "comments") var comments: List<Comment>? = null,
     @Json(name = "dislikes") @field:Json(name = "dislikes") var dislikes: List<String>? = null,
     @Json(name = "is_private") @field:Json(name = "is_private") var isPrivate: Boolean? = null,
     @Json(name = "likes") @field:Json(name = "likes") var likes: List<String>? = null,
