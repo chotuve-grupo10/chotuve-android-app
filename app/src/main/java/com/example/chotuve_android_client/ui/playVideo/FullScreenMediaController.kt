@@ -42,8 +42,10 @@ class FullScreenMediaController(
             val intent = Intent(view.context, PlayVideoActivity::class.java)
             intent.putExtra("video_to_play", video)
             if ("y" == isFullScreen) {
+                isFullScreen =""
                 intent.putExtra("fullScreenInd", "")
             } else {
+                isFullScreen ="y"
                 intent.putExtra("fullScreenInd", "y")
             }
             view.context.startActivity(intent)

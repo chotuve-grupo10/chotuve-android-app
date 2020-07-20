@@ -42,27 +42,25 @@ class PlayVideoActivity : AppCompatActivity() {
             val mediaController = FullScreenMediaController(this, playVideoViewModel.getVideo())
 
             val fullScreen = intent.getStringExtra("fullScreenInd")
-            if ("y" == fullScreen) {
+
+            if (("y" == fullScreen) or (isLandScape())) {
+
                 window.setFlags(
                     WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN
                 )
-                videoView = this.findViewById(R.id.videoViewFullScreen)
-                hideSystemUI()
-                supportActionBar!!.hide()
-            } else {
-                var videoView : VideoView = this.findViewById(R.id.videoView)
-            }
 
-            if(isLandScape()){
                 videoView = this.findViewById(R.id.videoViewFullScreen)
-                hideSystemUI()
+                //hideSystemUI()
+                supportActionBar!!.hide()
             }
 
             // bind fileUrl
             Log.d("playvid", "Soy la PlayVideoActivity y estoy bindeando el filePath")
             playVideoViewModel.url.observe( this, Observer { url ->
-                videoView.setVideoURI(Uri.parse(url))
+                // "android.resource://"+getPackageName()+"/"+R.raw.rally
+                // url
+                videoView.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.rally))
                 videoView.setMediaController(mediaController)
                 videoView.requestFocus()
                 videoView.start()
