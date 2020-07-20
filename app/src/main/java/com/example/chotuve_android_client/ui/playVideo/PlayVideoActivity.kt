@@ -58,14 +58,13 @@ class PlayVideoActivity : AppCompatActivity() {
             // bind fileUrl
             Log.d("playvid", "Soy la PlayVideoActivity y estoy bindeando el filePath")
             playVideoViewModel.url.observe( this, Observer { url ->
+                // Lo de abajo es la uri para un video local. Por si no funca Firebase
                 // "android.resource://"+getPackageName()+"/"+R.raw.rally
-                // url
-                videoView.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.rally))
+                videoView.setVideoURI(Uri.parse(url))
                 videoView.setMediaController(mediaController)
                 videoView.requestFocus()
                 videoView.start()
             })
-
         }
     }
 
