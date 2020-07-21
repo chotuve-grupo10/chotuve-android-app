@@ -8,19 +8,19 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 
-class LikeVideoService {
+class DeleteLikeVideoService {
 
     private val retrofit : Retrofit = RetrofitObject.retrofit
-    private val likeVideoService = retrofit.create(DefaultApi::class.java)
+    private val deleteLikeVideoService = retrofit.create(DefaultApi::class.java)
 
-    fun likeVideo(
+    fun deleteLikeVideo(
         video_id : String,
         user_token : String,
         disposable: CompositeDisposable?,
         onSuccess: (listVideos: Video?) -> Unit,
         onError: (throwable: Throwable) -> Unit
     ) {
-        disposable?.add(likeVideoService.apiVideosVideoIdLikesPost(video_id, user_token)
+        disposable?.add(deleteLikeVideoService.apiVideosVideoIdLikesDelete(video_id, user_token)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(onSuccess, onError))

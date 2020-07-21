@@ -183,7 +183,7 @@ interface DefaultApi {
     @PUT("/api/users/{user_email}/password")
     fun apiUsersUserEmailPasswordPut(
         @retrofit2.http.Path("user_email") userEmail: Map<String, Any?>,
-        @retrofit2.http.Body reset password: ResetPasswordBody
+        @retrofit2.http.Body reset_password: ResetPasswordBody
     ): Single<ResetPasswordSuccessfulResponse>
     /**
      * Este servicio permite obtener las solicitudes de amistad de un usuario

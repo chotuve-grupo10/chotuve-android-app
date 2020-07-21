@@ -23,7 +23,7 @@ class PlayVideoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play_video)
-
+        val TAG = "PlayVideoAct"
         val video : Video? = intent.getParcelableExtra<Video>("video_to_play")
         if (video != null) {
             setPlayVideoActivityTitle(video.title.toString())
@@ -37,7 +37,7 @@ class PlayVideoActivity : AppCompatActivity() {
             val mediaController = MediaController(this)
 
             // bind fileUrl
-            Log.d("playvid", "Soy la PlayVideoActivity y estoy bindeando el filePath")
+            Log.d(TAG, "Soy la PlayVideoActivity y estoy bindeando el filePath")
             playVideoViewModel.url.observe( this, Observer { url ->
                 videoView.setVideoURI(Uri.parse(url))
                 videoView.setMediaController(mediaController)
@@ -46,15 +46,21 @@ class PlayVideoActivity : AppCompatActivity() {
             })
 
             val like_button : Button = this.findViewById<Button>(R.id.button_like)
-            like_button.setBackgroundColor(ContextCompat.getColor(this, R.color.like_green))
-            like_button.setOnClickListener {
-                playVideoViewModel.likeVideo()
-            }
-//            if (video.likes!!.contains(TokenHolder.username)) {
-//            }
-//            else {
-//                like_button.setOnClickListener {  }
-//            }
+            playVideoViewModel.liked_video.observe( this, Observer { liked ->
+                if (liked) {
+                    like_button.setBackgroundColor(ContextCompat.getColor(this, R.color.like_green))
+                    like_button.setOnClickListener {
+                        playVideoViewModel.deleteLikeVideo()
+                    }
+                } else {
+                    like_button.setOnClickListener {
+                        like_button.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+                        playVideoViewModel.likeVideo()
+                    }
+                }
+                Log.d(TAG, "Liked es ${liked}")
+            })
+
             val dislike_button : Button = this.findViewById<Button>(R.id.button_dislike)
             dislike_button.setBackgroundColor(ContextCompat.getColor(this, R.color.light_red))
 
