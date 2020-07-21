@@ -42,8 +42,6 @@ class PlayVideoActivity : AppCompatActivity() {
             var videoView : VideoView = this.findViewById(R.id.videoView)
             val mediaController = MediaController(this)
 
-            val fullScreen = intent.getStringExtra("fullScreenInd")
-
             if (isLandScape()) {
 
                 window.setFlags(
