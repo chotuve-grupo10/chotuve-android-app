@@ -6,7 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.chotuve_android_client.models.Video
+import com.example.chotuve_android_client.services.DeleteDislikeVideoService
 import com.example.chotuve_android_client.services.DeleteLikeVideoService
+import com.example.chotuve_android_client.services.DislikeVideoService
 import com.example.chotuve_android_client.services.LikeVideoService
 import com.example.chotuve_android_client.tools.TokenHolder
 import com.example.chotuve_android_client.tools.error_handlers.ServerMessageHttpExceptionHandler
@@ -80,11 +82,50 @@ class PlayVideoViewModel (private var video: Video) : ViewModel() {
                         updateLikesAndDislikes()
                         Log.d(TAG, "Deleted like to video and received it back ${video.title}")
                     }
-
                 },
                 {
                     it.printStackTrace()
                     Log.d(TAG, "Error deleting like from video: ${it.localizedMessage}")
+                }
+            )
+    }
+
+    fun dislikeVideo() {
+        DislikeVideoService()
+            .dislikeVideo(
+                video.Id.toString(),
+                TokenHolder.appServerToken,
+                CompositeDisposable(),
+                {
+                    if (it != null) {
+                        video = it
+                        updateLikesAndDislikes()
+                        Log.d(TAG, "disliked video and received it back ${video.title}")
+                    }
+                },
+                {
+                    it.printStackTrace()
+                    Log.d(TAG, "Error disliking video: ${it.localizedMessage}")
+                }
+            )
+    }
+
+    fun deleteDislikeVideo() {
+        DeleteDislikeVideoService()
+            .deleteDislikeVideo(
+                video.Id.toString(),
+                TokenHolder.appServerToken,
+                CompositeDisposable(),
+                {
+                    if (it != null) {
+                        video = it
+                        updateLikesAndDislikes()
+                        Log.d(TAG, "Deleted dislike to video and received it back ${video.title}")
+                    }
+                },
+                {
+                    it.printStackTrace()
+                    Log.d(TAG, "Error deleting dislike from video: ${it.localizedMessage}")
                 }
             )
     }

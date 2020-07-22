@@ -62,7 +62,19 @@ class PlayVideoActivity : AppCompatActivity() {
             })
 
             val dislike_button : Button = this.findViewById<Button>(R.id.button_dislike)
-            dislike_button.setBackgroundColor(ContextCompat.getColor(this, R.color.light_red))
+            playVideoViewModel.disliked_video.observe( this, Observer { disliked ->
+                if(disliked) {
+                    dislike_button.setBackgroundColor(ContextCompat.getColor(this, R.color.light_red))
+                    dislike_button.setOnClickListener {
+                        playVideoViewModel.deleteDislikeVideo()
+                    }
+                } else {
+                    dislike_button.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+                    dislike_button.setOnClickListener {
+                        playVideoViewModel.dislikeVideo()
+                    }
+                }
+            })
 
         }
     }
