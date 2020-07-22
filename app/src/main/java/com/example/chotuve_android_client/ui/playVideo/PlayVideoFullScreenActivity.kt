@@ -20,14 +20,14 @@ import com.example.chotuve_android_client.models.Video
 import com.example.chotuve_android_client.tools.TokenHolder
 
 
-class PlayVideoActivity : AppCompatActivity() {
+class PlayVideoFullScreenActivity : AppCompatActivity() {
 
     private lateinit var factory : PlayVideoViewModelFactory
     private lateinit var playVideoViewModel: PlayVideoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_play_video)
+        setContentView(R.layout.play_video_full_screen)
         val TAG = "PlayVideoAct"
         val video : Video? = intent.getParcelableExtra<Video>("video_to_play")
         if (video != null) {
@@ -38,12 +38,17 @@ class PlayVideoActivity : AppCompatActivity() {
                 ViewModelProviders.of(this, factory).get(PlayVideoViewModel::class.java)
 
             // prepare videoView
-            var videoView : VideoView = this.findViewById(R.id.videoView)
+            var videoView : VideoView = this.findViewById(R.id.videoViewFullScreen)
             val mediaController = MediaController(this)
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+            supportActionBar!!.hide()
 
-            if (isLandScape()) {
+            if (!isLandScape()) {
 
-                val intent: Intent = Intent(this, PlayVideoFullScreenActivity::class.java)
+                val intent: Intent = Intent(this, PlayVideoActivity::class.java)
                 intent.putExtra("video_to_play", video)
                 this.startActivity(intent)
             }
@@ -58,38 +63,6 @@ class PlayVideoActivity : AppCompatActivity() {
                 videoView.requestFocus()
                 videoView.start()
             })
-
-            val like_button : Button = this.findViewById<Button>(R.id.button_like)
-            playVideoViewModel.liked_video.observe( this, Observer { liked ->
-                if (liked) {
-                    like_button.setBackgroundColor(ContextCompat.getColor(this, R.color.like_green))
-                    like_button.setOnClickListener {
-                        playVideoViewModel.deleteLikeVideo()
-                    }
-                } else {
-                    like_button.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
-                    like_button.setOnClickListener {
-                        playVideoViewModel.likeVideo()
-                    }
-                }
-                Log.d(TAG, "Liked es ${liked}")
-            })
-
-            val dislike_button : Button = this.findViewById<Button>(R.id.button_dislike)
-            playVideoViewModel.disliked_video.observe( this, Observer { disliked ->
-                if(disliked) {
-                    dislike_button.setBackgroundColor(ContextCompat.getColor(this, R.color.light_red))
-                    dislike_button.setOnClickListener {
-                        playVideoViewModel.deleteDislikeVideo()
-                    }
-                } else {
-                    dislike_button.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
-                    dislike_button.setOnClickListener {
-                        playVideoViewModel.dislikeVideo()
-                    }
-                }
-            })
-
         }
     }
 
