@@ -67,7 +67,8 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- Agregados para importar Firebase Messaging y usar Notificacions Push -->
         <service
             android:name=".push_notifications.MyFirebaseMessagingService"
             android:enabled="true"
