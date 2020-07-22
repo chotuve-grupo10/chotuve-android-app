@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
                 it.layoutManager = LinearLayoutManager(requireContext())
                 it.setHasFixedSize(true)
                 it.adapter =
-                    VideoAdapter(
+                    VideoAdapt<er(
                         videos
                     )
             }
@@ -52,6 +52,11 @@ class HomeFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         return root
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.getVideosFromServer()
     }
 
     @SuppressLint("SetTextI18n")

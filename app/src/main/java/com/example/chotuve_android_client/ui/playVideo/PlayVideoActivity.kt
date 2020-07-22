@@ -53,8 +53,8 @@ class PlayVideoActivity : AppCompatActivity() {
                         playVideoViewModel.deleteLikeVideo()
                     }
                 } else {
+                    like_button.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
                     like_button.setOnClickListener {
-                        like_button.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
                         playVideoViewModel.likeVideo()
                     }
                 }
