@@ -2,6 +2,7 @@ package com.example.chotuve_android_client.ui.playVideo
 
 import android.widget.Button
 import android.content.Context
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.models.Video
 import com.example.chotuve_android_client.tools.TokenHolder
+import kotlinx.android.synthetic.main.activity_play_video.*
 
 
 class PlayVideoActivity : AppCompatActivity() {
@@ -47,8 +49,13 @@ class PlayVideoActivity : AppCompatActivity() {
                     WindowManager.LayoutParams.FLAG_FULLSCREEN
                 )
 
-                videoView = this.findViewById(R.id.videoViewFullScreen)
                 supportActionBar!!.hide()
+                videoView = this.findViewById(R.id.videoViewFullScreen)
+                videoView.bringToFront()
+                videoView.visibility = View.VISIBLE
+            } else {
+                val videoViewFullScreen = this.findViewById<VideoView>(R.id.videoViewFullScreen)
+                videoViewFullScreen.visibility = View.INVISIBLE
             }
 
             // bind fileUrl
