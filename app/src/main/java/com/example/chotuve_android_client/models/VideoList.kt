@@ -6,4 +6,4 @@
 
 package com.example.chotuve_android_client.models
 
-typealias VideoList = List<VideoListInner>
+typealias VideoList = List<Video>

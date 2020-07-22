@@ -6,9 +6,13 @@
 
 package com.example.chotuve_android_client.models
 
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
+ * @property Authorization
  */
 @JsonClass(generateAdapter = true)
-class Properties
+data class UserAuthorizationData(
+    @Json(name = "Authorization") @field:Json(name = "Authorization") var Authorization: String? = null
+)

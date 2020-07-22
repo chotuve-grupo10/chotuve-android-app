@@ -10,11 +10,9 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
- * @property comment
- * @property email
+ * @property Error
  */
 @JsonClass(generateAdapter = true)
-data class CommentVideo(
-    @Json(name = "comment") @field:Json(name = "comment") var comment: String? = null,
-    @Json(name = "email") @field:Json(name = "email") var email: String? = null
+data class ErrorResponse(
+    @Json(name = "Error") @field:Json(name = "Error") var Error: String? = null
 )

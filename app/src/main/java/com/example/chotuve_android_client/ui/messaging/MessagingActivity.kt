@@ -75,7 +75,6 @@ class MessagingActivity : AppCompatActivity() {
 
     fun setMessagingActivityTitle(userName : String) {
         supportActionBar?.title = userName
-
     }
 
 }

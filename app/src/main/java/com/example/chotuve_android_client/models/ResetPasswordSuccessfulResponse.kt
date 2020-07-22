@@ -10,9 +10,9 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
- * @property message
+ * @property ResetPassword
  */
 @JsonClass(generateAdapter = true)
-data class ServerMessage(
-    @Json(name = "message") @field:Json(name = "message") var message: String? = null
+data class ResetPasswordSuccessfulResponse(
+    @Json(name = "Reset password") @field:Json(name = "Reset password") var ResetPassword: String? = null
 )
