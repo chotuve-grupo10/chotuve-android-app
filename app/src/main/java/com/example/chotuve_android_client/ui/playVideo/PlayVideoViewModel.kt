@@ -37,6 +37,7 @@ class PlayVideoViewModel (private var video: Video) : ViewModel() {
     val TAG = "PlayVideoVM"
     init {
         Log.d(TAG, "Soy el PlayVideoViewModel y el video es este "
+
         + video.title + ". La URL es esta " + video.url + ". Estos son los likes ${video.likes}")
     }
 

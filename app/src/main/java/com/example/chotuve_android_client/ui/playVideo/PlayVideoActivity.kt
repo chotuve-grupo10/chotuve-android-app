@@ -100,13 +100,6 @@ class PlayVideoActivity : AppCompatActivity() {
         supportActionBar?.title = userName
     }
 
-    fun setVideoValue(video : Video) {
-
-    }
-
-        }
-    }
-
     private fun isLandScape(): Boolean {
         val display =
             (getSystemService(Context.WINDOW_SERVICE) as WindowManager)
