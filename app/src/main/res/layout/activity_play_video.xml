@@ -82,6 +82,7 @@
             android:layout_height="77dp"
             android:layout_margin="10dp"
             android:background="@color/white"
+            android:imeOptions="actionDone"
             android:hint="Deja un comentario..."
             android:inputType="textLongMessage"
             app:layout_constraintBottom_toBottomOf="parent"

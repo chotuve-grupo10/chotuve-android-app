@@ -50,7 +50,6 @@ class PlayVideoViewModel (private var video: Video) : ViewModel() {
     val comments : LiveData<List<Comment>>
         get() = _comments
 
-
     val TAG = "PlayVideoVM"
     init {
         Log.d(TAG, "Soy el PlayVideoViewModel y el video es este "
@@ -149,4 +148,31 @@ class PlayVideoViewModel (private var video: Video) : ViewModel() {
                 }
             )
     }
+
+    fun sendComment(textComment : String?) {
+        if (textComment == "") {
+            return
+        }
+        Log.d(TAG, "Comentario es ${textComment}")
+//        CommentVideoService()
+//            .commentVideo(
+//                video.Id.toString(),
+//                textComment,
+//                TokenHolder.appServerToken,
+//                CompositeDisposable(),
+//                {
+//                    if (it != null) {
+//                        video = it
+//                        updateLikesAndDislikes()
+//                        Log.d(TAG, "Deleted dislike to video and received it back ${video.title}")
+//                    }
+//                },
+//                {
+//                    it.printStackTrace()
+//                    Log.d(TAG, "Error deleting dislike from video: ${it.localizedMessage}")
+//                }
+//            )
+    }
+
+
 }

@@ -44,7 +44,7 @@
         <activity
             android:name=".ui.playVideo.PlayVideoActivity"
             android:label="@string/title_activity_play_video"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name="com.example.chotuve_android_client.ui.messaging.MessagingActivity"
