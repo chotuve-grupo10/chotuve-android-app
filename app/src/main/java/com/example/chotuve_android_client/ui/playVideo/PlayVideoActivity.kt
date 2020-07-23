@@ -52,6 +52,7 @@ class PlayVideoActivity : AppCompatActivity() {
             // prepare videoView
             var videoView : VideoView = this.findViewById(R.id.videoView)
             val mediaController = MediaController(this)
+            mediaController.setAnchorView(videoView)
 
             if (isLandScape()) {
 
@@ -138,7 +139,6 @@ class PlayVideoActivity : AppCompatActivity() {
             commentEditText.text.clear()
             hideSoftKeyboard()
         }
-
 //            val commentEditText : EditText = this.findViewById(R.id.comment_video_edit_text)
 //            commentEditText.setOnTouchListener { editText, event ->
 //                editText.performClick()
@@ -148,7 +148,6 @@ class PlayVideoActivity : AppCompatActivity() {
 //                    Log.d(TAG,"Esta cerrado")
 //                }
 //            }
-
         }
     }
 

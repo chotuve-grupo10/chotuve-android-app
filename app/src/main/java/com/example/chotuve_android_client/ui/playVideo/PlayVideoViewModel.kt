@@ -7,10 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.chotuve_android_client.models.Comment
 import com.example.chotuve_android_client.models.Video
-import com.example.chotuve_android_client.services.DeleteDislikeVideoService
-import com.example.chotuve_android_client.services.DeleteLikeVideoService
-import com.example.chotuve_android_client.services.DislikeVideoService
-import com.example.chotuve_android_client.services.LikeVideoService
+import com.example.chotuve_android_client.services.*
 import com.example.chotuve_android_client.tools.TokenHolder
 import com.example.chotuve_android_client.tools.error_handlers.ServerMessageHttpExceptionHandler
 import io.reactivex.disposables.CompositeDisposable
@@ -62,6 +59,10 @@ class PlayVideoViewModel (private var video: Video) : ViewModel() {
         _likes_number.value = video.likes!!.size
         _disliked_video.value = video.dislikes!!.contains(TokenHolder.username)
         _dislikes_number.value = video.dislikes!!.size
+    }
+
+    fun updateComments() {
+        _comments.value = video.comments!!
     }
 
     fun likeVideo() {
@@ -154,24 +155,25 @@ class PlayVideoViewModel (private var video: Video) : ViewModel() {
             return
         }
         Log.d(TAG, "Comentario es ${textComment}")
-//        CommentVideoService()
-//            .commentVideo(
-//                video.Id.toString(),
-//                textComment,
-//                TokenHolder.appServerToken,
-//                CompositeDisposable(),
-//                {
-//                    if (it != null) {
-//                        video = it
-//                        updateLikesAndDislikes()
-//                        Log.d(TAG, "Deleted dislike to video and received it back ${video.title}")
-//                    }
-//                },
-//                {
-//                    it.printStackTrace()
-//                    Log.d(TAG, "Error deleting dislike from video: ${it.localizedMessage}")
-//                }
-//            )
+        val comment = Comment(textComment, TokenHolder.username)
+        CommentVideoService()
+            .commentVideo(
+                video.Id.toString(),
+                TokenHolder.appServerToken,
+                comment,
+                CompositeDisposable(),
+                {
+                    if (it != null) {
+                        video = it
+                        updateComments()
+                        Log.d(TAG, "New comment into video ${video.title}")
+                    }
+                },
+                {
+                    it.printStackTrace()
+                    Log.d(TAG, "Error inserting comment into video: ${it.localizedMessage}")
+                }
+            )
     }
 
 
