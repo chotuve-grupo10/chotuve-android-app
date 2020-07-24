@@ -8,10 +8,9 @@
             type="com.example.chotuve_android_client.models.Comment" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:layout_margin="15dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="105dp"
         tools:layout_editor_absoluteY="35dp">
@@ -19,35 +18,38 @@
         <TextView
             android:id="@+id/user_email"
             android:layout_width="364dp"
-            android:layout_height="35dp"
+            android:layout_height="28dp"
             android:layout_margin="5dp"
+            android:text="@{comment.user}"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:text="@{comment.user}"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.16"
+            app:layout_constraintHorizontal_bias="0.555"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.298" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/user_title"
-            android:layout_width="361dp"
-            android:layout_height="38dp"
-            android:layout_marginLeft="5dp"
+            android:layout_width="363dp"
+            android:layout_height="wrap_content"
             android:text="@{comment.text}"
             android:textSize="20sp"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.208"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.387"
+            app:layout_constraintTop_toBottomOf="@+id/user_email"
             tools:ignore="SmallSp" />
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </layout>

@@ -126,7 +126,7 @@ class LoginActivity : AppCompatActivity() {
                 showLoginFailed(loginResult.error)
             }
             if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
+//                updateUiWithUser(loginResult.success)
                 setResult(Activity.RESULT_OK)
 
                 //Complete and destroy login activity once successful
