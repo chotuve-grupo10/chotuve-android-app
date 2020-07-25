@@ -35,12 +35,6 @@ class VideoAdapter(
 
         holder.recyclerviewVideoBinding.video = videos[position]
 
-        // Here I can add clickListeners to different elements in coso
-//        holder.recyclerviewVideoBinding.videoTitle.setOnClickListener { view ->
-//            val ad = AlertDialog.Builder(view.context)
-//            ad.setMessage("You clicked on " + videos[position].title)
-//            ad.show()
-//        }
         holder.recyclerviewVideoBinding.root.setOnClickListener { view ->
             val intent: Intent = Intent(view.context, PlayVideoActivity::class.java)
             intent.putExtra("video_to_play", videos[position])

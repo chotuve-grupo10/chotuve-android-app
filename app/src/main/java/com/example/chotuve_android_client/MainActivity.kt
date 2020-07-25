@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        Log.d(TAG, "App server token is ${TokenHolder.appServerToken}")
+//        Log.d(TAG, "App server token is ${TokenHolder.appServerToken}")
 
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener(
             this@MainActivity,
