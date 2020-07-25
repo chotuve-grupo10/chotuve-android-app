@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.models.LoginResponse
+import com.example.chotuve_android_client.ui.recovery.RecoveryActivity
 import com.example.chotuve_android_client.ui.register.RegisterActivity
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -59,6 +60,10 @@ class LoginActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()) {
                 Log.d("LoginActivity", "Resultado de la registracion: " + it.resultCode)
     }
+    val passwordRecoveryLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()) {
+                Log.d("LoginActivity", "Resultado de recuperar la contraseña: " + it.resultCode)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -70,6 +75,7 @@ class LoginActivity : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
         val register = findViewById<TextView>(R.id.register_label)
+        val passwordRecovery = findViewById<TextView>(R.id.forgot_password_label)
         val googleSignInButton = findViewById<SignInButton>(R.id.google_sign_in_button);
         val facebookLoginButton = findViewById<LoginButton>(R.id.fb_login_button);
         val loading = findViewById<ProgressBar>(R.id.loading)
@@ -126,7 +132,7 @@ class LoginActivity : AppCompatActivity() {
                 showLoginFailed(loginResult.error)
             }
             if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
+//                updateUiWithUser(loginResult.success)
                 setResult(Activity.RESULT_OK)
 
                 //Complete and destroy login activity once successful
@@ -175,6 +181,12 @@ class LoginActivity : AppCompatActivity() {
             val registerIntent : Intent = Intent(this, RegisterActivity::class.java)
             registerNewUserLauncher.launch(registerIntent)
         }
+
+        passwordRecovery.setOnClickListener {
+            val passwordRecoveryIntent : Intent = Intent(this, RecoveryActivity::class.java)
+            passwordRecoveryLauncher.launch(passwordRecoveryIntent)
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

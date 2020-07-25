@@ -19,8 +19,8 @@
 
         <VideoView
             android:id="@+id/videoView"
-            android:layout_width="407dp"
-            android:layout_height="321dp"
+            android:layout_width="406dp"
+            android:layout_height="324dp"
             android:layout_centerInParent="true"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -45,41 +45,44 @@
         <Button
             android:id="@+id/button_like"
             style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="159dp"
-            android:layout_height="46dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
+            android:layout_width="82dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="436dp"
             android:drawableLeft="@drawable/ic_thumb_up_24px"
-            android:text="Me gusta"
+            android:text=""
             android:textColor="@color/black"
             app:iconTint="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/comment_video"
+            app:layout_constraintBottom_toTopOf="@+id/comment_video_edit_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.267"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.978" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <Button
             android:id="@+id/button_dislike"
             style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="159dp"
-            android:layout_height="46dp"
-            android:layout_marginEnd="52dp"
-            android:layout_marginRight="52dp"
+            android:layout_width="82dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="436dp"
             android:drawableLeft="@drawable/ic_thumb_down_24px"
-            android:text="No me gusta"
+            android:text=""
             android:textColor="@color/black"
             app:iconTint="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/comment_video"
+            app:layout_constraintBottom_toTopOf="@+id/comment_video_edit_text"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.595"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.978" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/comment_video"
+            android:id="@+id/comment_video_edit_text"
             android:layout_width="319dp"
             android:layout_height="77dp"
             android:layout_margin="10dp"
             android:background="@color/white"
+            android:imeOptions="actionDone"
             android:hint="Deja un comentario..."
             android:inputType="textLongMessage"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -96,20 +99,22 @@
             android:layout_height="37dp"
             app:icon="@drawable/ic_send_24px"
             app:iconTint="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/comment_video"
+            app:layout_constraintBottom_toBottomOf="@+id/comment_video_edit_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.111"
-            app:layout_constraintStart_toEndOf="@+id/comment_video"
-            app:layout_constraintTop_toTopOf="@+id/comment_video" />
+            app:layout_constraintStart_toEndOf="@+id/comment_video_edit_text"
+            app:layout_constraintTop_toTopOf="@+id/comment_video_edit_text" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_comments"
             android:layout_width="386dp"
             android:layout_height="135dp"
+            android:scrollbars="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.36"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/comment_video"
+            app:layout_constraintTop_toBottomOf="@+id/comment_video_edit_text"
             app:layout_constraintVertical_bias="0.619" />
 
 

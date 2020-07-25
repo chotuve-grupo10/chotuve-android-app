@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".ui.recovery.RecoveryActivity"
+            android:label="@string/recovery_activity"/>
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -25,7 +28,6 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
-
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -38,19 +40,17 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.register.RegisterActivity" />
-
+        <activity
+            android:name=".ui.register.RegisterActivity"
+            android:label="@string/register_activity" />
         <activity
             android:name=".ui.playVideo.PlayVideoActivity"
             android:label="@string/title_activity_play_video"
-            android:windowSoftInputMode="adjustNothing" />
-
+            android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.example.chotuve_android_client.ui.messaging.MessagingActivity"
-            android:label="@string/title_activity_messaging"/>
-
-    <activity
+            android:name=".ui.messaging.MessagingActivity"
+            android:label="@string/title_activity_messaging" />
+        <activity
             android:name=".SplashActivity"
             android:label="@string/title_activity_splash"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
@@ -66,8 +66,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" /> <!-- Agregados para importar Firebase Messaging y usar Notificacions Push -->
         <service
             android:name=".push_notifications.MyFirebaseMessagingService"
