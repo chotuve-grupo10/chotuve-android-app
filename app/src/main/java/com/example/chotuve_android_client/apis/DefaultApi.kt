@@ -172,7 +172,7 @@ interface DefaultApi {
     @GET("/api/users/{user_email}")
     fun apiUsersUserEmailGet(
         @retrofit2.http.Header("Authorization") authorization: String,
-        @retrofit2.http.Path("user_email") userEmail: Map<String, Any?>
+        @retrofit2.http.Path("user_email") userEmail: String
     ): Single<ListedUser>
     /**
      * Este servicio permite vincular un Token único de notificaciones a un determinado usuario

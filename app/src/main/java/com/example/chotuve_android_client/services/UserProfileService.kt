@@ -1,8 +1,10 @@
 package com.example.chotuve_android_client.services
 
 import com.example.chotuve_android_client.apis.DefaultApi
+import com.example.chotuve_android_client.models.ListedUser
 import com.example.chotuve_android_client.models.UsersInformationList
 import com.example.chotuve_android_client.tools.RetrofitObject
+import com.example.chotuve_android_client.tools.TokenHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -24,4 +26,16 @@ class UserProfileService {
             .subscribeOn(Schedulers.io())
             .subscribe(onSuccess, onError))
     }
+
+    fun getUserDataInformation(
+        disposable: CompositeDisposable?,
+        onSuccess: (friends: ListedUser?) -> Unit,
+        onError: (throwable: Throwable) -> Unit
+    ) {
+        disposable?.add(userProfileService.apiUsersUserEmailGet(TokenHolder.appServerToken, TokenHolder.username)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(onSuccess, onError))
+    }
+
 }

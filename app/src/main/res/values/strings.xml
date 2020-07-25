@@ -1,21 +1,21 @@
 <resources>
     <string name="app_name">ChoTuve</string>
-    <string name="title_home">Home</string>
-    <string name="title_search">Search</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_user">My spot</string>
+    <string name="title_home">Inicio</string>
+    <string name="title_search">Buscar</string>
+    <string name="title_notifications">Notificaciones</string>
+    <string name="title_user">Mi muro</string>
     <string name="ping_message">This is where we ping the App Server</string>
     <string name="ping_button">Ping, my friend</string>
 
-    <string name="title_upload">Upload video</string>
+    <string name="title_upload">Subir un video</string>
     <string name="text_upload_video">Bien, personalicemos este video!</string>
-    <string name="firebase_button">Upload to FireBase</string>
+    <string name="firebase_button">Subir a FireBase</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Contraseña</string>
     <string name="action_login">Login</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="welcome">"Bienvenido!"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
@@ -65,6 +65,7 @@
     <string name="send_new_password">Aceptar nueva contraseña</string>
     <string name="send_email_recovery">Quiero que me envíen un mail para recibir un token de recuperación de contraseña</string>
 
-
+    <string name="edit_profile_activity">Mis datos</string>
+    <string name="send_profile_editions">Aceptar cambios</string>
 
 </resources>

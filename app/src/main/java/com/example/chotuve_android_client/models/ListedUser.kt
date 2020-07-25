@@ -19,6 +19,6 @@ import com.squareup.moshi.JsonClass
 data class ListedUser(
     @Json(name = "email") @field:Json(name = "email") var email: String? = null,
     @Json(name = "full name") @field:Json(name = "full name") var fullName: String? = null,
-    @Json(name = "phone_number") @field:Json(name = "phone_number") var phoneNumber: String? = null,
-    @Json(name = "profile_picture") @field:Json(name = "profile_picture") var profilePicture: String? = null
+    @Json(name = "phone number") @field:Json(name = "phone number") var phoneNumber: String? = null,
+    @Json(name = "profile picture") @field:Json(name = "profile_picture") var profilePicture: String? = null
 )
