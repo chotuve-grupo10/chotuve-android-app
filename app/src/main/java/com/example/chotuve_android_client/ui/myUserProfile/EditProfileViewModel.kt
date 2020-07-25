@@ -1,6 +1,7 @@
 package com.example.chotuve_android_client.ui.myUserProfile
 
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.chotuve_android_client.models.ListedUser
@@ -24,13 +25,6 @@ class EditProfileViewModel {
     val listed_user : LiveData<ListedUser>
         get() = _listed_user
 
-//    private val _new_phone_number = MutableLiveData<String>().apply { this.value = listed_user.value!!.phoneNumber.toString() }
-//    val new_phone_number : LiveData<String>
-//        get() = _new_phone_number
-//
-//    private val _new_full_name = MutableLiveData<String>().apply { this.value = listed_user.value!!.fullName.toString() }
-//    val new_full_name : LiveData<String>
-//        get() = _new_full_name
 
     fun getProfileInformation() {
         val userProfileService = UserProfileService()
@@ -39,8 +33,6 @@ class EditProfileViewModel {
             {
                 Log.d(TAG, "User information received properly ${it!!.fullName}, ${it.phoneNumber}")
                 _listed_user.value = it
-//                _new_phone_number.value = it.phoneNumber
-//                _new_full_name.value = it.fullName
             },
             {
                 it.printStackTrace()
@@ -49,10 +41,12 @@ class EditProfileViewModel {
         )
     }
 
-    fun sendNewProfileInformation(fullName : String, phoneNumber : String) {
+    fun sendNewProfileInformation(fullName : String, phoneNumber : String, ad : AlertDialog.Builder) {
         if( (fullName != _listed_user.value!!.fullName) || (phoneNumber != _listed_user.value!!.phoneNumber) ) {
-//            val listedUser = ListedUser(TokenHolder.username, fullName, phoneNumber, _listed_user.value!!.profilePicture.toString())
             Log.d(TAG, "New fullname ${fullName}, new phoneNumber ${phoneNumber}")
+        } else {
+            ad.setMessage("No hay cambios que guardar!")
+            ad.show()
         }
 
     }

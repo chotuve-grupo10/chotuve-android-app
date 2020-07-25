@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.example.chotuve_android_client.R
 
@@ -35,7 +36,11 @@ class EditProfileActivity : AppCompatActivity() {
         val sendChanges = findViewById<Button>(R.id.button_send_profile_editions)
         sendChanges.setOnClickListener {
             Log.d(TAG, "About to make some changes")
-            editProfileViewModel.sendNewProfileInformation(fullName.text.toString(), phoneNumber.text.toString())
+            editProfileViewModel.sendNewProfileInformation(
+                fullName.text.toString(),
+                phoneNumber.text.toString(),
+                AlertDialog.Builder(this)
+            )
         }
 
     }
