@@ -3,6 +3,7 @@ package com.example.chotuve_android_client.ui.playVideo
 import android.widget.Button
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.models.Video
 import com.example.chotuve_android_client.tools.TokenHolder
+import kotlinx.android.synthetic.main.activity_play_video.*
 
 
 class PlayVideoActivity : AppCompatActivity() {
@@ -41,12 +43,14 @@ class PlayVideoActivity : AppCompatActivity() {
             var videoView : VideoView = this.findViewById(R.id.videoView)
             val mediaController = MediaController(this)
 
+/*
             if (isLandScape()) {
 
                 val intent: Intent = Intent(this, PlayVideoFullScreenActivity::class.java)
                 intent.putExtra("video_to_play", video)
                 this.startActivity(intent)
             }
+*/
 
             // bind fileUrl
             Log.d(TAG, "Soy la PlayVideoActivity y estoy bindeando el filePath")
@@ -89,6 +93,46 @@ class PlayVideoActivity : AppCompatActivity() {
                     }
                 }
             })
+
+        }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation === Configuration.ORIENTATION_LANDSCAPE) {
+
+            val video : Video? = intent.getParcelableExtra<Video>("video_to_play")
+            val intent: Intent = Intent(this, PlayVideoFullScreenActivity::class.java)
+            intent.putExtra("video_to_play", video)
+            intent.putExtra("time", videoView.currentPosition)
+            this.startActivity(intent)
+            // prepare videoView
+           /* var videoView : VideoView = this.findViewById(R.id.videoView)
+            val mediaController = MediaController(this)
+            mediaController.setAnchorView(videoView)
+
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+
+            supportActionBar!!.hide()
+            videoView = this.findViewById(R.id.videoViewFullScreen)
+            videoView.bringToFront()
+            videoView.visibility = View.VISIBLE*/
+
+        } else if (newConfig.orientation === Configuration.ORIENTATION_PORTRAIT) {
+            // prepare videoView
+            var videoView : VideoView = this.findViewById(R.id.videoView)
+            val mediaController = MediaController(this)
+            mediaController.setAnchorView(videoView)
+
+            supportActionBar!!.show()
+
+            val videoViewFullScreen = this.findViewById<VideoView>(R.id.videoViewFullScreen)
+            videoViewFullScreen.visibility = View.INVISIBLE
 
         }
     }

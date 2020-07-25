@@ -42,6 +42,7 @@
         <activity
             android:name=".ui.playVideo.PlayVideoActivity"
             android:label="@string/title_activity_play_video"
+            android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".ui.messaging.MessagingActivity"

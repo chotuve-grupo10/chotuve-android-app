@@ -30,6 +30,7 @@ class PlayVideoFullScreenActivity : AppCompatActivity() {
         setContentView(R.layout.play_video_full_screen)
         val TAG = "PlayVideoAct"
         val video : Video? = intent.getParcelableExtra<Video>("video_to_play")
+        val timeStamp : Int? = intent.getIntExtra("time", 0)
         if (video != null) {
             setPlayVideoActivityTitle(video.title.toString())
 
@@ -61,6 +62,9 @@ class PlayVideoFullScreenActivity : AppCompatActivity() {
                 videoView.setVideoURI(Uri.parse(url))
                 videoView.setMediaController(mediaController)
                 videoView.requestFocus()
+                if (timeStamp != null) {
+                    videoView.seekTo(timeStamp)
+                }
                 videoView.start()
             })
         }
