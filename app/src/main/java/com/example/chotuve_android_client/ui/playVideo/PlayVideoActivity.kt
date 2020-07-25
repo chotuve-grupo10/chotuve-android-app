@@ -108,6 +108,7 @@ class PlayVideoActivity : AppCompatActivity() {
             intent.putExtra("video_to_play", video)
             intent.putExtra("time", videoView.currentPosition)
             this.startActivity(intent)
+            finish()
             // prepare videoView
            /* var videoView : VideoView = this.findViewById(R.id.videoView)
             val mediaController = MediaController(this)

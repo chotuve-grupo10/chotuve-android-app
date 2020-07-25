@@ -52,6 +52,7 @@ class PlayVideoFullScreenActivity : AppCompatActivity() {
                 val intent: Intent = Intent(this, PlayVideoActivity::class.java)
                 intent.putExtra("video_to_play", video)
                 this.startActivity(intent)
+                finish()
             }
 
             // bind fileUrl
