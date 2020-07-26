@@ -13,6 +13,7 @@ import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.services.RequestFriendshipService
 import com.example.chotuve_android_client.tools.TokenHolder
 import com.example.chotuve_android_client.tools.error_handlers.ServerMessageHttpExceptionHandler
+import com.squareup.picasso.Picasso
 import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
 
@@ -37,6 +38,11 @@ class UsersAdapter(
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         holder.recyclerviewUsersBinding.user = users[position]
+        Picasso
+            .get()
+            .load("https://www.getyoutubevideothumbnail.com/Images/Icons/7.png") // https://matthewjameskirk.co.uk/Images/video.jpg
+            .into(holder.recyclerviewUsersBinding.profilePicture)
+
         holder.recyclerviewUsersBinding.buttonSeeProfile.setOnClickListener { view ->
             requestFriendship(view,
                 TokenHolder.username,
