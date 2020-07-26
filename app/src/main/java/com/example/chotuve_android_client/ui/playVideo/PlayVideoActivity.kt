@@ -3,6 +3,8 @@ package com.example.chotuve_android_client.ui.playVideo
 import android.annotation.SuppressLint
 import android.widget.Button
 import android.content.Context
+import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.inputmethodservice.InputMethodService
 import android.net.Uri
@@ -50,25 +52,9 @@ class PlayVideoActivity : AppCompatActivity() {
                 ViewModelProviders.of(this, factory).get(PlayVideoViewModel::class.java)
 
             // prepare videoView
-            var videoView : VideoView = this.findViewById(R.id.videoView)
+            val videoView : VideoView = this.findViewById(R.id.videoView)
             val mediaController = MediaController(this)
             mediaController.setAnchorView(videoView)
-
-            if (isLandScape()) {
-
-                window.setFlags(
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN
-                )
-
-                supportActionBar!!.hide()
-                videoView = this.findViewById(R.id.videoViewFullScreen)
-                videoView.bringToFront()
-                videoView.visibility = View.VISIBLE
-            } else {
-                val videoViewFullScreen = this.findViewById<VideoView>(R.id.videoViewFullScreen)
-                videoViewFullScreen.visibility = View.INVISIBLE
-            }
 
             // bind fileUrl
             Log.d(TAG, "Soy la PlayVideoActivity y estoy bindeando el filePath")
@@ -157,16 +143,22 @@ class PlayVideoActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(getCurrentFocus()!!.getWindowToken(), 0)
     }
 
-    fun setPlayVideoActivityTitle(userName : String) {
-        supportActionBar?.title = userName
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation === Configuration.ORIENTATION_LANDSCAPE) {
+
+            val video : Video? = intent.getParcelableExtra<Video>("video_to_play")
+            val intent: Intent = Intent(this, PlayVideoFullScreenActivity::class.java)
+            intent.putExtra("video_to_play", video)
+            intent.putExtra("time", videoView.currentPosition)
+            this.startActivity(intent)
+            finish()
+        }
     }
 
-    private fun isLandScape(): Boolean {
-        val display =
-            (getSystemService(Context.WINDOW_SERVICE) as WindowManager)
-                .defaultDisplay
-        val rotation = display.rotation
-        return (rotation == Surface.ROTATION_90
-                || rotation == Surface.ROTATION_270)
+    fun setPlayVideoActivityTitle(userName : String) {
+        supportActionBar?.title = userName
     }
 }

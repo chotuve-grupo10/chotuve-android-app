@@ -16,6 +16,7 @@
         android:roundIcon="@drawable/chotuve_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.playVideo.PlayVideoFullScreenActivity"></activity>
         <activity android:name=".ui.userVideos.UserVideosActivity"></activity>
         <activity
             android:name=".ui.myUserProfile.EditProfileActivity"
@@ -44,13 +45,15 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.register.RegisterActivity"
             android:label="@string/register_activity" />
         <activity
             android:name=".ui.playVideo.PlayVideoActivity"
             android:label="@string/title_activity_play_video"
-            android:windowSoftInputMode="adjustPan" />
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".ui.messaging.MessagingActivity"
             android:label="@string/title_activity_messaging" />
