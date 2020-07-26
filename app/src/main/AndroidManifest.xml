@@ -16,9 +16,10 @@
         android:roundIcon="@drawable/chotuve_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.myUserProfile.EditProfileActivity"
-            android:label="@string/edit_profile_activity"
-            />
+        <activity android:name=".ui.userVideos.UserVideosActivity"></activity>
+        <activity
+            android:name=".ui.myUserProfile.EditProfileActivity"
+            android:label="@string/edit_profile_activity" />
         <activity
             android:name=".ui.recovery.RecoveryActivity"
             android:label="@string/recovery_activity" />
