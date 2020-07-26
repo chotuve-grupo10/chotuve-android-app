@@ -29,6 +29,7 @@
     <string name="home_videos_message">Available videos:</string>
     <string name="textview">PlayVideoActivity</string>
     <string name="title_activity_play_video">PlayVideoActivity</string>
+    <string name="title_activity_play_video_full_screen">PlayVideoFullScreenActivity</string>
     <string name="edit_text_titulo">Título (opcional)</string>
     <string name="edit_text_descripcion">Descripción (opcional)</string>
     <string name="checkbox_video_privado">Este video es privado!</string>

@@ -44,6 +44,7 @@ class PlayVideoActivity : AppCompatActivity() {
 
         val TAG = "PlayVideoAct"
         val video : Video? = intent.getParcelableExtra<Video>("video_to_play")
+        val timeStamp : Int? = intent.getIntExtra("time", 0)
         if (video != null) {
             setPlayVideoActivityTitle(video.title.toString())
 
@@ -56,14 +57,18 @@ class PlayVideoActivity : AppCompatActivity() {
             val mediaController = MediaController(this)
             mediaController.setAnchorView(videoView)
 
+
             // bind fileUrl
-            Log.d(TAG, "Soy la PlayVideoActivity y estoy bindeando el filePath")
+            Log.d(TAG, "Video ${video.title}. Bindeando el filePath en este timeStamp ${timeStamp}")
             playVideoViewModel.url.observe( this, Observer { url ->
                 // Lo de abajo es la uri para un video local. Por si no funca Firebase
                 // "android.resource://"+getPackageName()+"/"+R.raw.rally
                 videoView.setVideoURI(Uri.parse(url))
                 videoView.setMediaController(mediaController)
                 videoView.requestFocus()
+                if( (timeStamp != null) && (timeStamp != 0) ) {
+                    videoView.seekTo(timeStamp)
+                }
                 videoView.start()
             })
 
@@ -148,13 +153,15 @@ class PlayVideoActivity : AppCompatActivity() {
 
         // Checks the orientation of the screen
         if (newConfig.orientation === Configuration.ORIENTATION_LANDSCAPE) {
+            val videoView : VideoView = this.findViewById(R.id.videoView)
+            videoView.pause()
 
             val video : Video? = intent.getParcelableExtra<Video>("video_to_play")
             val intent: Intent = Intent(this, PlayVideoFullScreenActivity::class.java)
             intent.putExtra("video_to_play", video)
             intent.putExtra("time", videoView.currentPosition)
-            this.startActivity(intent)
-            finish()
+            startActivity(intent)
+            this.finish()
         }
     }
 

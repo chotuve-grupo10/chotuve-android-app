@@ -16,7 +16,6 @@
         android:roundIcon="@drawable/chotuve_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.playVideo.PlayVideoFullScreenActivity"></activity>
         <activity android:name=".ui.userVideos.UserVideosActivity"></activity>
         <activity
             android:name=".ui.myUserProfile.EditProfileActivity"
@@ -52,6 +51,11 @@
         <activity
             android:name=".ui.playVideo.PlayVideoActivity"
             android:label="@string/title_activity_play_video"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".ui.playVideo.PlayVideoFullScreenActivity"
+            android:label="@string/title_activity_play_video_full_screen"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="adjustNothing" />
         <activity
