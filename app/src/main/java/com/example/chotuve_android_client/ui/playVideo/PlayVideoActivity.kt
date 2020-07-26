@@ -40,17 +40,8 @@ class PlayVideoActivity : AppCompatActivity() {
                 ViewModelProviders.of(this, factory).get(PlayVideoViewModel::class.java)
 
             // prepare videoView
-            var videoView : VideoView = this.findViewById(R.id.videoView)
+            val videoView : VideoView = this.findViewById(R.id.videoView)
             val mediaController = MediaController(this)
-
-/*
-            if (isLandScape()) {
-
-                val intent: Intent = Intent(this, PlayVideoFullScreenActivity::class.java)
-                intent.putExtra("video_to_play", video)
-                this.startActivity(intent)
-            }
-*/
 
             // bind fileUrl
             Log.d(TAG, "Soy la PlayVideoActivity y estoy bindeando el filePath")
@@ -109,45 +100,10 @@ class PlayVideoActivity : AppCompatActivity() {
             intent.putExtra("time", videoView.currentPosition)
             this.startActivity(intent)
             finish()
-            // prepare videoView
-           /* var videoView : VideoView = this.findViewById(R.id.videoView)
-            val mediaController = MediaController(this)
-            mediaController.setAnchorView(videoView)
-
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-
-            supportActionBar!!.hide()
-            videoView = this.findViewById(R.id.videoViewFullScreen)
-            videoView.bringToFront()
-            videoView.visibility = View.VISIBLE*/
-
-        } else if (newConfig.orientation === Configuration.ORIENTATION_PORTRAIT) {
-            // prepare videoView
-            var videoView : VideoView = this.findViewById(R.id.videoView)
-            val mediaController = MediaController(this)
-            mediaController.setAnchorView(videoView)
-
-            supportActionBar!!.show()
-
-            val videoViewFullScreen = this.findViewById<VideoView>(R.id.videoViewFullScreen)
-            videoViewFullScreen.visibility = View.INVISIBLE
-
         }
     }
 
     fun setPlayVideoActivityTitle(userName : String) {
         supportActionBar?.title = userName
-    }
-
-    private fun isLandScape(): Boolean {
-        val display =
-            (getSystemService(Context.WINDOW_SERVICE) as WindowManager)
-                .defaultDisplay
-        val rotation = display.rotation
-        return (rotation == Surface.ROTATION_90
-                || rotation == Surface.ROTATION_270)
     }
 }
