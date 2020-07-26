@@ -1,23 +1,19 @@
 package com.example.chotuve_android_client.ui.playVideo
 
-import android.widget.Button
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Surface
-import android.view.View
 import android.view.WindowManager
 import android.widget.MediaController
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.models.Video
-import com.example.chotuve_android_client.tools.TokenHolder
 
 
 class PlayVideoFullScreenActivity : AppCompatActivity() {
@@ -27,7 +23,7 @@ class PlayVideoFullScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.play_video_full_screen)
+        setContentView(R.layout.activity_play_video_full_screen)
         val TAG = "PlayVideoAct"
         val video : Video? = intent.getParcelableExtra<Video>("video_to_play")
         val timeStamp : Int? = intent.getIntExtra("time", 0)
