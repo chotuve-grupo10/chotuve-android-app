@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.models.Video
+import kotlinx.android.synthetic.main.activity_play_video.*
 
 
 class PlayVideoFullScreenActivity : AppCompatActivity() {
@@ -24,7 +25,7 @@ class PlayVideoFullScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play_video_full_screen)
-        val TAG = "PlayVideoAct"
+        val TAG = "PlayVideoActFS"
         val video : Video? = intent.getParcelableExtra<Video>("video_to_play")
         val timeStamp : Int? = intent.getIntExtra("time", 0)
         if (video != null) {
@@ -43,16 +44,8 @@ class PlayVideoFullScreenActivity : AppCompatActivity() {
             )
             supportActionBar!!.hide()
 
-            if (!isLandScape()) {
-
-                val intent: Intent = Intent(this, PlayVideoActivity::class.java)
-                intent.putExtra("video_to_play", video)
-                this.startActivity(intent)
-                finish()
-            }
-
             // bind fileUrl
-            Log.d(TAG, "Soy la PlayVideoActivity y estoy bindeando el filePath")
+            Log.d(TAG, "Video ${video.title}. Bindeando el filePath en este timeStamp ${timeStamp}")
             playVideoViewModel.url.observe( this, Observer { url ->
                 // Lo de abajo es la uri para un video local. Por si no funca Firebase
                 // "android.resource://"+getPackageName()+"/"+R.raw.rally
@@ -63,7 +56,17 @@ class PlayVideoFullScreenActivity : AppCompatActivity() {
                     videoView.seekTo(timeStamp)
                 }
                 videoView.start()
+                Log.d(TAG, "Empezó el video y ésta es su posición ${videoView.currentPosition}")
             })
+
+            if (!isLandScape()) {
+                val intent: Intent = Intent(this, PlayVideoActivity::class.java)
+                Log.d(TAG, "A punto de girar a Landscape ${videoView.currentPosition}")
+                intent.putExtra("video_to_play", video)
+                intent.putExtra("time", videoView.currentPosition)
+                this.startActivity(intent)
+                finish()
+            }
         }
     }
 
