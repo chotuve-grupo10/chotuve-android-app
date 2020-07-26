@@ -17,6 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.playVideo.PlayVideoFullScreenActivity"></activity>
+        <activity android:name=".ui.userVideos.UserVideosActivity"></activity>
+        <activity
+            android:name=".ui.myUserProfile.EditProfileActivity"
+            android:label="@string/edit_profile_activity" />
+        <activity
+            android:name=".ui.recovery.RecoveryActivity"
+            android:label="@string/recovery_activity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -38,7 +45,10 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.register.RegisterActivity" />
+
+        <activity
+            android:name=".ui.register.RegisterActivity"
+            android:label="@string/register_activity" />
         <activity
             android:name=".ui.playVideo.PlayVideoActivity"
             android:label="@string/title_activity_play_video"

@@ -1,41 +1,43 @@
 package com.example.chotuve_android_client.services
 
 import com.example.chotuve_android_client.apis.DefaultApi
-import com.example.chotuve_android_client.models.ListedUser
-import com.example.chotuve_android_client.models.UsersInformationList
+import com.example.chotuve_android_client.models.*
 import com.example.chotuve_android_client.tools.RetrofitObject
-import com.example.chotuve_android_client.tools.TokenHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 
-class UserProfileService {
+class PasswordRecoveryService {
 
     private val retrofit : Retrofit = RetrofitObject.retrofit
-    private val userProfileService = retrofit.create(DefaultApi::class.java)
+    private val passwordRecoveryService = retrofit.create(DefaultApi::class.java)
 
-    fun listFriends(
-        user_email : String,
+    fun sendTokenForPasswordRecovery(
+        email: String,
         disposable: CompositeDisposable?,
-        onSuccess: (friends: UsersInformationList?) -> Unit,
+        onSuccess: (serverStatus: ForgotPasswordSuccessfulResponse?) -> Unit,
         onError: (throwable: Throwable) -> Unit
     ) {
-        disposable?.add(userProfileService.apiUsersUserEmailFriendsGet(user_email)
+        disposable?.add(passwordRecoveryService.apiUsersUserEmailResetPasswordTokenPost(email)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(onSuccess, onError))
     }
 
-    fun getUserDataInformation(
+    fun newPassword(
+        email: String,
+        new_password : String,
+        token : String,
         disposable: CompositeDisposable?,
-        onSuccess: (friends: ListedUser?) -> Unit,
+        onSuccess: (serverStatus: ResetPasswordSuccessfulResponse?) -> Unit,
         onError: (throwable: Throwable) -> Unit
     ) {
-        disposable?.add(userProfileService.apiUsersUserEmailGet(TokenHolder.appServerToken, TokenHolder.username)
+        disposable?.add(passwordRecoveryService.apiUsersUserEmailPasswordPut(email, ResetPasswordBody(new_password, token))
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(onSuccess, onError))
     }
+
 
 }

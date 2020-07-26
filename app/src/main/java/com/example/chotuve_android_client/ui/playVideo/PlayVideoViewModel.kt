@@ -5,11 +5,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.chotuve_android_client.models.Comment
 import com.example.chotuve_android_client.models.Video
-import com.example.chotuve_android_client.services.DeleteDislikeVideoService
-import com.example.chotuve_android_client.services.DeleteLikeVideoService
-import com.example.chotuve_android_client.services.DislikeVideoService
-import com.example.chotuve_android_client.services.LikeVideoService
+import com.example.chotuve_android_client.services.*
 import com.example.chotuve_android_client.tools.TokenHolder
 import com.example.chotuve_android_client.tools.error_handlers.ServerMessageHttpExceptionHandler
 import io.reactivex.disposables.CompositeDisposable
@@ -28,11 +26,26 @@ class PlayVideoViewModel (private var video: Video) : ViewModel() {
     }
     val liked_video : LiveData<Boolean> = _liked_video
 
+    private val _likes_number = MutableLiveData<Int>().apply {
+        this.value = video.likes!!.size
+    }
+    val likes_number : LiveData<Int> = _likes_number
+
     private val _disliked_video = MutableLiveData<Boolean>().apply {
         this.value = video.dislikes!!.contains(TokenHolder.username)
     }
     val disliked_video : LiveData<Boolean> = _disliked_video
 
+    private val _dislikes_number = MutableLiveData<Int>().apply {
+        this.value = video.dislikes!!.size
+    }
+    val dislikes_number : LiveData<Int> = _dislikes_number
+
+    private val _comments = MutableLiveData<List<Comment>>().apply {
+        this.value = video.comments
+    }
+    val comments : LiveData<List<Comment>>
+        get() = _comments
 
     val TAG = "PlayVideoVM"
     init {
@@ -43,7 +56,13 @@ class PlayVideoViewModel (private var video: Video) : ViewModel() {
 
     fun updateLikesAndDislikes() {
         _liked_video.value = video.likes!!.contains(TokenHolder.username)
+        _likes_number.value = video.likes!!.size
         _disliked_video.value = video.dislikes!!.contains(TokenHolder.username)
+        _dislikes_number.value = video.dislikes!!.size
+    }
+
+    fun updateComments() {
+        _comments.value = video.comments!!
     }
 
     fun likeVideo() {
@@ -130,4 +149,32 @@ class PlayVideoViewModel (private var video: Video) : ViewModel() {
                 }
             )
     }
+
+    fun sendComment(textComment : String?) {
+        if (textComment == "") {
+            return
+        }
+        Log.d(TAG, "Comentario es ${textComment}")
+        val comment = Comment(textComment, TokenHolder.username)
+        CommentVideoService()
+            .commentVideo(
+                video.Id.toString(),
+                TokenHolder.appServerToken,
+                comment,
+                CompositeDisposable(),
+                {
+                    if (it != null) {
+                        video = it
+                        updateComments()
+                        Log.d(TAG, "New comment into video ${video.title}")
+                    }
+                },
+                {
+                    it.printStackTrace()
+                    Log.d(TAG, "Error inserting comment into video: ${it.localizedMessage}")
+                }
+            )
+    }
+
+
 }

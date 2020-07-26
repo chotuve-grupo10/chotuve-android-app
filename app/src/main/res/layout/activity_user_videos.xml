@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.userProfile.UserProfileFragment">
-
-    <!--android:text="@string/user_profile_title"-->
+    tools:context=".ui.userVideos.UserVideosActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -15,21 +13,26 @@
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:text="Sus videos:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.023"
+        tools:layout_editor_absoluteX="38dp"
+        android:gravity="center_horizontal" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_user_profile_friends"
-        android:layout_width="match_parent"
-        android:layout_height="488dp"
+        android:id="@+id/recyclerview_user_videos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.994"
-        tools:listitem="@layout/recyclerview_friends" />
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        tools:layout_editor_absoluteX="-2dp"
+        tools:layout_editor_absoluteY="244dp"
+        tools:listitem="@layout/recyclerview_video" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
