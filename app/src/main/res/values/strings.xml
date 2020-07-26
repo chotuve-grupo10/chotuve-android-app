@@ -32,7 +32,7 @@
     <string name="edit_text_titulo">Título (opcional)</string>
     <string name="edit_text_descripcion">Descripción (opcional)</string>
     <string name="checkbox_video_privado">Este video es privado!</string>
-    <string name="upload_profile_pic">Subir una foto de perfil</string>
+    <string name="upload_profile_pic">Subir otra foto de perfil</string>
     <string name="register">Registrarme</string>
     <string name="register_activity">Register</string>
 
@@ -67,6 +67,7 @@
 
     <string name="edit_profile_activity">Mis datos</string>
     <string name="send_profile_editions">Aceptar cambios</string>
+    <string name="upload_profile_picture">Subi una foto</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
