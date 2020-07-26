@@ -57,6 +57,7 @@ class PlayVideoActivity : AppCompatActivity() {
             val mediaController = MediaController(this)
             mediaController.setAnchorView(videoView)
 
+
             // bind fileUrl
             Log.d(TAG, "Video ${video.title}. Bindeando el filePath en este timeStamp ${timeStamp}")
             playVideoViewModel.url.observe( this, Observer { url ->
@@ -159,8 +160,8 @@ class PlayVideoActivity : AppCompatActivity() {
             val intent: Intent = Intent(this, PlayVideoFullScreenActivity::class.java)
             intent.putExtra("video_to_play", video)
             intent.putExtra("time", videoView.currentPosition)
-            this.startActivity(intent)
-            finish()
+            startActivity(intent)
+            this.finish()
         }
     }
 

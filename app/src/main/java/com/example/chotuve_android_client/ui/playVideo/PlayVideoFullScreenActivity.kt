@@ -2,6 +2,7 @@ package com.example.chotuve_android_client.ui.playVideo
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -58,28 +59,27 @@ class PlayVideoFullScreenActivity : AppCompatActivity() {
                 videoView.start()
                 Log.d(TAG, "Empezó el video y ésta es su posición ${videoView.currentPosition}")
             })
+        }
+    }
 
-            if (!isLandScape()) {
-                val intent: Intent = Intent(this, PlayVideoActivity::class.java)
-                Log.d(TAG, "A punto de girar a Landscape ${videoView.currentPosition}")
-                intent.putExtra("video_to_play", video)
-                intent.putExtra("time", videoView.currentPosition)
-                this.startActivity(intent)
-                finish()
-            }
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation === Configuration.ORIENTATION_PORTRAIT) {
+            val videoView : VideoView = this.findViewById(R.id.videoViewFullScreen)
+            videoView.pause()
+
+            val video : Video? = intent.getParcelableExtra<Video>("video_to_play")
+            val intent: Intent = Intent(this, PlayVideoActivity::class.java)
+            intent.putExtra("video_to_play", video)
+            intent.putExtra("time", videoView.currentPosition)
+            startActivity(intent)
+            this.finish()
         }
     }
 
     fun setPlayVideoActivityTitle(userName : String) {
         supportActionBar?.title = userName
-    }
-
-    private fun isLandScape(): Boolean {
-        val display =
-            (getSystemService(Context.WINDOW_SERVICE) as WindowManager)
-                .defaultDisplay
-        val rotation = display.rotation
-        return (rotation == Surface.ROTATION_90
-                || rotation == Surface.ROTATION_270)
     }
 }
