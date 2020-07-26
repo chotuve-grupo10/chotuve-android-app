@@ -13,6 +13,7 @@ import com.example.chotuve_android_client.models.VideoList
 // La clase Kotlin esa te la genera sola
 import com.example.chotuve_android_client.databinding.RecyclerviewVideoBinding
 import com.example.chotuve_android_client.ui.playVideo.PlayVideoActivity
+import kotlinx.android.synthetic.main.recyclerview_video.view.*
 
 
 class VideoAdapter(
@@ -32,7 +33,7 @@ class VideoAdapter(
     }
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
-
+        holder.itemView.thumbnail.setImageDrawable()
         holder.recyclerviewVideoBinding.video = videos[position]
 
         holder.recyclerviewVideoBinding.root.setOnClickListener { view ->
