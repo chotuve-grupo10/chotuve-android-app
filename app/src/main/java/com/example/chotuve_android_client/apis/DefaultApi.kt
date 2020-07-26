@@ -23,6 +23,7 @@ import com.example.chotuve_android_client.models.ServerTime
 import com.example.chotuve_android_client.models.SuccessfulDeleteUserResponse
 import com.example.chotuve_android_client.models.UploadVideoResponse
 import com.example.chotuve_android_client.models.UserLogin
+import com.example.chotuve_android_client.models.UserModificationSuccessfulResponse
 import com.example.chotuve_android_client.models.UserRegister
 import com.example.chotuve_android_client.models.UsersInformationList
 import com.example.chotuve_android_client.models.Video
@@ -196,6 +197,19 @@ interface DefaultApi {
         @retrofit2.http.Path("user_email") userEmail: String,
         @retrofit2.http.Body resetPassword: ResetPasswordBody
     ): Single<ResetPasswordSuccessfulResponse>
+    /**
+     * Este servicio permitirá modificar el perfil de un usuario
+     * The endpoint is owned by defaultname service owner
+     * @param authorization token (required)
+     * @param userEmail User&#39;s email (required)
+     * @param user The user to modify. (optional)
+     */
+    @PUT("/api/users/{user_email}")
+    fun apiUsersUserEmailPut(
+        @retrofit2.http.Header("Authorization") authorization: String,
+        @retrofit2.http.Path("user_email") userEmail: String,
+        @retrofit2.http.Body user: ListedUser
+    ): Single<UserModificationSuccessfulResponse>
     /**
      * Este servicio permite obtener las solicitudes de amistad de un usuario
      * The endpoint is owned by defaultname service owner
