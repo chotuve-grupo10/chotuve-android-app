@@ -43,6 +43,13 @@ class EditProfileActivity : AppCompatActivity() {
             )
         }
 
+        editProfileViewModel.status.observe(this, Observer {
+            if (it == EditProfileViewModel.STATUS_CHANGED) {
+                finish()
+            }
+        })
+
+
     }
 
 }
