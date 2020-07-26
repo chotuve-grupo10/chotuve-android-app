@@ -60,10 +60,6 @@ class EditProfileViewModel {
     val listed_user: LiveData<ListedUser>
         get() = _listed_user
 
-    private val _urlUploaded = MutableLiveData<String>().apply {
-        this.value = _listed_user.value!!.profilePicture.toString()
-    }
-
 
     fun getProfileInformation() {
         val userProfileService = UserProfileService()
@@ -115,20 +111,6 @@ class EditProfileViewModel {
                 }
             )
     }
-//        } else {
-//            ad.setMessage("No hay cambios que guardar!")
-//            ad.show()
-//        }
-
-//    fun changesHaveBeenMade(fullName: String, phoneNumber: String): Boolean {
-//        if ((fullName != _listed_user.value!!.fullName)
-//            || (phoneNumber != _listed_user.value!!.phoneNumber) ||
-//                (_urlUploaded)) {
-//            return true
-//        } else {
-//            return false
-//        }
-//    }
 
     fun getFileFromGallery() =
         Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -170,13 +152,13 @@ class EditProfileViewModel {
             if (task.isSuccessful) {
                 // alertDialog.cancel()
                 val url = task.result
-                _urlUploaded.value = url!!.toString()
-                Log.d(TAG, "This is Firebase Link for Profile Picture ${_urlUploaded.value}")
+                val _urlUploaded = url!!.toString()
+                Log.d(TAG, "This is Firebase Link for Profile Picture ${_urlUploaded}")
                 _listed_user.value = ListedUser(
                     _listed_user.value!!.email,
                     _listed_user.value!!.fullName,
                     _listed_user.value!!.phoneNumber,
-                    _urlUploaded.value)
+                    _urlUploaded)
                 alertDialog.dismiss()
                 alertDialog =
                     ad.setMessage("Listo! Subimos la imagen correctamente. No te olvides de apretar el botón rojo para aceptar tus cambios!")
