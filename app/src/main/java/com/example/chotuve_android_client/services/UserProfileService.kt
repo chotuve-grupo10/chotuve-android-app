@@ -38,4 +38,15 @@ class UserProfileService {
             .subscribe(onSuccess, onError))
     }
 
+    fun putNewUserDataInformation(
+        disposable: CompositeDisposable?,
+        onSuccess: (friends: ListedUser?) -> Unit,
+        onError: (throwable: Throwable) -> Unit
+    ) {
+        disposable?.add(userProfileService.apiUsersUserEmailGet(TokenHolder.appServerToken, TokenHolder.username)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(onSuccess, onError))
+    }
+
 }

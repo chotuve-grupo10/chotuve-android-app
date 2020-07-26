@@ -42,13 +42,23 @@ class EditProfileViewModel {
     }
 
     fun sendNewProfileInformation(fullName : String, phoneNumber : String, ad : AlertDialog.Builder) {
-        if( (fullName != _listed_user.value!!.fullName) || (phoneNumber != _listed_user.value!!.phoneNumber) ) {
+        if( changesHaveBeenMade(fullName, phoneNumber) ) {
             Log.d(TAG, "New fullname ${fullName}, new phoneNumber ${phoneNumber}")
+            val userProfileService = UserProfileService()
+            userProfileService.getUserDataInformation
+
         } else {
             ad.setMessage("No hay cambios que guardar!")
             ad.show()
         }
+    }
 
+    fun changesHaveBeenMade(fullName : String, phoneNumber : String) : Boolean {
+        if( (fullName != _listed_user.value!!.fullName) || (phoneNumber != _listed_user.value!!.phoneNumber) ) {
+            return true
+        } else {
+            return false
+        }
     }
 
 }

@@ -75,35 +75,44 @@ class RecoveryModel {
 
     fun sendNewPassword(token : String, newPassword : String, ad : AlertDialog.Builder) {
         if( (passwordIsValid(newPassword)) && (email.value != "") ) {
-            Log.d(TAG, "Setting new password...")
-            ad.setMessage("Procesando tu solicitud...")
-            val res = ad.show()
-            passwordRecoveryService
-                .newPassword(
-                    email.value.toString(),
-                    newPassword,
-                    token,
-                    CompositeDisposable(),
-                    {
-                        _status.value = STATUS_FINISHED
-                        res.dismiss()
-                    },
-                    {
-                        it.printStackTrace()
-                        Log.e(TAG, "El mail no se pudo enviar correctamente: " + it.message)
-                        res.dismiss()
-                        ad.setMessage("Ocurrió un error")
-                        ad.show()
-                    }
-                )
-        }
-        else {
+            if (tokenIsValid(token)) {
+                Log.d(TAG, "Setting new password...")
+                ad.setMessage("Procesando tu solicitud...")
+                val res = ad.show()
+                passwordRecoveryService
+                    .newPassword(
+                        email.value.toString(),
+                        newPassword,
+                        token,
+                        CompositeDisposable(),
+                        {
+                            _status.value = STATUS_FINISHED
+                            res.dismiss()
+                        },
+                        {
+                            it.printStackTrace()
+                            Log.e(TAG, "El mail no se pudo enviar correctamente: " + it.message)
+                            res.dismiss()
+                            ad.setMessage("Ocurrió un error")
+                            ad.show()
+                        }
+                    )
+            } else {
+                ad.setMessage("El token debe tener 6 dígitos")
+                ad.show()
+            }
+        } else {
             ad.setMessage("La contraseña debe tener más de 5 caracteres")
             ad.show()
         }
 
     }
+    fun tokenIsValid(_token : String) : Boolean {
+        if(_token.length == 6)
+            return true
 
+        return false
+    }
     fun passwordIsValid(_password : String) : Boolean {
         if (_password.length < RegisterViewModel.MIN_PASSWORD) {
             return false
