@@ -2,19 +2,22 @@ package com.example.chotuve_android_client.data
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.example.chotuve_android_client.models.User
 import com.example.chotuve_android_client.models.UsersInformationList
 import com.example.chotuve_android_client.services.SearchUserService
 import com.example.chotuve_android_client.services.UserProfileService
 import com.example.chotuve_android_client.tools.TokenHolder
+import com.facebook.AccessTokenManager
 import io.reactivex.disposables.CompositeDisposable
 
 class UserRepository {
+    val FIRST_POSITION = 0
 
     companion object {
         const val TAG = "UserRepository"
         private val userProfileService : UserProfileService = UserProfileService()
         private val searchUsersService : SearchUserService = SearchUserService()
-    }
+}
 
     fun getFriendsInformation(user_email : String, _friends : MutableLiveData<UsersInformationList>)  {
         Log.d(VideoRepository.TAG, "Now, getting friends from server..")
@@ -49,6 +52,24 @@ class UserRepository {
             {
                 it.printStackTrace()
                 Log.d(VideoRepository.TAG, "Error getting users for SearchFragment")
+            }
+        )
+    }
+
+    fun getUserProfilePicture(_URL : MutableLiveData<String>) {
+        Log.d(VideoRepository.TAG, "Now, getting User's profile picture..")
+        userProfileService.getUserDataInformation(
+            TokenHolder.appServerToken,
+            TokenHolder.username,
+            CompositeDisposable(),
+            {
+                if (it != null) {
+                    _URL.value = it.profilePicture
+                }
+            },
+            {
+                it.printStackTrace()
+                Log.d(VideoRepository.TAG, "Error getting profile picture")
             }
         )
     }

@@ -21,8 +21,18 @@ class MyUserProfileViewModel : ViewModel() {
     val friends : LiveData<UsersInformationList>
         get() = _friends
 
+    private val _URL = MutableLiveData<String>().apply {
+        value = ""
+    }
+    val URL : LiveData<String>
+        get() = _URL
+
     fun getFriendsFromServer() {
         repository.getFriendsInformation(TokenHolder.username, _friends);
+    }
+
+    fun getUserProfilePicture() {
+        repository.getUserProfilePicture(_URL)
     }
 
 }

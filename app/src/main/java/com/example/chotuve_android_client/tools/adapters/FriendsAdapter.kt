@@ -17,6 +17,7 @@ import com.example.chotuve_android_client.tools.TokenHolder
 import com.example.chotuve_android_client.tools.error_handlers.ServerMessageHttpExceptionHandler
 import com.example.chotuve_android_client.ui.messaging.MessagingActivity
 import com.example.chotuve_android_client.ui.userVideos.UserVideosActivity
+import com.squareup.picasso.Picasso
 import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
 
@@ -42,6 +43,13 @@ class FriendsAdapter(
     override fun onBindViewHolder(holder: FriendsViewHolder, position: Int) {
         holder.recyclerviewFriendsBinding.user = users[position]
 
+        val profilePicture = users[position].profilePicture
+        if (profilePicture != "") {
+            Picasso
+                .get()
+                .load(profilePicture) // https://matthewjameskirk.co.uk/Images/video.jpg
+                .into(holder.recyclerviewFriendsBinding.profilePicture)
+        }
         // Here I can add clickListeners to different elements in coso
         holder.recyclerviewFriendsBinding.buttonDeleteFriend.setOnClickListener { view ->
 //            val ad = AlertDialog.Builder(view.context)

@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.tools.adapters.FriendsAdapter
 import com.example.chotuve_android_client.ui.recovery.RecoveryActivity
+import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 
 class MyUserProfileFragment : Fragment() {
@@ -27,7 +29,7 @@ class MyUserProfileFragment : Fragment() {
     ): View? {
         myUserProfileViewModel =
             ViewModelProviders.of(this).get(MyUserProfileViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_user_profile, container, false)
+        val root = inflater.inflate(R.layout.fragment_my_user_profile, container, false)
         val textView: TextView = root.findViewById(R.id.textView)
         myUserProfileViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
@@ -36,6 +38,16 @@ class MyUserProfileFragment : Fragment() {
         setHasOptionsMenu(true)
 
         myUserProfileViewModel.getFriendsFromServer()
+        myUserProfileViewModel.URL.observe(viewLifecycleOwner, Observer {
+            if (it != "") {
+                val profilePictureImageView = root.findViewById<CircleImageView>(R.id.profile_picture)
+                Picasso
+                    .get()
+                    .load(it) // https://matthewjameskirk.co.uk/Images/video.jpg
+                    .into(profilePictureImageView)
+            }
+        })
+        myUserProfileViewModel.getUserProfilePicture()
         myUserProfileViewModel.friends.observe(viewLifecycleOwner, Observer { friends ->
             recyclerview_user_profile_friends.also {
                 it.layoutManager = LinearLayoutManager(requireContext())
