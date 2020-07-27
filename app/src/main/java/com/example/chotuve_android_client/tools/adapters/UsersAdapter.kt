@@ -38,10 +38,17 @@ class UsersAdapter(
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         holder.recyclerviewUsersBinding.user = users[position]
-        Picasso
-            .get()
-            .load("https://www.getyoutubevideothumbnail.com/Images/Icons/7.png") // https://matthewjameskirk.co.uk/Images/video.jpg
-            .into(holder.recyclerviewUsersBinding.profilePicture)
+        val profilePicture = users[position].profilePicture
+        if (profilePicture != "") {
+            Picasso
+                .get()
+                .load(profilePicture) // https://matthewjameskirk.co.uk/Images/video.jpg
+                .into(holder.recyclerviewUsersBinding.profilePicture)
+        }
+//        Picasso
+//            .get()
+//            .load("https://www.getyoutubevideothumbnail.com/Images/Icons/7.png") // https://matthewjameskirk.co.uk/Images/video.jpg
+//            .into(holder.recyclerviewUsersBinding.profilePicture)
 
         holder.recyclerviewUsersBinding.buttonSeeProfile.setOnClickListener { view ->
             requestFriendship(view,
