@@ -60,8 +60,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_home_videos"
         android:layout_width="411dp"
-        android:layout_height="360dp"
+        android:layout_height="320dp"
         android:scrollbars="vertical"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
