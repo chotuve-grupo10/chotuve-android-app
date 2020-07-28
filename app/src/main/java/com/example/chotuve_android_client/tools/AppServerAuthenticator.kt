@@ -53,7 +53,7 @@ class AppServerAuthenticator : Authenticator {
 //                    return null
                 }
                 if (it.success != null) {
-                    Log.e(TAG, "GOT NEW TOKEN!!!!")
+                    Log.d(TAG, "GOT NEW TOKEN!!!!")
 //                    return response
 //                        .request
 //                        .newBuilder()
@@ -61,11 +61,14 @@ class AppServerAuthenticator : Authenticator {
 //                        .build()
                 }
             })
-
             return null
         } else {
-            Log.e(TAG, "This should never happen. NOT Unauthorized error called AppServerAuthenticator")
+            Log.e(
+                TAG,
+                "This should never happen. NOT Unauthorized error called AppServerAuthenticator"
+            )
             return null
         }
+
     }
 }
