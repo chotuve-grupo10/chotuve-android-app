@@ -35,18 +35,17 @@ class MyUserProfileViewModel : ViewModel() {
     val URL : LiveData<String>
         get() = _URL
 
-    fun getFriendsFromServer() {
+    fun getFriendsFromServer() =
         repository.getFriendsInformation(TokenHolder.username, _friends);
-    }
 
-    fun getUserProfilePicture() {
+
+    fun getUserProfilePicture() =
         repository.getUserProfilePicture(_URL)
-    }
 
-    fun getVideos() {
+
+    fun getVideos() =
         videosRepository
             .getVideosForSpecificUserProfile(TokenHolder.username, _videos)
 
-    }
 
     }
