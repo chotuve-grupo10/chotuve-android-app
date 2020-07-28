@@ -4,12 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.chotuve_android_client.data.UserRepository
+import com.example.chotuve_android_client.data.VideoRepository
 import com.example.chotuve_android_client.models.UsersInformationList
+import com.example.chotuve_android_client.models.VideoList
 import com.example.chotuve_android_client.tools.TokenHolder
 
 class MyUserProfileViewModel : ViewModel() {
 
     private val repository: UserRepository = UserRepository()
+    private val videosRepository : VideoRepository = VideoRepository()
 
     private val _text = MutableLiveData<String>().apply {
         // TODO: nice to have aca el fullName, o algo más amigable que el mail
@@ -20,6 +23,11 @@ class MyUserProfileViewModel : ViewModel() {
     private val _friends = MutableLiveData<UsersInformationList>()
     val friends : LiveData<UsersInformationList>
         get() = _friends
+
+    private val _videos = MutableLiveData<VideoList>()
+    val videos : LiveData<VideoList>
+        get() = _videos
+
 
     private val _URL = MutableLiveData<String>().apply {
         value = ""
@@ -35,4 +43,10 @@ class MyUserProfileViewModel : ViewModel() {
         repository.getUserProfilePicture(_URL)
     }
 
-}
+    fun getVideos() {
+        videosRepository
+            .getVideosForSpecificUserProfile(TokenHolder.username, _videos)
+
+    }
+
+    }
