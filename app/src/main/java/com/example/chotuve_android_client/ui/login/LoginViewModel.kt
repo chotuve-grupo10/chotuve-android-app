@@ -19,6 +19,10 @@ import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.disposables.CompositeDisposable
 
 const val GOOGLE_SIGN_IN : Int = 9001
+const val CHOTUVE_SHARED_PREFS : String = "chotuve-android-app"
+const val USERNAME_TAG : String = "username"
+const val PASSWORD_TAG : String = "password"
+const val FIREBASE_USER : String = "Firebase user"
 
 class LoginViewModel(
     application: Application,
@@ -40,7 +44,7 @@ class LoginViewModel(
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun login(username: String, password: String) {
+    public fun login(username: String, password: String) {
         myCompositeDisposable = CompositeDisposable()
         loginService.login(username, password, myCompositeDisposable,
             {
@@ -63,7 +67,7 @@ class LoginViewModel(
     }
 
     // TODO refactor (ver que se repite la logica del metodo anterior)
-    fun loginWithFirebase(username : String, firebaseToken : String) {
+    public fun loginWithFirebase(username : String, firebaseToken : String) {
         Log.d(TAG, "Username es ${username}")
         myCompositeDisposable = CompositeDisposable()
         loginService.login(firebaseToken, myCompositeDisposable,
@@ -91,15 +95,15 @@ class LoginViewModel(
     }
 
     private fun setCredentialsInSharedPreferences(username: String, password: String) {
-        setSharedPreference("username", username)
-        setSharedPreference("password", password)
+        setSharedPreference(USERNAME_TAG, username)
+        setSharedPreference(PASSWORD_TAG, password)
     }
 
     private fun setSharedPreference(key: String, value: String) {
         val usernamePreferences = getApplication<Application>()
-            .getSharedPreferences(key, Context.MODE_PRIVATE)
+            .getSharedPreferences(CHOTUVE_SHARED_PREFS, Context.MODE_PRIVATE)
         val usernameEditor = usernamePreferences.edit()
-        usernameEditor.putString(key, value)
+        usernameEditor.putString(key, value).apply()
     }
 
     protected override fun onCleared() {
