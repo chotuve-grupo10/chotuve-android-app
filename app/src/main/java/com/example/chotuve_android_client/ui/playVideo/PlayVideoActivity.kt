@@ -1,7 +1,6 @@
 package com.example.chotuve_android_client.ui.playVideo
 
 import android.annotation.SuppressLint
-import android.widget.Button
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -15,9 +14,7 @@ import android.view.View
 import android.view.View.OVER_SCROLL_IF_CONTENT_SCROLLS
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.MediaController
-import android.widget.VideoView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -56,7 +53,6 @@ class PlayVideoActivity : AppCompatActivity() {
             val videoView : VideoView = this.findViewById(R.id.videoView)
             val mediaController = MediaController(this)
             mediaController.setAnchorView(videoView)
-
 
             // bind fileUrl
             Log.d(TAG, "Video ${video.title}. Bindeando el filePath en este timeStamp ${timeStamp}")

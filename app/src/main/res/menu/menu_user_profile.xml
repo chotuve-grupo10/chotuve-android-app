@@ -4,6 +4,9 @@
     <item
         android:id="@+id/my_personal_data"
         android:title="Mis datos"/>
+    <item
+        android:id="@+id/log_out"
+        android:title="Cerrar sesión"/>
 
 
 </menu>
