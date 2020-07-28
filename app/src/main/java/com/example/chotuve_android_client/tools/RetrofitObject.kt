@@ -1,7 +1,5 @@
 package com.example.chotuve_android_client.tools
 
-import com.squareup.okhttp.internal.http.AuthenticatorAdapter
-import okhttp3.Authenticator
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -11,7 +9,11 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 object RetrofitObject {
 
     private val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor()
-    private val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+    private val client =
+        OkHttpClient.Builder()
+        .addInterceptor(interceptor)
+        .authenticator(AppServerAuthenticator())
+        .build()
 
     init {
         interceptor.level = HttpLoggingInterceptor.Level.BODY

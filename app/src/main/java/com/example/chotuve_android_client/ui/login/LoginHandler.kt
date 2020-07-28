@@ -15,7 +15,7 @@ object LoginHandler {
 
     private val loginService = LoginService()
 
-    fun login(username: String, password: String, _loginResult : MutableLiveData<LoginResult>, application: Application) {
+    fun login(username: String, password: String, _loginResult : MutableLiveData<LoginResult>, application: Application?) {
         loginService.login(
             username,
             password,
@@ -27,8 +27,10 @@ object LoginHandler {
                     UserCredentials.Password(UserLogin(username, password)),
                     requireNotNull(it?.AppToken),
                     requireNotNull(it?.AuthToken))
-                setAuthenticationModeInSharedPreferences(application, "EMAIL_PASSWORD")
-                setCredentialsInSharedPreferences(application, username, password)
+                if (application != null) {
+                    setAuthenticationModeInSharedPreferences(application, "EMAIL_PASSWORD")
+                    setCredentialsInSharedPreferences(application, username, password)
+                }
                 _loginResult.value =
                     LoginResult(success = it)
             },
@@ -39,7 +41,7 @@ object LoginHandler {
         )
     }
 
-    fun loginWithFirebase(username : String, firebaseToken : String, _loginResult : MutableLiveData<LoginResult>, application: Application) {
+    fun loginWithFirebase(username : String, firebaseToken : String, _loginResult : MutableLiveData<LoginResult>, application: Application?) {
         Log.d(LoginViewModel.TAG, "Username es ${username}")
 
         loginService.login(
@@ -52,8 +54,10 @@ object LoginHandler {
                     UserCredentials.FirebaseToken(firebaseToken),
                     requireNotNull(it?.AppToken),
                     requireNotNull(it?.AuthToken))
-                setAuthenticationModeInSharedPreferences(application, "FIREBASE_TOKEN")
-                setCredentialsInSharedPreferences(application,username, firebaseToken)
+                if (application != null) {
+                    setAuthenticationModeInSharedPreferences(application, "FIREBASE_TOKEN")
+                    setCredentialsInSharedPreferences(application,username, firebaseToken)
+                }
                 _loginResult.value =
                     LoginResult(success = it)
             },
