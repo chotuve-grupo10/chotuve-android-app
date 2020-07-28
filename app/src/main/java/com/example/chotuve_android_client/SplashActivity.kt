@@ -31,21 +31,13 @@ class SplashActivity : AppCompatActivity() {
         val TAG = "SplashActivity"
 
         setContentView(R.layout.activity_splash)
-//        val accountManager = AccountManager.get(this)
-//        val accounts = accountManager.getAccountsByType("com.chotuve")
-//        if (accounts.isEmpty()) {
-//            redirectTo(LoginActivity::class.java)
-////            loginLauncher.launch(Intent(this, LoginActivity::class.java))
-//        } else {
-//           redirectTo(MainActivity::class.java)
-//        }
 
         val loginMethod =  getFromSharedPreferences(AUTHENTICATION_MODE)
         Log.d(TAG, "This is login method from SharedPreferences ${loginMethod}")
         val username = getFromSharedPreferences(USERNAME_TAG)
         Log.d(TAG,"This is username SharedPreferences ${username}")
         val password = getFromSharedPreferences(PASSWORD_TAG)
-        Log.d(TAG,"This is password SharedPreferences ${password}")
+        Log.d(TAG,"I have the password!")
         if (loginMethod == EMAIL_AUTHENTICATION) {
             LoginHandler.login(username.toString(), password.toString(), _loginResult, this.application)
         } else if (loginMethod == FIREBASE_AUTHENTICATION) {
@@ -60,7 +52,6 @@ class SplashActivity : AppCompatActivity() {
             }
             if (it.success != null) {
                 setResult(Activity.RESULT_OK)
-                //Complete and destroy login activity once successful
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()

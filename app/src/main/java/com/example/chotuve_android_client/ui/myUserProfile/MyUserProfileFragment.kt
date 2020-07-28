@@ -8,10 +8,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.chotuve_android_client.MainActivity
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.tools.adapters.FriendsAdapter
 import com.example.chotuve_android_client.ui.login.CHOTUVE_SHARED_PREFS
@@ -89,9 +91,12 @@ class MyUserProfileFragment : Fragment() {
             editor.clear()
             val confirm = editor.commit()
             if (confirm) {
-                val intent = Intent(this.context, LoginActivity::class.java);
-                startActivity(intent);
-                this.activity!!.finish()  // This call is missing.
+                val loginLauncher = this!!.activity!!.
+                    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                    val intent = Intent(this.context, MainActivity::class.java)
+                    startActivity(intent)
+                    this.activity!!.finish()
+                }.launch(Intent(this.context, LoginActivity::class.java))
             }
             else {
                 Log.e(TAG, "Algo salió mal cerrando sesión")
