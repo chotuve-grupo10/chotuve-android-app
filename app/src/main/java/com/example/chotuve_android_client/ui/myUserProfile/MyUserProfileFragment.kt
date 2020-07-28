@@ -1,21 +1,25 @@
 package com.example.chotuve_android_client.ui.myUserProfile
 
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.tools.adapters.FriendsAdapter
-import com.example.chotuve_android_client.ui.recovery.RecoveryActivity
+import com.example.chotuve_android_client.ui.login.CHOTUVE_SHARED_PREFS
+import com.example.chotuve_android_client.ui.login.LoginActivity
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_user_profile.*
+
 
 class MyUserProfileFragment : Fragment() {
 
@@ -72,10 +76,26 @@ class MyUserProfileFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.my_personal_data) {
-            // sucede la magia
+
             Log.d(TAG, "Esta es tu data personal")
             val editProfileIntent : Intent = Intent(this.context, EditProfileActivity::class.java)
             startActivityForResult(editProfileIntent, 0)
+        }
+        else if(id == R.id.log_out) {
+            Log.d(TAG, "Cerrando sesión")
+            val editor = this.activity!!
+                .getSharedPreferences(CHOTUVE_SHARED_PREFS, Context.MODE_PRIVATE)
+                .edit()
+            editor.clear()
+            val confirm = editor.commit()
+            if (confirm) {
+                val intent = Intent(this.context, LoginActivity::class.java);
+                startActivity(intent);
+                this.activity!!.finish()  // This call is missing.
+            }
+            else {
+                Log.e(TAG, "Algo salió mal cerrando sesión")
+            }
         }
         return super.onOptionsItemSelected(item)
     }

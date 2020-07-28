@@ -73,18 +73,4 @@ class SplashActivity : AppCompatActivity() {
             .getSharedPreferences(CHOTUVE_SHARED_PREFS, Context.MODE_PRIVATE)
             .getString(key, DEFAULT_VALUE)
     }
-//    val loginMethod = application
-//        .getSharedPreferences(CHOTUVE_SHARED_PREFS, Context.MODE_PRIVATE)
-//        .getString(AUTHENTICATION_MODE, DEFAULT_VALUE)
-//    Log.d(TAG, "This is login method from SharedPreferences ${loginMethod}")
-//    val username = application
-//        .getSharedPreferences(CHOTUVE_SHARED_PREFS, Context.MODE_PRIVATE)
-//        .getString(USERNAME_TAG, DEFAULT_VALUE)
-//    Log.d(TAG,"This is username SharedPreferences ${username}")
-//    val password = application
-//        .getSharedPreferences(CHOTUVE_SHARED_PREFS, Context.MODE_PRIVATE)
-//        .getString(PASSWORD_TAG, DEFAULT_VALUE)
-
-
-
 }
