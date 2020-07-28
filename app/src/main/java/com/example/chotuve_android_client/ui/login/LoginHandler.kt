@@ -53,7 +53,7 @@ object LoginHandler {
                     requireNotNull(it?.AppToken),
                     requireNotNull(it?.AuthToken))
                 setAuthenticationModeInSharedPreferences(application, "FIREBASE_TOKEN")
-                setCredentialsInSharedPreferences(application,"Firebase user", firebaseToken)
+                setCredentialsInSharedPreferences(application,username, firebaseToken)
                 _loginResult.value =
                     LoginResult(success = it)
             },
