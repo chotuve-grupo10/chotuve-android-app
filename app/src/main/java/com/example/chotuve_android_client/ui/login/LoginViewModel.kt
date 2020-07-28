@@ -22,7 +22,9 @@ const val GOOGLE_SIGN_IN : Int = 9001
 const val CHOTUVE_SHARED_PREFS : String = "chotuve-android-app"
 const val USERNAME_TAG : String = "username"
 const val PASSWORD_TAG : String = "password"
-const val FIREBASE_USER : String = "Firebase user"
+const val EMAIL_AUTHENTICATION : String = "EMAIL_PASSWORD"
+const val FIREBASE_AUTHENTICATION : String = "FIREBASE_TOKEN"
+const val AUTHENTICATION_MODE = "AUTHENTICATION_MODE"
 
 class LoginViewModel(
     application: Application,
@@ -33,7 +35,6 @@ class LoginViewModel(
 
     companion object {
         const val TAG = "LoginViewModel"
-        const val AUTHENTICATION_MODE = "AUTHENTICATION_MODE"
     }
 
     private var myCompositeDisposable: CompositeDisposable? = null
@@ -44,7 +45,7 @@ class LoginViewModel(
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    public fun login(username: String, password: String) {
+    fun login(username: String, password: String) {
         myCompositeDisposable = CompositeDisposable()
         loginService.login(username, password, myCompositeDisposable,
             {
@@ -67,7 +68,7 @@ class LoginViewModel(
     }
 
     // TODO refactor (ver que se repite la logica del metodo anterior)
-    public fun loginWithFirebase(username : String, firebaseToken : String) {
+    fun loginWithFirebase(username : String, firebaseToken : String) {
         Log.d(TAG, "Username es ${username}")
         myCompositeDisposable = CompositeDisposable()
         loginService.login(firebaseToken, myCompositeDisposable,
@@ -78,8 +79,8 @@ class LoginViewModel(
                     UserCredentials.FirebaseToken(firebaseToken),
                     requireNotNull(it?.AppToken),
                     requireNotNull(it?.AuthToken))
-                setAuthenticationModeInSharedPreferences("FIREBASE_TOKEN")
-                setCredentialsInSharedPreferences("Firebase user", firebaseToken)
+                setAuthenticationModeInSharedPreferences(FIREBASE_AUTHENTICATION)
+                setCredentialsInSharedPreferences(username, firebaseToken)
                 _loginResult.value =
                     LoginResult(success = it)
             },
