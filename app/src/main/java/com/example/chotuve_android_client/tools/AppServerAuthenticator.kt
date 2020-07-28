@@ -47,18 +47,18 @@ class AppServerAuthenticator : Authenticator {
                     )
                 }
             }
-
-            loginResult.observeForever(Observer {
-                if (it.error != null) {
-                    return null
-                }
-                if (it.success != null) {
-                    return response
-                        .request
-                        .newBuilder()
-                        .build()
-                }
-            })
+            return null
+//            loginResult.observeForever(Observer {
+//                if (it.error != null) {
+//                    return null
+//                }
+//                if (it.success != null) {
+//                    return response
+//                        .request
+//                        .newBuilder()
+//                        .build()
+//                }
+//            })
         } else {
             Log.e(TAG, "This should never happen. NOT Unauthorized error called AppServerAuthenticator")
             return null
