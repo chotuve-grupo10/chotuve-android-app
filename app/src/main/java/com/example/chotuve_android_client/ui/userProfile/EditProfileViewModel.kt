@@ -1,4 +1,4 @@
-package com.example.chotuve_android_client.ui.myUserProfile
+package com.example.chotuve_android_client.ui.userProfile
 
 import android.app.Activity
 import android.content.Intent
@@ -44,7 +44,8 @@ class EditProfileViewModel {
         get() = _text
 
     val _status = MutableLiveData<Int>().apply {
-        this.value = STATUS_INIT
+        this.value =
+            STATUS_INIT
     }
     val status: LiveData<Int>
         get() = _status
@@ -93,7 +94,8 @@ class EditProfileViewModel {
                 CompositeDisposable(),
                 {
                     if (it != null) {
-                        _status.value = STATUS_CHANGED
+                        _status.value =
+                            STATUS_CHANGED
                     }
                 },
                 {

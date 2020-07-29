@@ -1,4 +1,4 @@
-package com.example.chotuve_android_client.ui.myUserProfile
+package com.example.chotuve_android_client.ui.userProfile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

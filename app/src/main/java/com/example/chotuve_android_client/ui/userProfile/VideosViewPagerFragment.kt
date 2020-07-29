@@ -1,4 +1,4 @@
-package com.example.chotuve_android_client.ui.myUserProfile
+package com.example.chotuve_android_client.ui.userProfile
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chotuve_android_client.R
-import com.example.chotuve_android_client.tools.adapters.FriendsAdapter
 import com.example.chotuve_android_client.tools.adapters.VideoAdapter
 import kotlinx.android.synthetic.main.fragment_videos_view_profile.*
 

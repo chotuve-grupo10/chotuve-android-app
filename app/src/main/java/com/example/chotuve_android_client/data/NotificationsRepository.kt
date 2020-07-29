@@ -13,7 +13,7 @@ class NotificationsRepository {
         private val friendshipRequestsService : GetRequestsService = GetRequestsService()
     }
 
-    fun getFriendshipRequests(user_email : String, _users_requesting : MutableLiveData<UsersInformationList>) {
+    fun getFriendshipRequests(user_email : String, _users_requesting : MutableLiveData<UsersInformationList>, _title : MutableLiveData<String>) {
         Log.d(TAG, "Now, getting friendship requests from server...")
 
         friendshipRequestsService.getRequests(
@@ -23,6 +23,11 @@ class NotificationsRepository {
                 if (it != null) {
                     Log.d(UserRepository.TAG, "Tengo esta cantidad de usuarios: " + it.size.toString())
                     _users_requesting.value = it
+                    if (it.size > 0) {
+                        _title.value = "Tenes nuevas notificaciones!"
+                    } else {
+                        _title.value = "Parece que no tenes nuevas notificaciones"
+                    }
                 }
             },
             {

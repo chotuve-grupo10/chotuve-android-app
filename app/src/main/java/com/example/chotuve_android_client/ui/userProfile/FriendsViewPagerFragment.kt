@@ -1,4 +1,4 @@
-package com.example.chotuve_android_client.ui.myUserProfile
+package com.example.chotuve_android_client.ui.userProfile
 
 import android.os.Bundle
 import android.view.LayoutInflater
