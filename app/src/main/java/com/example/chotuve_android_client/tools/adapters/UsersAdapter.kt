@@ -1,5 +1,6 @@
 package com.example.chotuve_android_client.tools.adapters
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.services.RequestFriendshipService
 import com.example.chotuve_android_client.tools.TokenHolder
 import com.example.chotuve_android_client.tools.error_handlers.ServerMessageHttpExceptionHandler
+import com.example.chotuve_android_client.ui.userVideos.UserVideosActivity
 import com.squareup.picasso.Picasso
 import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
@@ -50,11 +52,19 @@ class UsersAdapter(
 //            .load("https://www.getyoutubevideothumbnail.com/Images/Icons/7.png") // https://matthewjameskirk.co.uk/Images/video.jpg
 //            .into(holder.recyclerviewUsersBinding.profilePicture)
 
-        holder.recyclerviewUsersBinding.buttonSeeProfile.setOnClickListener { view ->
+        holder.recyclerviewUsersBinding.buttonSendFriendshipRequest.setOnClickListener { view ->
             requestFriendship(view,
                 TokenHolder.username,
                 users[position].email.toString()
             )
+        }
+
+        holder.recyclerviewUsersBinding.buttonSeeProfile.setOnClickListener { view ->
+            Log.d(TAG, "User about to see this profile " + users[position].email)
+            val intent: Intent = Intent(view.context, UserVideosActivity::class.java)
+            intent.putExtra("user_email", users[position].email)
+            intent.putExtra("user_full_name", users[position].fullName)
+            view.context.startActivity(intent)
         }
 
     }
