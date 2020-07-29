@@ -23,7 +23,6 @@ import com.example.chotuve_android_client.ui.login.LoginActivity
 import com.google.android.material.tabs.TabLayout
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.fragment_user_profile.*
 
 
 class MyUserProfileFragment : Fragment() {

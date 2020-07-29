@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.tools.adapters.FriendsAdapter
 import com.example.chotuve_android_client.tools.adapters.VideoAdapter
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_user_profile.*
+import kotlinx.android.synthetic.main.fragment_videos_view_profile.*
 
 class VideosViewPagerFragment(val myUserProfileViewModel : MyUserProfileViewModel) : Fragment() {
 
@@ -25,7 +24,7 @@ class VideosViewPagerFragment(val myUserProfileViewModel : MyUserProfileViewMode
         val root = inflater.inflate(R.layout.fragment_videos_view_profile, container, false)
 
         myUserProfileViewModel.videos.observe(viewLifecycleOwner, Observer { videos ->
-            recyclerview_home_videos.also{
+            recyclerview_profile_videos.also{
                 it.layoutManager = LinearLayoutManager(requireContext())
                 it.setHasFixedSize(true)
                 it.adapter =

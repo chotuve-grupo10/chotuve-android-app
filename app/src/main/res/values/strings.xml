@@ -44,8 +44,7 @@
     <string name="forgot_password">Olvidé mi contraseña.</string>
     <string name="reset_password">Quiero recuperarla!</string>
 
-    <string name="search_users_bar">Search another user by its email</string>
-    <string name="user_profile_title">Welcome, some random user in here we would put your mail/username</string>
+    <string name="search_users_bar">Acá podes buscar otros usuarios</string>
     <string name="friendship_request">Tenes una nueva solicitud de amistad</string>
     <string name="accept_button">Aceptar</string>
     <string name="reject_button">Rechazar</string>

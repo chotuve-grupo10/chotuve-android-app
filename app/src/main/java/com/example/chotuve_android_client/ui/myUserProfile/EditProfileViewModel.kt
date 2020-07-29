@@ -2,7 +2,6 @@ package com.example.chotuve_android_client.ui.myUserProfile
 
 import android.app.Activity
 import android.content.Intent
-import android.media.session.MediaSession
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
@@ -13,9 +12,6 @@ import com.example.chotuve_android_client.models.ListedUser
 import com.example.chotuve_android_client.services.UserProfileService
 import com.example.chotuve_android_client.tools.FirebaseStorageHandler
 import com.example.chotuve_android_client.tools.TokenHolder
-import com.example.chotuve_android_client.ui.recovery.RecoveryModel
-import com.example.chotuve_android_client.ui.uploadVideo.RESULT_LOAD_VIDEO
-import com.example.chotuve_android_client.ui.uploadVideo.UploadVideoViewModel
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import io.reactivex.disposables.CompositeDisposable

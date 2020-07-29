@@ -30,15 +30,15 @@ class SearchFragment : Fragment() {
         searchViewModel =
             ViewModelProviders.of(this).get(SearchViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_search, container, false)
+
         val textView: TextView = root.findViewById(R.id.text_search)
-        searchViewModel.text.observe(viewLifecycleOwner, Observer {
+        searchViewModel.title.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
 
         val goAndSearchUsers : Button = root.findViewById<Button>(R.id.button_search_users)
         goAndSearchUsers.setOnClickListener {
             val searchUsersBar = root.findViewById<TextInputEditText>(R.id.search_users_bar)
-            searchViewModel.updateText(searchUsersBar.text)
             searchViewModel.getUsersWithFilter(searchUsersBar.text.toString())
             searchViewModel.users.observe(viewLifecycleOwner, Observer {  users->
                 recyclerview_search_users.also {

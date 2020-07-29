@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.tools.adapters.FriendsAdapter
-import kotlinx.android.synthetic.main.fragment_user_profile.*
+import kotlinx.android.synthetic.main.fragment_friends_view_profile.*
 
 class FriendsViewPagerFragment(val myUserProfileViewModel : MyUserProfileViewModel) : Fragment() {
 
