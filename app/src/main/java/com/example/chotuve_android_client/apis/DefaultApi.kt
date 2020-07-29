@@ -8,16 +8,25 @@ package com.example.chotuve_android_client.apis
 
 import com.example.chotuve_android_client.models.AcceptFriend
 import com.example.chotuve_android_client.models.BasicServerResponse
-import com.example.chotuve_android_client.models.CommentVideo
-import com.example.chotuve_android_client.models.CommentVideoResponse
+import com.example.chotuve_android_client.models.Comment
+import com.example.chotuve_android_client.models.ErrorDeleteUserResponse
+import com.example.chotuve_android_client.models.ErrorResponse
+import com.example.chotuve_android_client.models.ForgotPasswordSuccessfulResponse
+import com.example.chotuve_android_client.models.ListedUser
 import com.example.chotuve_android_client.models.LoginResponse
 import com.example.chotuve_android_client.models.PingResponse
 import com.example.chotuve_android_client.models.RegisterResponse
 import com.example.chotuve_android_client.models.RequestFriendshipResponse
+import com.example.chotuve_android_client.models.ResetPasswordBody
+import com.example.chotuve_android_client.models.ResetPasswordSuccessfulResponse
+import com.example.chotuve_android_client.models.ServerTime
+import com.example.chotuve_android_client.models.SuccessfulDeleteUserResponse
 import com.example.chotuve_android_client.models.UploadVideoResponse
 import com.example.chotuve_android_client.models.UserLogin
+import com.example.chotuve_android_client.models.UserModificationSuccessfulResponse
 import com.example.chotuve_android_client.models.UserRegister
 import com.example.chotuve_android_client.models.UsersInformationList
+import com.example.chotuve_android_client.models.Video
 import com.example.chotuve_android_client.models.VideoList
 import com.example.chotuve_android_client.models.VideoToUpload
 import io.reactivex.Completable
@@ -86,6 +95,12 @@ interface DefaultApi {
         @retrofit2.http.Header("authorization") authorization: String
     ): Completable
     /**
+     * Este servicio permite obtener la hora del Server
+     * The endpoint is owned by defaultname service owner
+     */
+    @GET("/api/time")
+    fun apiTimeGet(): Single<ServerTime>
+    /**
      * Este servicio permitirá filtrar usuarios
      * The endpoint is owned by defaultname service owner
      * @param userEmail users email making request (required)
@@ -96,6 +111,15 @@ interface DefaultApi {
         @retrofit2.http.Header("User_email") userEmail: String,
         @retrofit2.http.Query("filter") filter: String?
     ): Single<UsersInformationList>
+    /**
+     * Este servicio permite eliminar a un usuario
+     * The endpoint is owned by defaultname service owner
+     * @param userEmail my email (required)
+     */
+    @DELETE("/api/users/{user_email}")
+    fun apiUsersUserEmailDelete(
+        @retrofit2.http.Path("user_email") userEmail: String
+    ): Single<SuccessfulDeleteUserResponse>
     /**
      * Este servicio permite aceptar una solicitud de contacto de usuario y crear una relación de amistad
      * The endpoint is owned by defaultname service owner
@@ -141,6 +165,17 @@ interface DefaultApi {
         @retrofit2.http.Path("new_friends_email") newFriendsEmail: String
     ): Single<RequestFriendshipResponse>
     /**
+     * Este servicio permitirá consultar el perfil de un usuario
+     * The endpoint is owned by defaultname service owner
+     * @param authorization token (required)
+     * @param userEmail User&#39;s email (required)
+     */
+    @GET("/api/users/{user_email}")
+    fun apiUsersUserEmailGet(
+        @retrofit2.http.Header("Authorization") authorization: String,
+        @retrofit2.http.Path("user_email") userEmail: String
+    ): Single<ListedUser>
+    /**
      * Este servicio permite vincular un Token único de notificaciones a un determinado usuario
      * The endpoint is owned by defaultname service owner
      * @param userEmail email del usuario (required)
@@ -152,6 +187,30 @@ interface DefaultApi {
         @retrofit2.http.Path("token") token: String
     ): Single<BasicServerResponse>
     /**
+     * Este servicio permitirá a un usuario definir una nueva contraseña
+     * The endpoint is owned by defaultname service owner
+     * @param userEmail User&#39;s email (required)
+     * @param resetPassword Token and new password. (required)
+     */
+    @PUT("/api/users/{user_email}/password")
+    fun apiUsersUserEmailPasswordPut(
+        @retrofit2.http.Path("user_email") userEmail: String,
+        @retrofit2.http.Body resetPassword: ResetPasswordBody
+    ): Single<ResetPasswordSuccessfulResponse>
+    /**
+     * Este servicio permitirá modificar el perfil de un usuario
+     * The endpoint is owned by defaultname service owner
+     * @param authorization token (required)
+     * @param userEmail User&#39;s email (required)
+     * @param user The user to modify. (optional)
+     */
+    @PUT("/api/users/{user_email}")
+    fun apiUsersUserEmailPut(
+        @retrofit2.http.Header("Authorization") authorization: String,
+        @retrofit2.http.Path("user_email") userEmail: String,
+        @retrofit2.http.Body user: ListedUser
+    ): Single<UserModificationSuccessfulResponse>
+    /**
      * Este servicio permite obtener las solicitudes de amistad de un usuario
      * The endpoint is owned by defaultname service owner
      * @param userEmail email del usuario (required)
@@ -161,14 +220,25 @@ interface DefaultApi {
         @retrofit2.http.Path("user_email") userEmail: String
     ): Single<UsersInformationList>
     /**
-     * Este servicio permitirá listar los videos de un usuario especifico para mostrarlos en su perfil
+     * Parte de servicio de recupero de contraseña. Envia codigo por mail al usuario para recuperar password
+     * The endpoint is owned by defaultname service owner
+     * @param userEmail User&#39;s email (required)
+     */
+    @POST("/api/users/{user_email}/reset_password_token")
+    fun apiUsersUserEmailResetPasswordTokenPost(
+        @retrofit2.http.Path("user_email") userEmail: String
+    ): Single<ForgotPasswordSuccessfulResponse>
+    /**
+     * Este servicio permitirá listar los videos de un usuario especifico teniendo en cuenta si el usuario que hace la request es amigo o no.
      * The endpoint is owned by defaultname service owner
      * @param userId user id (required)
+     * @param authorization token (required)
      */
     @GET("/api/users/{user_id}/videos/")
     fun apiUsersUserIdVideosGet(
-        @retrofit2.http.Path("user_id") userId: String
-    ): Completable
+        @retrofit2.http.Path("user_id") userId: String,
+        @retrofit2.http.Header("Authorization") authorization: String
+    ): Single<VideoList>
     /**
      * Este es un método para recibir un token del auth server y validarlo
      * The endpoint is owned by defaultname service owner
@@ -209,13 +279,15 @@ interface DefaultApi {
      * Este servicio permitirá dar de alta un comentario en un video
      * The endpoint is owned by defaultname service owner
      * @param videoId id del video (required)
-     * @param user User making comment. (optional)
+     * @param authorization token (required)
+     * @param comment (optional)
      */
     @POST("/api/videos/{video_id}/comments")
     fun apiVideosVideoIdCommentsPost(
         @retrofit2.http.Path("video_id") videoId: String,
-        @retrofit2.http.Body user: CommentVideo
-    ): Single<CommentVideoResponse>
+        @retrofit2.http.Header("Authorization") authorization: String,
+        @retrofit2.http.Body comment: Comment
+    ): Single<Video>
     /**
      * Este servicio permitirá dar de baja un video en el sistema
      * The endpoint is owned by defaultname service owner
@@ -225,4 +297,48 @@ interface DefaultApi {
     fun apiVideosVideoIdDelete(
         @retrofit2.http.Path("video_id") videoId: String
     ): Completable
+    /**
+     * Este servicio permitirá eliminar un dislike a un video
+     * The endpoint is owned by defaultname service owner
+     * @param videoId id del video (required)
+     * @param authorization token (required)
+     */
+    @DELETE("/api/videos/{video_id}/dislikes")
+    fun apiVideosVideoIdDislikesDelete(
+        @retrofit2.http.Path("video_id") videoId: String,
+        @retrofit2.http.Header("Authorization") authorization: String
+    ): Single<Video>
+    /**
+     * Este servicio permitirá dar dislike a un video
+     * The endpoint is owned by defaultname service owner
+     * @param videoId id del video (required)
+     * @param authorization token (required)
+     */
+    @POST("/api/videos/{video_id}/dislikes")
+    fun apiVideosVideoIdDislikesPost(
+        @retrofit2.http.Path("video_id") videoId: String,
+        @retrofit2.http.Header("Authorization") authorization: String
+    ): Single<Video>
+    /**
+     * Este servicio permitirá eliminar el like de un video
+     * The endpoint is owned by defaultname service owner
+     * @param videoId id del video (required)
+     * @param authorization token (required)
+     */
+    @DELETE("/api/videos/{video_id}/likes")
+    fun apiVideosVideoIdLikesDelete(
+        @retrofit2.http.Path("video_id") videoId: String,
+        @retrofit2.http.Header("Authorization") authorization: String
+    ): Single<Video>
+    /**
+     * Este servicio permitirá likear un video
+     * The endpoint is owned by defaultname service owner
+     * @param videoId id del video (required)
+     * @param authorization token (required)
+     */
+    @POST("/api/videos/{video_id}/likes")
+    fun apiVideosVideoIdLikesPost(
+        @retrofit2.http.Path("video_id") videoId: String,
+        @retrofit2.http.Header("Authorization") authorization: String
+    ): Single<Video>
 }

@@ -6,13 +6,17 @@
 
 package com.example.chotuve_android_client.models
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
-import android.os.Parcelable
 
 /**
  * @property Id
+ * @property comments
+ * @property dislikes
+ * @property isPrivate
+ * @property likes
  * @property title
  * @property uploadDate
  * @property url
@@ -21,8 +25,12 @@ import android.os.Parcelable
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class VideoListInner(
+data class Video(
     @Json(name = "_id") @field:Json(name = "_id") var Id: String? = null,
+    @Json(name = "comments") @field:Json(name = "comments") var comments: List<Comment>? = null,
+    @Json(name = "dislikes") @field:Json(name = "dislikes") var dislikes: List<String>? = null,
+    @Json(name = "is_private") @field:Json(name = "is_private") var isPrivate: Boolean? = null,
+    @Json(name = "likes") @field:Json(name = "likes") var likes: List<String>? = null,
     @Json(name = "title") @field:Json(name = "title") var title: String? = null,
     @Json(name = "upload_date") @field:Json(name = "upload_date") var uploadDate: String? = null,
     @Json(name = "url") @field:Json(name = "url") var url: String? = null,

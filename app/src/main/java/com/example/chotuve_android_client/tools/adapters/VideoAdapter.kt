@@ -13,6 +13,8 @@ import com.example.chotuve_android_client.models.VideoList
 // La clase Kotlin esa te la genera sola
 import com.example.chotuve_android_client.databinding.RecyclerviewVideoBinding
 import com.example.chotuve_android_client.ui.playVideo.PlayVideoActivity
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.recyclerview_video.view.*
 
 
 class VideoAdapter(
@@ -32,15 +34,18 @@ class VideoAdapter(
     }
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
-
+//        holder.itemView.thumbnail.setImageDrawable()
         holder.recyclerviewVideoBinding.video = videos[position]
 
-        // Here I can add clickListeners to different elements in coso
-//        holder.recyclerviewVideoBinding.videoTitle.setOnClickListener { view ->
-//            val ad = AlertDialog.Builder(view.context)
-//            ad.setMessage("You clicked on " + videos[position].title)
-//            ad.show()
-//        }
+        val img = holder.recyclerviewVideoBinding.thumbnail
+        // No funcionó con algunos links
+        Picasso
+            .get()
+            .load("https://www.getyoutubevideothumbnail.com/Images/Icons/7.png") // https://matthewjameskirk.co.uk/Images/video.jpg
+            .into(img)
+
+
+
         holder.recyclerviewVideoBinding.root.setOnClickListener { view ->
             val intent: Intent = Intent(view.context, PlayVideoActivity::class.java)
             intent.putExtra("video_to_play", videos[position])

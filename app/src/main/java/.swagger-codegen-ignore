@@ -23,3 +23,5 @@
 #!docs/README.md
 
 com/example/chotuve_android_client/models/VideoListInner.kt
+com/example/chotuve_android_client/models/Video.kt
+com/example/chotuve_android_client/models/Comment.kt

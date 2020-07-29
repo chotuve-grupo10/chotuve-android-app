@@ -9,114 +9,100 @@
             type="com.example.chotuve_android_client.models.UsersInformationListInner" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="135dp"
+        android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="105dp"
         tools:layout_editor_absoluteY="35dp">
 
         <TextView
-            android:id="@+id/video_title"
-            android:layout_width="364dp"
-            android:layout_height="35dp"
+            android:id="@+id/user_full_name"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:text="@{user.fullName}"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="@{user.fullName}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.16"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.298" />
+            app:layout_constraintVertical_bias="0.027" />
 
         <TextView
-            android:id="@+id/video_user_name"
-            android:layout_width="361dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="5dp"
+            android:id="@+id/user_title"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
             android:text="@{user.email}"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.208"
+            app:layout_constraintHorizontal_bias="0.06"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.387"
+            app:layout_constraintTop_toBottomOf="@+id/user_full_name"
+            app:layout_constraintVertical_bias="0.116"
             tools:ignore="SmallSp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_picture"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:civ_border_width="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.588"
+            app:layout_constraintStart_toEndOf="@+id/user_full_name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.146" />
 
-            <Button
-                android:id="@+id/button_see_profile"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                android:layout_width="32dp"
-                android:layout_height="37dp"
-                android:layout_marginLeft="15dp"
-                app:icon="@drawable/ic_account_circle_24px"
-                app:iconTint="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.931"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.209" />
-
-            <Button
-                android:id="@+id/button_message_friend"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                android:layout_width="32dp"
-                android:layout_height="37dp"
-                android:layout_marginLeft="15dp"
-                app:icon="@drawable/ic_mail_24px"
-                app:iconTint="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.209" />
+        <Button
+            android:id="@+id/button_see_profile"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="32dp"
+            android:layout_height="37dp"
+            app:icon="@drawable/ic_account_circle_24px"
+            app:iconTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.014"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_title"
+            app:layout_constraintVertical_bias="1.0" />
 
 
-            <Button
-                android:id="@+id/button_delete_friend"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                android:layout_width="32dp"
-                android:layout_height="37dp"
-                android:layout_marginLeft="210dp"
-                app:icon="@drawable/ic_clear_24px"
-                app:iconTint="@color/light_red"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.209" />
+        <Button
+            android:id="@+id/button_message_friend"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="32dp"
+            android:layout_height="37dp"
+            app:icon="@drawable/ic_mail_24px"
+            app:iconTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.035"
+            app:layout_constraintStart_toEndOf="@+id/button_see_profile"
+            app:layout_constraintTop_toBottomOf="@+id/user_title"
+            app:layout_constraintVertical_bias="0.0" />
 
+        <Button
+            android:id="@+id/button_delete_friend"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="32dp"
+            android:layout_height="37dp"
+            app:icon="@drawable/ic_clear_24px"
+            app:iconTint="@color/light_red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.651"
+            app:layout_constraintStart_toEndOf="@+id/button_message_friend"
+            app:layout_constraintTop_toBottomOf="@+id/user_title"
+            app:layout_constraintVertical_bias="1.0" />
 
-        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-<!--        <Button-->
-<!--            android:id="@+id/button_search_users"-->
-<!--            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"-->
-<!--            android:layout_width="32dp"-->
-<!--            android:layout_height="8dp"-->
-<!--            android:layout_marginLeft="60dp"-->
-<!--            android:background="@color/extremely_light_red"-->
-<!--            app:icon="@drawable/ic_search_24px"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.931"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.209" />-->
-
-
-    </LinearLayout>
 
 
     </layout>

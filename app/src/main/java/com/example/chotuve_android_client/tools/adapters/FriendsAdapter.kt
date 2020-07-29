@@ -1,21 +1,26 @@
 package com.example.chotuve_android_client.tools.adapters
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.example.chotuve_android_client.models.UsersInformationList
 import com.example.chotuve_android_client.databinding.RecyclerviewFriendsBinding
-import com.example.chotuve_android_client.R
-import com.example.chotuve_android_client.models.UsersInformationListInner
+import com.example.chotuve_android_client.models.UsersInformationList
 import com.example.chotuve_android_client.services.DeleteFriendshipService
 import com.example.chotuve_android_client.tools.TokenHolder
 import com.example.chotuve_android_client.tools.error_handlers.ServerMessageHttpExceptionHandler
+import com.example.chotuve_android_client.ui.messaging.MessagingActivity
+import com.example.chotuve_android_client.ui.userVideos.UserVideosActivity
+import com.squareup.picasso.Picasso
 import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
+
 
 class FriendsAdapter(
     var users : UsersInformationList
@@ -28,7 +33,7 @@ class FriendsAdapter(
         return FriendsViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.recyclerview_friends,
+                com.example.chotuve_android_client.R.layout.recyclerview_friends,
                 parent,
                 false
             )
@@ -38,15 +43,46 @@ class FriendsAdapter(
     override fun onBindViewHolder(holder: FriendsViewHolder, position: Int) {
         holder.recyclerviewFriendsBinding.user = users[position]
 
+        val profilePicture = users[position].profilePicture
+        if (profilePicture != "") {
+            Picasso
+                .get()
+                .load(profilePicture) // https://matthewjameskirk.co.uk/Images/video.jpg
+                .into(holder.recyclerviewFriendsBinding.profilePicture)
+        }
         // Here I can add clickListeners to different elements in coso
         holder.recyclerviewFriendsBinding.buttonDeleteFriend.setOnClickListener { view ->
-            val ad = AlertDialog.Builder(view.context)
+//            val ad = AlertDialog.Builder(view.context)
             Log.d(TAG, "User about to remove this friend " + users[position].fullName)
             deleteFriendship(view,
                 TokenHolder.username,
                 users[position].email.toString(),
                 position
             )
+        }
+
+        holder.recyclerviewFriendsBinding.buttonMessageFriend.setOnClickListener { view ->
+//            val ad = AlertDialog.Builder(view.context)
+            Log.d(TAG, "User about to chat with this friend " + users[position].fullName)
+            val intent: Intent = Intent(view.context, MessagingActivity::class.java)
+            intent.putExtra("user_to_message_id", users[position].email)
+            intent.putExtra("user_to_message_full_name", users[position].fullName)
+            view.context.startActivity(intent)
+        }
+
+        holder.recyclerviewFriendsBinding.buttonSeeProfile.setOnClickListener { view ->
+            Log.d(TAG, "User about to see this profile " + users[position].email)
+            val intent: Intent = Intent(view.context, UserVideosActivity::class.java)
+            intent.putExtra("user_email", users[position].email)
+            intent.putExtra("user_full_name", users[position].fullName)
+            view.context.startActivity(intent)
+
+//            val activity = view.context as AppCompatActivity
+//            val myFragment: Fragment = UserVideosFragment.newInstance(username=users[position].email.toString())
+//            activity.supportFragmentManager.beginTransaction()
+//                .replace(com.example.chotuve_android_client.R.id.nav_host_fragment, myFragment)
+//                .addToBackStack(null)
+//                .commit()
         }
     }
 

@@ -12,9 +12,11 @@ import com.squareup.moshi.JsonClass
 /**
  * @property email
  * @property fullName
+ * @property profilePicture
  */
 @JsonClass(generateAdapter = true)
 data class UsersInformationListInner(
     @Json(name = "email") @field:Json(name = "email") var email: String? = null,
-    @Json(name = "fullName") @field:Json(name = "fullName") var fullName: String? = null
+    @Json(name = "fullName") @field:Json(name = "fullName") var fullName: String? = null,
+    @Json(name = "profilePicture") @field:Json(name = "profilePicture") var profilePicture: String? = null
 )

@@ -1,21 +1,21 @@
 <resources>
     <string name="app_name">ChoTuve</string>
-    <string name="title_home">Home</string>
-    <string name="title_search">Search</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_user">My spot</string>
+    <string name="title_home">Inicio</string>
+    <string name="title_search">Buscar</string>
+    <string name="title_notifications">Notificaciones</string>
+    <string name="title_user">Mi muro</string>
     <string name="ping_message">This is where we ping the App Server</string>
     <string name="ping_button">Ping, my friend</string>
 
-    <string name="title_upload">Upload video</string>
+    <string name="title_upload">Subir un video</string>
     <string name="text_upload_video">Bien, personalicemos este video!</string>
-    <string name="firebase_button">Upload to FireBase</string>
+    <string name="firebase_button">Subir a FireBase</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_password">Contraseña</string>
     <string name="action_login">Login</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="welcome">"Bienvenido!"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
@@ -29,22 +29,47 @@
     <string name="home_videos_message">Available videos:</string>
     <string name="textview">PlayVideoActivity</string>
     <string name="title_activity_play_video">PlayVideoActivity</string>
+    <string name="title_activity_play_video_full_screen">PlayVideoFullScreenActivity</string>
     <string name="edit_text_titulo">Título (opcional)</string>
     <string name="edit_text_descripcion">Descripción (opcional)</string>
     <string name="checkbox_video_privado">Este video es privado!</string>
-    <string name="upload_profile_pic">Subir una foto de perfil</string>
+    <string name="upload_profile_pic">Subir otra foto de perfil</string>
     <string name="register">Registrarme</string>
+    <string name="register_activity">Register</string>
 
     <string name="facebook_app_id">937489686691669</string>
     <string name="fb_login_protocol_scheme">fb937489686691669</string>
-    <string name="not_registered">Not registered?</string>
-    <string name="create_account">REGISTER</string>
+    <string name="not_registered">No estás registrado?</string>
+    <string name="create_account">REGISTRARME</string>
+    <string name="forgot_password">Olvidé mi contraseña.</string>
+    <string name="reset_password">Quiero recuperarla!</string>
 
     <string name="search_users_bar">Search another user by its email</string>
     <string name="user_profile_title">Welcome, some random user in here we would put your mail/username</string>
     <string name="friendship_request">Tenes una nueva solicitud de amistad</string>
     <string name="accept_button">Aceptar</string>
     <string name="reject_button">Rechazar</string>
+    <string name="title_activity_messaging">MessagingActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="escribe_un_mensaje">Escribe un mensaje</string>
+    <string name="enviar_button">Enviar</string>
+
+    <string name="recovery_activity">Recovery</string>
+    <string name="send_token">Enviar token de recuperación de contraseña</string>
+    <string name="send_new_password">Aceptar nueva contraseña</string>
+    <string name="send_email_recovery">Quiero que me envíen un mail para recibir un token de recuperación de contraseña</string>
+
+    <string name="edit_profile_activity">Mis datos</string>
+    <string name="send_profile_editions">Aceptar cambios</string>
+    <string name="upload_profile_picture">Subi una foto</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

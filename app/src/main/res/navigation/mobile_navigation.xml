@@ -31,8 +31,8 @@
 
     <fragment
         android:id="@+id/navigation_user_profile"
-        android:name="com.example.chotuve_android_client.ui.userProfile.UserProfileFragment"
+        android:name="com.example.chotuve_android_client.ui.myUserProfile.MyUserProfileFragment"
         android:label="@string/title_user"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_my_user_profile" />
 
 </navigation>
