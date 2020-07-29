@@ -51,13 +51,13 @@ class UserRepository {
             },
             {
                 it.printStackTrace()
-                Log.d(VideoRepository.TAG, "Error getting users for SearchFragment")
+                Log.d(TAG, "Error getting users for SearchFragment")
             }
         )
     }
 
     fun getUserProfilePicture(_URL : MutableLiveData<String>) {
-        Log.d(VideoRepository.TAG, "Now, getting User's profile picture..")
+        Log.d(TAG, "Now, getting User's profile picture..")
         userProfileService.getUserDataInformation(
             TokenHolder.appServerToken,
             TokenHolder.username,
@@ -69,9 +69,30 @@ class UserRepository {
             },
             {
                 it.printStackTrace()
-                Log.d(VideoRepository.TAG, "Error getting profile picture")
+                Log.d(TAG, "Error getting profile picture")
             }
         )
     }
 
+    fun getOthersUserProfilePicture(username : String, _URL : MutableLiveData<String>) {
+        Log.d(TAG, "Now, getting someone else's profile picture..")
+        searchUsersService.getUsersFiltered(
+            TokenHolder.username,
+            username,
+            CompositeDisposable(),
+            {
+                if (it != null) {
+                    if (it.size != 1) {
+                        Log.e(TAG, "Tengo esta cantidad de usuarios: " + it.size.toString())
+                    } else {
+                        Log.e(TAG, "Tengo exactamente un usuario. Le asigno su PP")
+                        _URL.value = it[FIRST_POSITION].profilePicture
+                    }
+                }
+            },
+            {
+                it.printStackTrace()
+                Log.d(TAG, "Error getting users for SearchFragment")
+            })
+    }
 }

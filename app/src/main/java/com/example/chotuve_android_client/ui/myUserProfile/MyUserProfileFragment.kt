@@ -13,11 +13,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager
 import com.example.chotuve_android_client.MainActivity
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.tools.adapters.FriendsAdapter
+import com.example.chotuve_android_client.tools.adapters.PageAdapter
 import com.example.chotuve_android_client.ui.login.CHOTUVE_SHARED_PREFS
 import com.example.chotuve_android_client.ui.login.LoginActivity
+import com.google.android.material.tabs.TabLayout
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_user_profile.*
@@ -43,7 +46,13 @@ class MyUserProfileFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        myUserProfileViewModel.getFriendsFromServer()
+        val viewPager = root.findViewById<ViewPager>(R.id.view_pager)
+        viewPager.adapter = this!!.childFragmentManager?.let { PageAdapter(it, myUserProfileViewModel) }
+
+        val tabLayout = root.findViewById<TabLayout>(R.id.tab_layout)
+        tabLayout.setupWithViewPager(viewPager)
+
+        myUserProfileViewModel.getUserProfilePicture()
         myUserProfileViewModel.URL.observe(viewLifecycleOwner, Observer {
             if (it != "") {
                 val profilePictureImageView = root.findViewById<CircleImageView>(R.id.profile_picture)
@@ -53,22 +62,11 @@ class MyUserProfileFragment : Fragment() {
                     .into(profilePictureImageView)
             }
         })
-        myUserProfileViewModel.getUserProfilePicture()
-        myUserProfileViewModel.friends.observe(viewLifecycleOwner, Observer { friends ->
-            recyclerview_user_profile_friends.also {
-                it.layoutManager = LinearLayoutManager(requireContext())
-//                it.setHasFixedSize(true)
-                it.adapter =
-                    FriendsAdapter(
-                        friends
-                    )
-            }
-
-        })
+        myUserProfileViewModel.getFriendsFromServer()
+        myUserProfileViewModel.getVideos()
 
         return root
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_user_profile, menu)
