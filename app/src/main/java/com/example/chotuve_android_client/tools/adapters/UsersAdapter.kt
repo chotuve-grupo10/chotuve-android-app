@@ -47,10 +47,6 @@ class UsersAdapter(
                 .load(profilePicture) // https://matthewjameskirk.co.uk/Images/video.jpg
                 .into(holder.recyclerviewUsersBinding.profilePicture)
         }
-//        Picasso
-//            .get()
-//            .load("https://www.getyoutubevideothumbnail.com/Images/Icons/7.png") // https://matthewjameskirk.co.uk/Images/video.jpg
-//            .into(holder.recyclerviewUsersBinding.profilePicture)
 
         holder.recyclerviewUsersBinding.buttonSendFriendshipRequest.setOnClickListener { view ->
             requestFriendship(view,
