@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.myUserProfile.FriendsViewPagerFragment">
+    tools:context=".ui.userProfile.FriendsViewPagerFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_home_videos"
+        android:id="@+id/recyclerview_profile_videos"
         tools:listitem="@layout/recyclerview_video"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

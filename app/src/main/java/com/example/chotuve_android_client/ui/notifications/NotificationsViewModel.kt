@@ -13,17 +13,17 @@ class NotificationsViewModel : ViewModel() {
 
     private val repository: NotificationsRepository = NotificationsRepository()
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "Cuando tengas solicitudes de amistad las vas a ver acá"
+    private val _title = MutableLiveData<String>().apply {
+        this.value = ""
     }
-    val text: LiveData<String> = _text
+    val title: LiveData<String> = _title
 
     private val _users_requesting = MutableLiveData<UsersInformationList>()
     val users_requesting : LiveData<UsersInformationList>
         get() = _users_requesting
 
     fun getRequestsFromServer() {
-        repository.getFriendshipRequests(TokenHolder.username, _users_requesting)
+        repository.getFriendshipRequests(TokenHolder.username, _users_requesting, _title)
     }
 
 }

@@ -10,7 +10,7 @@ import com.example.chotuve_android_client.ui.register.RegisterResult
 import com.example.chotuve_android_client.ui.register.RegisterViewModel
 import io.reactivex.disposables.CompositeDisposable
 
-class RecoveryModel {
+class RecoveryViewModel {
     companion object{
         const val STATUS_INIT = 0
         const val STATUS_TOKEN_SENT = 1
@@ -18,7 +18,7 @@ class RecoveryModel {
         const val ERROR_404 = "HTTP 404 NOT FOUND"
     }
 
-    val TAG = "RecoveryModel"
+    val TAG = "RecoveryViewModel"
 
     val _firstText = MutableLiveData<String>().apply {
         this.value = "Quiero que me envíen un mail para recibir un token de recuperación de contraseña"

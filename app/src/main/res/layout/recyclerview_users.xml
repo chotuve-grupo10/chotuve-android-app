@@ -47,7 +47,7 @@
             tools:ignore="SmallSp" />
 
         <Button
-            android:id="@+id/button_see_profile"
+            android:id="@+id/button_send_friendship_request"
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="32dp"
             android:layout_height="37dp"
@@ -55,10 +55,25 @@
             app:iconTint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.025"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.086"
+            app:layout_constraintStart_toEndOf="@+id/button_see_profile"
             app:layout_constraintTop_toBottomOf="@+id/user_title"
             app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/button_see_profile"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="32dp"
+            android:layout_height="37dp"
+            app:icon="@drawable/ic_account_circle_24px"
+            app:iconTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.014"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_title"
+            app:layout_constraintVertical_bias="1.0" />
+
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_picture"

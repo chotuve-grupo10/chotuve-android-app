@@ -1,9 +1,8 @@
-package com.example.chotuve_android_client.ui.myUserProfile
+package com.example.chotuve_android_client.ui.userProfile
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -12,13 +11,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.example.chotuve_android_client.R
-import com.example.chotuve_android_client.ui.uploadVideo.RESULT_LOAD_VIDEO
 import com.squareup.picasso.Picasso
 
 class EditProfileActivity : AppCompatActivity() {
 
     private lateinit var alertDialogBuilder: android.app.AlertDialog.Builder
-    private val editProfileViewModel = EditProfileViewModel()
+    private val editProfileViewModel =
+        EditProfileViewModel()
     private val TAG = "EditProfileAct"
 
     override fun onCreate(savedInstanceState: Bundle?) {

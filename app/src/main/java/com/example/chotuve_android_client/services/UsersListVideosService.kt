@@ -21,7 +21,7 @@ class UsersListVideosService {
         onSuccess: (listVideos: VideoList?) -> Unit,
         onError: (throwable: Throwable) -> Unit
     ) {
-        disposable?.add(usersListVideosService.apiUsersUserIdVideosGet(user_email, token)
+        disposable?.add(usersListVideosService.apiUsersVideosGet(token, user_email)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(onSuccess, onError))
