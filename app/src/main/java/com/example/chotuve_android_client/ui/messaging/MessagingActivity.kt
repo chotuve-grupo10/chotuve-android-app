@@ -7,10 +7,13 @@ import android.text.Editable
 import android.widget.Button
 import android.widget.EditText
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chotuve_android_client.R
 import com.example.chotuve_android_client.tools.TokenHolder
+import com.facebook.login.widget.ProfilePictureView
+import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
@@ -34,15 +37,17 @@ class MessagingActivity : AppCompatActivity() {
 
         setMessagingActivityTitle(userFullNameReceivingMessage.toString())
 
+        messagingModel.getProfilePictures(userIdReceivingMessage.toString())
+
         messagingModel.getMessages(userIdReceivingMessage.toString())
         messagingModel.messages.observe(this, Observer {
             val adapter = GroupAdapter<GroupieViewHolder>()
             for (message in it) {
                 if (message.fromId == TokenHolder.username) {
-                    adapter.add(ChatFromItem(message.text))
+                    adapter.add(ChatFromItem(message.text, messagingModel.from_profile_picture))
                 }
                 else {
-                    adapter.add(ChatToItem(message.text))
+                    adapter.add(ChatToItem(message.text, messagingModel.to_profile_picture))
                 }
             }
             recyclerView2.also {
@@ -79,18 +84,30 @@ class MessagingActivity : AppCompatActivity() {
 
 }
 
-class ChatFromItem(val text: String): Item<GroupieViewHolder>() {
+class ChatFromItem(val text: String, val profilePicture : LiveData<String>): Item<GroupieViewHolder>() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.textview_from_row.text = text
+        if (profilePicture.value != "") {
+            Picasso
+                .get()
+                .load(profilePicture.value)
+                .into(viewHolder.itemView.imageview_chat_from_row)
+        }
     }
     override fun getLayout(): Int {
         return R.layout.chat_from_row
     }
 }
 
-class ChatToItem(val text: String): Item<GroupieViewHolder>() {
+class ChatToItem(val text: String, val profilePicture : LiveData<String>): Item<GroupieViewHolder>() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.textview_to_row.text = text
+        if (profilePicture.value != "") {
+            Picasso
+                .get()
+                .load(profilePicture.value)
+                .into(viewHolder.itemView.imageview_chat_to_row)
+        }
     }
     override fun getLayout(): Int {
         return R.layout.chat_to_row
