@@ -39,6 +39,7 @@ class MessagesRepository {
                 for (doc in value!!) {
                     if ( (doc["fromId"] == TokenHolder.username)
                         && (doc["toId"] == userIdReceivingMessage) ) {
+                        Log.d(TAG, "Message: ${doc["text"]}")
                         this_messages.add(
                             Message(
                                 doc["fromId"].toString(),
@@ -48,8 +49,9 @@ class MessagesRepository {
                             )
                         )
                     }
-                    if ( (doc["fromId"] == userIdReceivingMessage)
+                    else if ( (doc["fromId"] == userIdReceivingMessage)
                         && (doc["toId"] == TokenHolder.username) ) {
+                        Log.d(TAG, "Message: ${doc["text"]}")
                         this_messages.add(
                             Message(
                                 doc["fromId"].toString(),
