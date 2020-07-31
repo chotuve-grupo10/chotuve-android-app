@@ -18,9 +18,10 @@ object RetrofitObject {
     init {
         interceptor.level = HttpLoggingInterceptor.Level.BODY
     }
+    const val BASE_URL : String = "http://chotuve-app-server-dev.herokuapp.com/"
     val retrofit: Retrofit = Retrofit.Builder()
         //TODO sacar URL hardcoded (ver si se puede pasar a gradle profiles)
-        .baseUrl("http://chotuve-app-server-dev.herokuapp.com/")
+        .baseUrl(BASE_URL)
         .client(client)
         .addConverterFactory(MoshiConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

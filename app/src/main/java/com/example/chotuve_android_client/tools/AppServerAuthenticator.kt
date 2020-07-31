@@ -21,12 +21,13 @@ class AppServerAuthenticator : Authenticator {
     private val TAG = "AuthenticatorOkHttp"
     private val refreshTokenGrantType = "refresh_token"
 
-//    private val _loginResult = MutableLiveData<LoginResult>()
-//    private val loginResult: LiveData<LoginResult> = _loginResult
+    private val _loginResult = MutableLiveData<LoginResult>()
+    private val loginResult: LiveData<LoginResult> = _loginResult
 
     override fun authenticate(route: Route?, response: Response): Request? {
         if (response.code == UNAUTHORIZED) {
             // me logueo de nuevo para recibir un nuevo Token
+            Log.d(TAG, "Response is UNAUTHORIZED... Login once again")
             val credentials = TokenHolder.credentials
             when (credentials) {
                 is UserCredentials.Password -> {
