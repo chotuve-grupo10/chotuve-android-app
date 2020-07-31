@@ -34,5 +34,6 @@ data class Video(
     @Json(name = "title") @field:Json(name = "title") var title: String? = null,
     @Json(name = "upload_date") @field:Json(name = "upload_date") var uploadDate: String? = null,
     @Json(name = "url") @field:Json(name = "url") var url: String? = null,
+    @Json(name = "thumbnail") @field:Json(name = "thumbnail") var thumbnail: String? = null,
     @Json(name = "user") @field:Json(name = "user") var user: String? = null
 ) : Parcelable

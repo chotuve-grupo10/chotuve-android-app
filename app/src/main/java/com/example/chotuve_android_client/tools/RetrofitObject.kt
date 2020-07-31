@@ -1,5 +1,9 @@
 package com.example.chotuve_android_client.tools
 
+import android.os.Build
+import android.provider.Settings.Global.getString
+import androidx.annotation.RequiresApi
+import com.example.chotuve_android_client.R
 import com.squareup.okhttp.internal.http.AuthenticatorAdapter
 import okhttp3.Authenticator
 import okhttp3.OkHttpClient
@@ -11,14 +15,19 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 object RetrofitObject {
 
     private val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor()
-    private val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+    private val client =
+        OkHttpClient.Builder()
+        .addInterceptor(interceptor)
+        .authenticator(AppServerAuthenticator())
+        .build()
 
     init {
         interceptor.level = HttpLoggingInterceptor.Level.BODY
     }
+    const val BASE_URL : String = "http://chotuve-app-server-dev.herokuapp.com/"
     val retrofit: Retrofit = Retrofit.Builder()
         //TODO sacar URL hardcoded (ver si se puede pasar a gradle profiles)
-        .baseUrl("http://chotuve-app-server-dev.herokuapp.com/")
+        .baseUrl(BASE_URL)
         .client(client)
         .addConverterFactory(MoshiConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

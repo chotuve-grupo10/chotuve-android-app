@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import bolts.Task.delay
 import com.example.chotuve_android_client.data.MessagesRepository
+import com.example.chotuve_android_client.data.UserRepository
 import com.example.chotuve_android_client.models.Message
 import com.example.chotuve_android_client.services.GetServerTimeService
 import com.example.chotuve_android_client.tools.TokenHolder
@@ -23,10 +24,23 @@ class MessagingModel : ViewModel() {
 
     val TAG = "MessagingModel"
     val messagesRepository = MessagesRepository()
+    val usersRepository = UserRepository()
 
     var _messages = MutableLiveData<List<Message>>()
     val messages : LiveData<List<Message>>
         get() = _messages
+
+    val _from_profile_picture = MutableLiveData<String>(). apply {
+        this.value = ""
+    }
+    val from_profile_picture : LiveData<String>
+        get() = _from_profile_picture
+
+    val _to_profile_picture = MutableLiveData<String>(). apply {
+        this.value = ""
+    }
+    val to_profile_picture : LiveData<String>
+        get() = _to_profile_picture
 
     var _currentDateTime : String? = null
 
@@ -37,6 +51,10 @@ class MessagingModel : ViewModel() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun sendNewMessage(editText : Editable, userIdReceivingMessage : String) {
 
+//        val currentDateTime = DateTimeFormatter
+//            .ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")
+//            .withZone(ZoneId.of("AGT"))
+//            .format(Instant.now())
         val currentDateTime = DateTimeFormatter
             .ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")
             .withZone(ZoneId.of("AGT"))
@@ -50,6 +68,11 @@ class MessagingModel : ViewModel() {
             "timestamp" to currentDateTime.toString()
         )
         messagesRepository.sendMessage(message)
+    }
+
+    fun getProfilePictures(to_user_email : String) {
+        usersRepository.getUserProfilePicture(_from_profile_picture)
+        usersRepository.getOthersUserProfilePicture(to_user_email, _to_profile_picture)
     }
 
 /*

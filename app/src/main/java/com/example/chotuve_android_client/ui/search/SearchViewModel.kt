@@ -17,18 +17,14 @@ class SearchViewModel : ViewModel() {
 
     private val repository: UserRepository = UserRepository()
 
-    private val _text = MutableLiveData<String>().apply {
-        value = ""
+    private val _title = MutableLiveData<String>().apply {
+        this.value = ""
     }
-    val text: LiveData<String> = _text
+    val title: LiveData<String> = _title
 
     private val _users = MutableLiveData<UsersInformationList>()
     val users : LiveData<UsersInformationList>
         get() = _users
-
-    fun updateText(this_user : Editable?) {
-        _text.value = "Tu búsqueda: " + this_user.toString()
-    }
 
     fun getUsersWithFilter(filter : String?) {
         var string_filter : String?
@@ -39,7 +35,7 @@ class SearchViewModel : ViewModel() {
         }
 
         Log.d(TAG, "I'm about to get users with filter ${string_filter}")
-        repository.getUsers(TokenHolder.username, string_filter, _users)
+        repository.getUsers(TokenHolder.username, string_filter, _users, _title)
     }
 
 

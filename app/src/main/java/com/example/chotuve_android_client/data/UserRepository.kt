@@ -37,7 +37,7 @@ class UserRepository {
         )
     }
 
-    fun getUsers(user_email : String, filter : String, _users : MutableLiveData<UsersInformationList>) {
+    fun getUsers(user_email : String, filter : String, _users : MutableLiveData<UsersInformationList>, _title : MutableLiveData<String>) {
         Log.d(VideoRepository.TAG, "Now, getting users filtered from server..")
         searchUsersService.getUsersFiltered(
             user_email,
@@ -48,6 +48,11 @@ class UserRepository {
                     Log.d(TAG, "Tengo esta cantidad de usuarios: " + it.size.toString())
                 }
                 _users.value = it
+                if (it!!.size != 0) {
+                    _title.value = "Resultado de tu búsqueda:"
+                } else {
+                    _title.value = "Lo sentimos. Tu búsqueda no arrojó resultados"
+                }
             },
             {
                 it.printStackTrace()
