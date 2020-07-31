@@ -15,7 +15,11 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 object RetrofitObject {
 
     private val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor()
-    private val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+    private val client =
+        OkHttpClient.Builder()
+        .addInterceptor(interceptor)
+        .authenticator(AppServerAuthenticator())
+        .build()
 
     init {
         interceptor.level = HttpLoggingInterceptor.Level.BODY
