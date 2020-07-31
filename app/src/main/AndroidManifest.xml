@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.userVideos.UserVideosActivity"></activity>
         <activity
-            android:name=".ui.myUserProfile.EditProfileActivity"
+            android:name=".ui.userProfile.EditProfileActivity"
             android:label="@string/edit_profile_activity" />
         <activity
             android:name=".ui.recovery.RecoveryActivity"
@@ -52,7 +52,7 @@
             android:name=".ui.playVideo.PlayVideoActivity"
             android:label="@string/title_activity_play_video"
             android:configChanges="orientation|screenSize"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.playVideo.PlayVideoFullScreenActivity"
             android:label="@string/title_activity_play_video_full_screen"

@@ -34,17 +34,21 @@ class VideoAdapter(
     }
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
-//        holder.itemView.thumbnail.setImageDrawable()
         holder.recyclerviewVideoBinding.video = videos[position]
 
         val img = holder.recyclerviewVideoBinding.thumbnail
-        // No funcionó con algunos links
-        Picasso
-            .get()
-            .load("https://www.getyoutubevideothumbnail.com/Images/Icons/7.png") // https://matthewjameskirk.co.uk/Images/video.jpg
-            .into(img)
-
-
+        // No funcionó con algunos link
+        if( (videos[position].thumbnail != null) && (videos[position].thumbnail != "") ) {
+            Picasso
+                .get()
+                .load(videos[position].thumbnail) // "https://www.getyoutubevideothumbnail.com/Images/Icons/7.png"
+                .into(img)
+        } else {
+            Picasso
+                .get()
+                .load("https://www.getyoutubevideothumbnail.com/Images/Icons/7.png") // "https://www.getyoutubevideothumbnail.com/Images/Icons/7.png"
+                .into(img)
+        }
 
         holder.recyclerviewVideoBinding.root.setOnClickListener { view ->
             val intent: Intent = Intent(view.context, PlayVideoActivity::class.java)

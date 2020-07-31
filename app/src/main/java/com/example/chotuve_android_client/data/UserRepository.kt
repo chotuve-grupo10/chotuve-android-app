@@ -37,7 +37,7 @@ class UserRepository {
         )
     }
 
-    fun getUsers(user_email : String, filter : String, _users : MutableLiveData<UsersInformationList>) {
+    fun getUsers(user_email : String, filter : String, _users : MutableLiveData<UsersInformationList>, _title : MutableLiveData<String>) {
         Log.d(VideoRepository.TAG, "Now, getting users filtered from server..")
         searchUsersService.getUsersFiltered(
             user_email,
@@ -48,16 +48,21 @@ class UserRepository {
                     Log.d(TAG, "Tengo esta cantidad de usuarios: " + it.size.toString())
                 }
                 _users.value = it
+                if (it!!.size != 0) {
+                    _title.value = "Resultado de tu búsqueda:"
+                } else {
+                    _title.value = "Lo sentimos. Tu búsqueda no arrojó resultados"
+                }
             },
             {
                 it.printStackTrace()
-                Log.d(VideoRepository.TAG, "Error getting users for SearchFragment")
+                Log.d(TAG, "Error getting users for SearchFragment")
             }
         )
     }
 
     fun getUserProfilePicture(_URL : MutableLiveData<String>) {
-        Log.d(VideoRepository.TAG, "Now, getting User's profile picture..")
+        Log.d(TAG, "Now, getting User's profile picture..")
         userProfileService.getUserDataInformation(
             TokenHolder.appServerToken,
             TokenHolder.username,
@@ -69,9 +74,30 @@ class UserRepository {
             },
             {
                 it.printStackTrace()
-                Log.d(VideoRepository.TAG, "Error getting profile picture")
+                Log.d(TAG, "Error getting profile picture")
             }
         )
     }
 
+    fun getOthersUserProfilePicture(username : String, _URL : MutableLiveData<String>) {
+        Log.d(TAG, "Now, getting someone else's profile picture..")
+        searchUsersService.getUsersFiltered(
+            TokenHolder.username,
+            username,
+            CompositeDisposable(),
+            {
+                if (it != null) {
+                    if (it.size != 1) {
+                        Log.e(TAG, "Tengo esta cantidad de usuarios: " + it.size.toString())
+                    } else {
+                        Log.e(TAG, "Tengo exactamente un usuario. Le asigno su PP")
+                        _URL.value = it[FIRST_POSITION].profilePicture
+                    }
+                }
+            },
+            {
+                it.printStackTrace()
+                Log.d(TAG, "Error getting users for SearchFragment")
+            })
+    }
 }

@@ -1,5 +1,11 @@
 package com.example.chotuve_android_client.tools
 
+import android.os.Build
+import android.provider.Settings.Global.getString
+import androidx.annotation.RequiresApi
+import com.example.chotuve_android_client.R
+import com.squareup.okhttp.internal.http.AuthenticatorAdapter
+import okhttp3.Authenticator
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

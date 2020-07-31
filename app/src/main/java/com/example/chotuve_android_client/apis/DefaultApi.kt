@@ -40,19 +40,19 @@ import retrofit2.http.PUT
 @JvmSuppressWildcards
 interface DefaultApi {
     /**
-     * Este es un método para recibir información del Server
+     * Este es un método para recibir información del Server 
      * The endpoint is owned by defaultname service owner
      */
     @GET("/api/about/")
     fun apiAboutGet(): Completable
     /**
-     * Este es un método para listar los videos en pantalla principal
+     * Este es un método para listar los videos en pantalla principal 
      * The endpoint is owned by defaultname service owner
      */
     @GET("/api/home/")
     fun apiHomeGet(): Completable
     /**
-     * Este servicio permitirá a los usuarios poder ingresar al sistema
+     * Este servicio permitirá a los usuarios poder ingresar al sistema 
      * The endpoint is owned by defaultname service owner
      * @param user User to login. (optional)
      */
@@ -61,8 +61,8 @@ interface DefaultApi {
         @retrofit2.http.Body user: UserLogin
     ): Single<LoginResponse>
     /**
-     * Recibe una solicitud de login utilizando Firebase.
-     * Si el login es exitoso pero el usuario no está registrado en la plataforma, se<br/>lo registra automáticamente<br/>
+     * Recibe una solicitud de login utilizando Firebase. 
+     * Si el login es exitoso pero el usuario no está registrado en la plataforma, se <br/>lo registra automáticamente <br/>
      * The endpoint is owned by defaultname service owner
      * @param authorization id token (required)
      */
@@ -71,13 +71,13 @@ interface DefaultApi {
         @retrofit2.http.Header("authorization") authorization: String
     ): Single<LoginResponse>
     /**
-     * Este es un método para recibir información del estado de los servers
+     * Este es un método para recibir información del estado de los servers 
      * The endpoint is owned by defaultname service owner
      */
     @GET("/api/ping/")
     fun apiPingGet(): Single<PingResponse>
     /**
-     * Este servicio permitirá a los usuarios darse de alta en el sistema
+     * Este servicio permitirá a los usuarios darse de alta en el sistema 
      * The endpoint is owned by defaultname service owner
      * @param user The user to create. (optional)
      */
@@ -86,7 +86,7 @@ interface DefaultApi {
         @retrofit2.http.Body user: UserRegister
     ): Single<RegisterResponse>
     /**
-     * Recibe una solicitud de registro utilizando Firebase
+     * Recibe una solicitud de registro utilizando Firebase 
      * The endpoint is owned by defaultname service owner
      * @param authorization id token (required)
      */
@@ -95,13 +95,13 @@ interface DefaultApi {
         @retrofit2.http.Header("authorization") authorization: String
     ): Completable
     /**
-     * Este servicio permite obtener la hora del Server
+     * Este servicio permite obtener la hora del Server 
      * The endpoint is owned by defaultname service owner
      */
     @GET("/api/time")
     fun apiTimeGet(): Single<ServerTime>
     /**
-     * Este servicio permitirá filtrar usuarios
+     * Este servicio permitirá filtrar usuarios 
      * The endpoint is owned by defaultname service owner
      * @param userEmail users email making request (required)
      * @param filter filtering data (optional)
@@ -112,7 +112,7 @@ interface DefaultApi {
         @retrofit2.http.Query("filter") filter: String?
     ): Single<UsersInformationList>
     /**
-     * Este servicio permite eliminar a un usuario
+     * Este servicio permite eliminar a un usuario 
      * The endpoint is owned by defaultname service owner
      * @param userEmail my email (required)
      */
@@ -121,7 +121,7 @@ interface DefaultApi {
         @retrofit2.http.Path("user_email") userEmail: String
     ): Single<SuccessfulDeleteUserResponse>
     /**
-     * Este servicio permite aceptar una solicitud de contacto de usuario y crear una relación de amistad
+     * Este servicio permite aceptar una solicitud de contacto de usuario y crear una relación de amistad 
      * The endpoint is owned by defaultname service owner
      * @param userEmail my email (required)
      * @param friendsEmail potential new friends email (required)
@@ -132,7 +132,7 @@ interface DefaultApi {
         @retrofit2.http.Path("friends_email") friendsEmail: String
     ): Single<BasicServerResponse>
     /**
-     * Este servicio permite obtener información del usuario (y sus amigos)
+     * Este servicio permite obtener información del usuario (y sus amigos) 
      * The endpoint is owned by defaultname service owner
      * @param userEmail email del usuario (required)
      */
@@ -141,7 +141,7 @@ interface DefaultApi {
         @retrofit2.http.Path("user_email") userEmail: String
     ): Single<UsersInformationList>
     /**
-     * Este servicio permite aceptar una solicitud de contacto de usuario y crear una relación de amistad
+     * Este servicio permite aceptar una solicitud de contacto de usuario y crear una relación de amistad 
      * The endpoint is owned by defaultname service owner
      * @param userEmail my email (required)
      * @param newFriendsEmail potential new friends email (required)
@@ -154,7 +154,7 @@ interface DefaultApi {
         @retrofit2.http.Body responseBody: AcceptFriend
     ): Single<BasicServerResponse>
     /**
-     * Este servicio permitirá dar de alta una solicitud de contacto de usuario
+     * Este servicio permitirá dar de alta una solicitud de contacto de usuario 
      * The endpoint is owned by defaultname service owner
      * @param userEmail my email (required)
      * @param newFriendsEmail potential new friends email (required)
@@ -165,7 +165,7 @@ interface DefaultApi {
         @retrofit2.http.Path("new_friends_email") newFriendsEmail: String
     ): Single<RequestFriendshipResponse>
     /**
-     * Este servicio permitirá consultar el perfil de un usuario
+     * Este servicio permitirá consultar el perfil de un usuario 
      * The endpoint is owned by defaultname service owner
      * @param authorization token (required)
      * @param userEmail User&#39;s email (required)
@@ -176,7 +176,7 @@ interface DefaultApi {
         @retrofit2.http.Path("user_email") userEmail: String
     ): Single<ListedUser>
     /**
-     * Este servicio permite vincular un Token único de notificaciones a un determinado usuario
+     * Este servicio permite vincular un Token único de notificaciones a un determinado usuario 
      * The endpoint is owned by defaultname service owner
      * @param userEmail email del usuario (required)
      * @param token token único (required)
@@ -187,7 +187,7 @@ interface DefaultApi {
         @retrofit2.http.Path("token") token: String
     ): Single<BasicServerResponse>
     /**
-     * Este servicio permitirá a un usuario definir una nueva contraseña
+     * Este servicio permitirá a un usuario definir una nueva contraseña 
      * The endpoint is owned by defaultname service owner
      * @param userEmail User&#39;s email (required)
      * @param resetPassword Token and new password. (required)
@@ -198,7 +198,7 @@ interface DefaultApi {
         @retrofit2.http.Body resetPassword: ResetPasswordBody
     ): Single<ResetPasswordSuccessfulResponse>
     /**
-     * Este servicio permitirá modificar el perfil de un usuario
+     * Este servicio permitirá modificar el perfil de un usuario 
      * The endpoint is owned by defaultname service owner
      * @param authorization token (required)
      * @param userEmail User&#39;s email (required)
@@ -211,7 +211,7 @@ interface DefaultApi {
         @retrofit2.http.Body user: ListedUser
     ): Single<UserModificationSuccessfulResponse>
     /**
-     * Este servicio permite obtener las solicitudes de amistad de un usuario
+     * Este servicio permite obtener las solicitudes de amistad de un usuario 
      * The endpoint is owned by defaultname service owner
      * @param userEmail email del usuario (required)
      */
@@ -220,7 +220,7 @@ interface DefaultApi {
         @retrofit2.http.Path("user_email") userEmail: String
     ): Single<UsersInformationList>
     /**
-     * Parte de servicio de recupero de contraseña. Envia codigo por mail al usuario para recuperar password
+     * Parte de servicio de recupero de contraseña. Envia codigo por mail al usuario para recuperar password 
      * The endpoint is owned by defaultname service owner
      * @param userEmail User&#39;s email (required)
      */
@@ -229,18 +229,18 @@ interface DefaultApi {
         @retrofit2.http.Path("user_email") userEmail: String
     ): Single<ForgotPasswordSuccessfulResponse>
     /**
-     * Este servicio permitirá listar los videos de un usuario especifico teniendo en cuenta si el usuario que hace la request es amigo o no.
+     * Este servicio permitirá listar los videos de un usuario especifico teniendo en cuenta si el usuario que hace la request es amigo o no. 
      * The endpoint is owned by defaultname service owner
-     * @param userId user id (required)
      * @param authorization token (required)
+     * @param userId user id (optional)
      */
-    @GET("/api/users/{user_id}/videos/")
-    fun apiUsersUserIdVideosGet(
-        @retrofit2.http.Path("user_id") userId: String,
-        @retrofit2.http.Header("Authorization") authorization: String
+    @GET("/api/users/videos/")
+    fun apiUsersVideosGet(
+        @retrofit2.http.Header("Authorization") authorization: String,
+        @retrofit2.http.Query("user_id") userId: String?
     ): Single<VideoList>
     /**
-     * Este es un método para recibir un token del auth server y validarlo
+     * Este es un método para recibir un token del auth server y validarlo 
      * The endpoint is owned by defaultname service owner
      * @param authorization bearer token (required)
      */
@@ -249,7 +249,7 @@ interface DefaultApi {
         @retrofit2.http.Header("authorization") authorization: String
     ): Completable
     /**
-     * Este es un método para recibir un token y validarlo
+     * Este es un método para recibir un token y validarlo 
      * The endpoint is owned by defaultname service owner
      * @param authorization bearer token (required)
      */
@@ -258,7 +258,7 @@ interface DefaultApi {
         @retrofit2.http.Header("authorization") authorization: String
     ): Completable
     /**
-     * Este servicio permitirá dar de alta un video en el sistema
+     * Este servicio permitirá dar de alta un video en el sistema 
      * The endpoint is owned by defaultname service owner
      * @param video The video to upload. (optional)
      */
@@ -267,7 +267,7 @@ interface DefaultApi {
         @retrofit2.http.Body video: VideoToUpload
     ): Single<UploadVideoResponse>
     /**
-     * Este servicio permitirá listar videos en el sistema para mostrarlos en la home de un usuario
+     * Este servicio permitirá listar videos en el sistema para mostrarlos en la home de un usuario 
      * The endpoint is owned by defaultname service owner
      * @param userId user id (required)
      */
@@ -276,7 +276,7 @@ interface DefaultApi {
         @retrofit2.http.Path("user_id") userId: String
     ): Single<VideoList>
     /**
-     * Este servicio permitirá dar de alta un comentario en un video
+     * Este servicio permitirá dar de alta un comentario en un video 
      * The endpoint is owned by defaultname service owner
      * @param videoId id del video (required)
      * @param authorization token (required)
@@ -289,7 +289,7 @@ interface DefaultApi {
         @retrofit2.http.Body comment: Comment
     ): Single<Video>
     /**
-     * Este servicio permitirá dar de baja un video en el sistema
+     * Este servicio permitirá dar de baja un video en el sistema 
      * The endpoint is owned by defaultname service owner
      * @param videoId video id (required)
      */
@@ -298,7 +298,7 @@ interface DefaultApi {
         @retrofit2.http.Path("video_id") videoId: String
     ): Completable
     /**
-     * Este servicio permitirá eliminar un dislike a un video
+     * Este servicio permitirá eliminar un dislike a un video 
      * The endpoint is owned by defaultname service owner
      * @param videoId id del video (required)
      * @param authorization token (required)
@@ -309,7 +309,7 @@ interface DefaultApi {
         @retrofit2.http.Header("Authorization") authorization: String
     ): Single<Video>
     /**
-     * Este servicio permitirá dar dislike a un video
+     * Este servicio permitirá dar dislike a un video 
      * The endpoint is owned by defaultname service owner
      * @param videoId id del video (required)
      * @param authorization token (required)
@@ -320,7 +320,7 @@ interface DefaultApi {
         @retrofit2.http.Header("Authorization") authorization: String
     ): Single<Video>
     /**
-     * Este servicio permitirá eliminar el like de un video
+     * Este servicio permitirá eliminar el like de un video 
      * The endpoint is owned by defaultname service owner
      * @param videoId id del video (required)
      * @param authorization token (required)
@@ -331,7 +331,7 @@ interface DefaultApi {
         @retrofit2.http.Header("Authorization") authorization: String
     ): Single<Video>
     /**
-     * Este servicio permitirá likear un video
+     * Este servicio permitirá likear un video 
      * The endpoint is owned by defaultname service owner
      * @param videoId id del video (required)
      * @param authorization token (required)
